@@ -5,52 +5,52 @@ namespace ra::dg::linear {
 __host__ __device__ double
 op_volume_3_0(
   const double& y0, const double& y1, const double& y2, const double& y3) {
-  return (y0 + b0_3_0 + y1 * b1_3_0 + y2 * b2_3_0 + y3 * b3_3_0) * b0dx_3_0 *
+  return (y0 * b0_3_0 + y1 * b1_3_0 + y2 * b2_3_0 + y3 * b3_3_0) * b0dx_3_0 *
            w3_0 +
-         (y0 + b0_3_1 + y1 * b1_3_1 + y2 * b2_3_1 + y3 * b3_3_1) * b0dx_3_1 *
+         (y0 * b0_3_1 + y1 * b1_3_1 + y2 * b2_3_1 + y3 * b3_3_1) * b0dx_3_1 *
            w3_1 +
-         (y0 + b0_3_2 + y1 * b1_3_2 + y2 * b2_3_2 + y3 * b3_3_2) * b0dx_3_2 *
+         (y0 * b0_3_2 + y1 * b1_3_2 + y2 * b2_3_2 + y3 * b3_3_2) * b0dx_3_2 *
            w3_2 +
-         (y0 + b0_3_3 + y1 * b1_3_3 + y2 * b2_3_3 + y3 * b3_3_3) * b0dx_3_3 *
+         (y0 * b0_3_3 + y1 * b1_3_3 + y2 * b2_3_3 + y3 * b3_3_3) * b0dx_3_3 *
            w3_3;
 }
 
 __host__ __device__ double
 op_volume_3_1(
   const double& y0, const double& y1, const double& y2, const double& y3) {
-  return (y0 + b0_3_0 + y1 * b1_3_0 + y2 * b2_3_0 + y3 * b3_3_0) * b1dx_3_0 *
+  return (y0 * b0_3_0 + y1 * b1_3_0 + y2 * b2_3_0 + y3 * b3_3_0) * b1dx_3_0 *
            w3_0 +
-         (y0 + b0_3_1 + y1 * b1_3_1 + y2 * b2_3_1 + y3 * b3_3_1) * b1dx_3_1 *
+         (y0 * b0_3_1 + y1 * b1_3_1 + y2 * b2_3_1 + y3 * b3_3_1) * b1dx_3_1 *
            w3_1 +
-         (y0 + b0_3_2 + y1 * b1_3_2 + y2 * b2_3_2 + y3 * b3_3_2) * b1dx_3_2 *
+         (y0 * b0_3_2 + y1 * b1_3_2 + y2 * b2_3_2 + y3 * b3_3_2) * b1dx_3_2 *
            w3_2 +
-         (y0 + b0_3_3 + y1 * b1_3_3 + y2 * b2_3_3 + y3 * b3_3_3) * b1dx_3_3 *
+         (y0 * b0_3_3 + y1 * b1_3_3 + y2 * b2_3_3 + y3 * b3_3_3) * b1dx_3_3 *
            w3_3;
 }
 
 __host__ __device__ double
 op_volume_3_2(
   const double& y0, const double& y1, const double& y2, const double& y3) {
-  return (y0 + b0_3_0 + y1 * b1_3_0 + y2 * b2_3_0 + y3 * b3_3_0) * b2dx_3_0 *
+  return (y0 * b0_3_0 + y1 * b1_3_0 + y2 * b2_3_0 + y3 * b3_3_0) * b2dx_3_0 *
            w3_0 +
-         (y0 + b0_3_1 + y1 * b1_3_1 + y2 * b2_3_1 + y3 * b3_3_1) * b2dx_3_1 *
+         (y0 * b0_3_1 + y1 * b1_3_1 + y2 * b2_3_1 + y3 * b3_3_1) * b2dx_3_1 *
            w3_1 +
-         (y0 + b0_3_2 + y1 * b1_3_2 + y2 * b2_3_2 + y3 * b3_3_2) * b2dx_3_2 *
+         (y0 * b0_3_2 + y1 * b1_3_2 + y2 * b2_3_2 + y3 * b3_3_2) * b2dx_3_2 *
            w3_2 +
-         (y0 + b0_3_3 + y1 * b1_3_3 + y2 * b2_3_3 + y3 * b3_3_3) * b2dx_3_3 *
+         (y0 * b0_3_3 + y1 * b1_3_3 + y2 * b2_3_3 + y3 * b3_3_3) * b2dx_3_3 *
            w3_3;
 }
 
 __host__ __device__ double
 op_volume_3_3(
   const double& y0, const double& y1, const double& y2, const double& y3) {
-  return (y0 + b0_3_0 + y1 * b1_3_0 + y2 * b2_3_0 + y3 * b3_3_0) * b3dx_3_0 *
+  return (y0 * b0_3_0 + y1 * b1_3_0 + y2 * b2_3_0 + y3 * b3_3_0) * b3dx_3_0 *
            w3_0 +
-         (y0 + b0_3_1 + y1 * b1_3_1 + y2 * b2_3_1 + y3 * b3_3_1) * b3dx_3_1 *
+         (y0 * b0_3_1 + y1 * b1_3_1 + y2 * b2_3_1 + y3 * b3_3_1) * b3dx_3_1 *
            w3_1 +
-         (y0 + b0_3_2 + y1 * b1_3_2 + y2 * b2_3_2 + y3 * b3_3_2) * b3dx_3_2 *
+         (y0 * b0_3_2 + y1 * b1_3_2 + y2 * b2_3_2 + y3 * b3_3_2) * b3dx_3_2 *
            w3_2 +
-         (y0 + b0_3_3 + y1 * b1_3_3 + y2 * b2_3_3 + y3 * b3_3_3) * b3dx_3_3 *
+         (y0 * b0_3_3 + y1 * b1_3_3 + y2 * b2_3_3 + y3 * b3_3_3) * b3dx_3_3 *
            w3_3;
 }
 
