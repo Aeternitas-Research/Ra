@@ -1,18 +1,14 @@
 #include "ra/mesh.cuh"
-#include <cuda/iterator>
-#include <thrust/copy.h>
-#include <thrust/transform.h>
 
 namespace ra {
 
 __host__ Error
-Mesh1D::multiply(OperationSpace space, const double c) {
-  auto op = [=] __host__ __device__(double v1) { return v1 * c; };
+Mesh1D::multiply(const OperationSpace space, const double c) {
 
   if (space == OperationSpace::Host) {
-    thrust::transform(host.f.begin(), host.f.end(), host.f.begin(), op);
+    ra_invoke(host.op.multiply(host.f, c));
   } else if (space == OperationSpace::Device) {
-    thrust::transform(device.f.begin(), device.f.end(), device.f.begin(), op);
+    ra_invoke(device.op.multiply(device.f, c));
   } else {
     return cudaErrorInvalidValue;
   }
@@ -21,18 +17,11 @@ Mesh1D::multiply(OperationSpace space, const double c) {
 }
 
 __host__ Error
-Mesh1D::multiply(OperationSpace space, Mesh1D& x) {
-  auto op = [] __host__ __device__(double v1, double v2) { return v1 * v2; };
-
+Mesh1D::multiply(const OperationSpace space, Mesh1D& mesh_x) {
   if (space == OperationSpace::Host) {
-    cuda::zip_transform_iterator kernel{op, host.f.begin(), x.host.f.begin()};
-    const auto n = host.f.size();
-    thrust::copy(kernel, kernel + n, host.f.begin());
+    ra_invoke(host.op.multiply(host.f, mesh_x.host.f));
   } else if (space == OperationSpace::Device) {
-    cuda::zip_transform_iterator kernel{
-      op, device.f.begin(), x.device.f.begin()};
-    const auto n = device.f.size();
-    thrust::copy(kernel, kernel + n, device.f.begin());
+    ra_invoke(device.op.multiply(device.f, mesh_x.device.f));
   } else {
     return cudaErrorInvalidValue;
   }

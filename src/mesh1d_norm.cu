@@ -1,12 +1,9 @@
 #include "ra/mesh.cuh"
-#include <cuda/std/cmath>
-#include <thrust/functional.h>
-#include <thrust/transform_reduce.h>
 
 namespace ra {
 
 __host__ Error
-Mesh1D::norm(OperationSpace space, double& r, const std::string type) {
+Mesh1D::norm(const OperationSpace space, double& r, const std::string type) {
   if ((type == "1") || (type == "l1") || (type == "l^1")) {
     return norm_1(space, r);
   } else if ((type == "2") || (type == "l2") || (type == "l^2")) {
@@ -21,15 +18,11 @@ Mesh1D::norm(OperationSpace space, double& r, const std::string type) {
 }
 
 __host__ Error
-Mesh1D::norm_1(OperationSpace space, double& r) {
-  auto op = [] __host__ __device__(double v1) { return cuda::std::abs(v1); };
-
+Mesh1D::norm_1(const OperationSpace space, double& r) {
   if (space == OperationSpace::Host) {
-    r = thrust::transform_reduce(
-      host.f.begin(), host.f.end(), op, 0.0, cuda::std::plus<double>());
+    ra_invoke(host.op.norm_1(r, host.f));
   } else if (space == OperationSpace::Device) {
-    r = thrust::transform_reduce(
-      device.f.begin(), device.f.end(), op, 0.0, cuda::std::plus<double>());
+    ra_invoke(device.op.norm_1(r, device.f));
   } else {
     return cudaErrorInvalidValue;
   }
@@ -38,34 +31,24 @@ Mesh1D::norm_1(OperationSpace space, double& r) {
 }
 
 __host__ Error
-Mesh1D::norm_2(OperationSpace space, double& r) {
-  auto op = [] __host__ __device__(double v1) { return v1 * v1; };
-
+Mesh1D::norm_2(const OperationSpace space, double& r) {
   if (space == OperationSpace::Host) {
-    r = thrust::transform_reduce(
-      host.f.begin(), host.f.end(), op, 0.0, cuda::std::plus<double>());
+    ra_invoke(host.op.norm_2(r, host.f));
   } else if (space == OperationSpace::Device) {
-    r = thrust::transform_reduce(
-      device.f.begin(), device.f.end(), op, 0.0, cuda::std::plus<double>());
+    ra_invoke(device.op.norm_2(r, device.f));
   } else {
     return cudaErrorInvalidValue;
   }
-
-  r = cuda::std::sqrt(r);
 
   return cudaSuccess;
 }
 
 __host__ Error
-Mesh1D::norm_infinity(OperationSpace space, double& r) {
-  auto op = [] __host__ __device__(double v1) { return cuda::std::abs(v1); };
-
+Mesh1D::norm_infinity(const OperationSpace space, double& r) {
   if (space == OperationSpace::Host) {
-    r = thrust::transform_reduce(
-      host.f.begin(), host.f.end(), op, 0.0, cuda::maximum<double>());
+    ra_invoke(host.op.norm_infinity(r, host.y));
   } else if (space == OperationSpace::Device) {
-    r = thrust::transform_reduce(
-      device.f.begin(), device.f.end(), op, 0.0, cuda::maximum<double>());
+    ra_invoke(device.op.norm_infinity(r, device.y));
   } else {
     return cudaErrorInvalidValue;
   }

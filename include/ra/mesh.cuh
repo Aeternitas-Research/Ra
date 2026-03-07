@@ -1,6 +1,7 @@
 #pragma once
 
 #include "ra/error.cuh"
+#include "ra/mesh_op.cuh"
 #include <cuda/iterator>
 #include <cuda_runtime.h>
 #include <mpi.h>
@@ -138,23 +139,28 @@ struct Mesh1D {
 
   // arithmetic operations
   __host__ Error assign(const OperationSpace space, const double c);
-  __host__ Error assign(const OperationSpace space, Mesh1D& x);
-  __host__ Error multiply(OperationSpace space, const double c);
-  __host__ Error multiply(OperationSpace space, Mesh1D& x);
-  __host__ Error add(OperationSpace space, const double c);
-  __host__ Error add(OperationSpace space, Mesh1D& x);
-  __host__ Error add(OperationSpace space, const double c, Mesh1D& x);
-  __host__ Error add(OperationSpace space, Mesh1D& c, Mesh1D& x);
-  __host__ Error divide(OperationSpace space, const double c);
-  __host__ Error divide(OperationSpace space, Mesh1D& x);
-  __host__ Error subtract(OperationSpace space, const double c);
-  __host__ Error subtract(OperationSpace space, Mesh1D& x);
-  __host__ Error subtract(OperationSpace space, const double c, Mesh1D& x);
-  __host__ Error subtract(OperationSpace space, Mesh1D& c, Mesh1D& x);
-  __host__ Error norm(OperationSpace space, double& r, const std::string type);
-  __host__ Error norm_1(OperationSpace space, double& r);
-  __host__ Error norm_2(OperationSpace space, double& r);
-  __host__ Error norm_infinity(OperationSpace space, double& r);
+  __host__ Error assign(const OperationSpace space, Mesh1D& mesh_x);
+  __host__ Error multiply(const OperationSpace space, const double c);
+  __host__ Error multiply(const OperationSpace space, Mesh1D& mesh_x);
+  __host__ Error add(const OperationSpace space, const double c);
+  __host__ Error add(const OperationSpace space, Mesh1D& mesh_x);
+  __host__ Error
+  add(const OperationSpace space, const double c, Mesh1D& mesh_x);
+  __host__ Error
+  add(const OperationSpace space, Mesh1D& mesh_c, Mesh1D& mesh_x);
+  __host__ Error divide(const OperationSpace space, const double c);
+  __host__ Error divide(const OperationSpace space, Mesh1D& mesh_x);
+  __host__ Error subtract(const OperationSpace space, const double c);
+  __host__ Error subtract(const OperationSpace space, Mesh1D& mesh_x);
+  __host__ Error
+  subtract(const OperationSpace space, const double c, Mesh1D& mesh_x);
+  __host__ Error
+  subtract(const OperationSpace space, Mesh1D& mesh_c, Mesh1D& mesh_x);
+  __host__ Error
+  norm(const OperationSpace space, double& r, const std::string type);
+  __host__ Error norm_1(const OperationSpace space, double& r);
+  __host__ Error norm_2(const OperationSpace space, double& r);
+  __host__ Error norm_infinity(const OperationSpace space, double& r);
 
   // stencil operations
   __host__ __device__ Error get_host_stencil(HostStencil& stencil);
@@ -164,10 +170,12 @@ struct Mesh1D {
   struct {
     thrust::host_vector<double> x{};
     thrust::host_vector<double> f{};
+    MeshOp<thrust::host_vector<double>> op{};
   } host{};
   struct {
     thrust::device_vector<double> x{};
     thrust::device_vector<double> f{};
+    MeshOp<thrust::device_vector<double>> op{};
   } device{};
 };
 

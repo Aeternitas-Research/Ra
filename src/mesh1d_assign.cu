@@ -1,15 +1,13 @@
 #include "ra/mesh.cuh"
-#include <thrust/copy.h>
-#include <thrust/fill.h>
 
 namespace ra {
 
 __host__ Error
 Mesh1D::assign(const OperationSpace space, const double c) {
   if (space == OperationSpace::Host) {
-    thrust::fill(host.f.begin(), host.f.end(), c);
+    ra_invoke(host.op.assign(host.f, c));
   } else if (space == OperationSpace::Device) {
-    thrust::fill(device.f.begin(), device.f.end(), c);
+    ra_invoke(device.op.assign(device.f, c));
   } else {
     return cudaErrorInvalidValue;
   }
@@ -18,11 +16,11 @@ Mesh1D::assign(const OperationSpace space, const double c) {
 }
 
 __host__ Error
-Mesh1D::assign(const OperationSpace space, Mesh1D& x) {
+Mesh1D::assign(const OperationSpace space, Mesh1D& mesh_x) {
   if (space == OperationSpace::Host) {
-    thrust::copy(x.host.f.begin(), x.host.f.end(), host.f.begin());
+    ra_invoke(host.op.assign(host.f, mesh_x.host.f));
   } else if (space == OperationSpace::Device) {
-    thrust::copy(x.device.f.begin(), x.device.f.end(), device.f.begin());
+    ra_invoke(device.op.assign(device.f, mesh_x.device.f));
   } else {
     return cudaErrorInvalidValue;
   }
