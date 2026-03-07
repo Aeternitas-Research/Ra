@@ -10,6 +10,7 @@ AlignConsecutiveAssignments: Consecutive
 AlignConsecutiveMacros: Consecutive
 AlignEscapedNewlines: DontAlign
 AlwaysBreakAfterDefinitionReturnType: All
+BreakTemplateDeclarations: Yes
 ContinuationIndentWidth: 2
 PointerAlignment: Left
 ...
