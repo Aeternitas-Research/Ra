@@ -11,7 +11,8 @@
 
 namespace ra {
 
-template <typename T> struct MeshOp {
+template <typename T>
+struct MeshOp {
   using Scalar = typename T::value_type;
 
   __host__ Error
