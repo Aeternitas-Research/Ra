@@ -18,8 +18,9 @@ enum struct Direction : int {
 };
 
 enum struct OperationSpace : int {
-  Host   = 0,
-  Device = 1,
+  Host       = 0,
+  Device     = 1,
+  HostDevice = 2,
 };
 
 struct MeshConfig {
