@@ -56,12 +56,13 @@ TimeStepperExplicitRK1D::calibrate() {
 
   // set RK coefficients
   auto& order  = this->config.parameter.order;
-  auto& a      = config_extra.a;
-  auto& b      = config_extra.b;
-  auto& b_star = config_extra.b_star;
-  auto& c      = config_extra.c;
+  auto& rk     = this->config.parameter.table.rk_explicit;
+  auto& a      = rk.a;
+  auto& b      = rk.b;
+  auto& b_star = rk.b_star;
+  auto& c      = rk.c;
   if (order.time == 4) {
-    config_extra.stage = 7;
+    rk.stage = 7;
 
     a[1][0] = 247.0 / 1000.0;
     a[2][0] = 247.0 / 4000.0;
@@ -111,7 +112,7 @@ TimeStepperExplicitRK1D::calibrate() {
   backup.copy(mesh);
   error.copy(mesh);
   buffer.copy(mesh);
-  for (int stage = 1; stage < config_extra.stage; ++stage) {
+  for (int stage = 1; stage < rk.stage; ++stage) {
     k[stage].copy(mesh);
   }
 

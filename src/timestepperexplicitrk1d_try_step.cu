@@ -10,14 +10,15 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
 
   auto& rhs        = this->config.op.rhs;
   auto& time       = this->config.time;
+  auto& rk         = this->config.parameter.table.rk_explicit;
   double h         = time.delta;
   const auto space = OperationSpace::Device;
 
   // compute k
   ra_invoke(rhs(k[0], time.now, mesh));
-  for (int stage = 1; stage < config_extra.stage; ++stage) {
-    const double* a = config_extra.a[stage];
-    const double c  = config_extra.c[stage];
+  for (int stage = 1; stage < rk.stage; ++stage) {
+    const double* a = rk.a[stage];
+    const double c  = rk.c[stage];
 
     buffer.assign(space, backup);
     for (int index = 0; index < stage; ++index) {
@@ -51,8 +52,8 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
 
     // update mesh
     mesh.assign(space, backup);
-    for (int stage = 0; stage < config_extra.stage; ++stage) {
-      const double b = config_extra.b[stage];
+    for (int stage = 0; stage < rk.stage; ++stage) {
+      const double b = rk.b[stage];
 
       mesh.add(space, h * b, k[stage]);
     }

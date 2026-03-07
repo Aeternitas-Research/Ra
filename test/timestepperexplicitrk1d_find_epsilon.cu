@@ -117,12 +117,13 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
 
   auto& rhs        = t1.config.op.rhs;
   auto& time       = t1.config.time;
+  auto& rk         = t1.config.parameter.table.rk_explicit;
   const auto space = ra::OperationSpace::Device;
   double h         = time.delta;
   ra_invoke(rhs(t1.k[0], time.now, t1.mesh));
-  for (int stage = 1; stage < t1.config_extra.stage; ++stage) {
-    const double* a = t1.config_extra.a[stage];
-    const double c  = t1.config_extra.c[stage];
+  for (int stage = 1; stage < rk.stage; ++stage) {
+    const double* a = rk.a[stage];
+    const double c  = rk.c[stage];
 
     t1.buffer.assign(space, t1.backup);
     for (int index = 0; index < stage; ++index) {
