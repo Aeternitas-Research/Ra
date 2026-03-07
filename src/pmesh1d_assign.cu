@@ -8,8 +8,8 @@ PMesh1D::assign(const OperationSpace space, const double c) {
 }
 
 __host__ Error
-PMesh1D::assign(const OperationSpace space, PMesh1D& x) {
-  return local.assign(space, x.local);
+PMesh1D::assign(const OperationSpace space, PMesh1D& mesh_x) {
+  return local.assign(space, mesh_x.local);
 }
 
 } // namespace ra

@@ -7,7 +7,7 @@
 namespace ra {
 
 __host__ Error
-PMesh1D::norm(OperationSpace space, double& r, const std::string type) {
+PMesh1D::norm(const OperationSpace space, double& r, const std::string type) {
   ra_invoke(local.norm(space, r, type));
 
   mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));

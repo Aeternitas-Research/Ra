@@ -3,23 +3,23 @@
 namespace ra {
 
 __host__ Error
-PMesh1D::add(OperationSpace space, const double c) {
+PMesh1D::add(const OperationSpace space, const double c) {
   return local.add(space, c);
 }
 
 __host__ Error
-PMesh1D::add(OperationSpace space, PMesh1D& x) {
-  return local.add(space, x.local);
+PMesh1D::add(const OperationSpace space, PMesh1D& mesh_x) {
+  return local.add(space, mesh_x.local);
 }
 
 __host__ Error
-PMesh1D::add(OperationSpace space, const double c, PMesh1D& x) {
-  return local.add(space, c, x.local);
+PMesh1D::add(const OperationSpace space, const double c, PMesh1D& mesh_x) {
+  return local.add(space, c, mesh_x.local);
 }
 
 __host__ Error
-PMesh1D::add(OperationSpace space, PMesh1D& c, PMesh1D& x) {
-  return local.add(space, c.local, x.local);
+PMesh1D::add(const OperationSpace space, PMesh1D& mesh_c, PMesh1D& mesh_x) {
+  return local.add(space, mesh_c.local, mesh_x.local);
 }
 
 } // namespace ra

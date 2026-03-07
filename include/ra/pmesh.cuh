@@ -56,20 +56,25 @@ struct PMesh1D {
 
   // arithmetic operations
   __host__ Error assign(const OperationSpace space, const double c);
-  __host__ Error assign(const OperationSpace space, PMesh1D& x);
-  __host__ Error multiply(OperationSpace space, const double c);
-  __host__ Error multiply(OperationSpace space, PMesh1D& x);
-  __host__ Error add(OperationSpace space, const double c);
-  __host__ Error add(OperationSpace space, PMesh1D& x);
-  __host__ Error add(OperationSpace space, const double c, PMesh1D& x);
-  __host__ Error add(OperationSpace space, PMesh1D& c, PMesh1D& x);
-  __host__ Error divide(OperationSpace space, const double c);
-  __host__ Error divide(OperationSpace space, PMesh1D& x);
-  __host__ Error subtract(OperationSpace space, const double c);
-  __host__ Error subtract(OperationSpace space, PMesh1D& x);
-  __host__ Error subtract(OperationSpace space, const double c, PMesh1D& x);
-  __host__ Error subtract(OperationSpace space, PMesh1D& c, PMesh1D& x);
-  __host__ Error norm(OperationSpace space, double& r, const std::string type);
+  __host__ Error assign(const OperationSpace space, PMesh1D& mesh_x);
+  __host__ Error multiply(const OperationSpace space, const double c);
+  __host__ Error multiply(const OperationSpace space, PMesh1D& mesh_x);
+  __host__ Error add(const OperationSpace space, const double c);
+  __host__ Error add(const OperationSpace space, PMesh1D& mesh_x);
+  __host__ Error
+  add(const OperationSpace space, const double c, PMesh1D& mesh_x);
+  __host__ Error
+  add(const OperationSpace space, PMesh1D& mesh_c, PMesh1D& mesh_x);
+  __host__ Error divide(const OperationSpace space, const double c);
+  __host__ Error divide(const OperationSpace space, PMesh1D& mesh_x);
+  __host__ Error subtract(const OperationSpace space, const double c);
+  __host__ Error subtract(const OperationSpace space, PMesh1D& mesh_x);
+  __host__ Error
+  subtract(const OperationSpace space, const double c, PMesh1D& mesh_x);
+  __host__ Error
+  subtract(const OperationSpace space, PMesh1D& mesh_c, PMesh1D& mesh_x);
+  __host__ Error
+  norm(const OperationSpace space, double& r, const std::string type);
 
   // stencil operations
   __host__ __device__ Error get_host_stencil(Mesh1D::HostStencil& stencil);
