@@ -96,33 +96,37 @@ constexpr double w3_3 = 0.34785484513745384971;
 
 namespace ra::dg::linear {
 
-__host__ __device__ double
-op_volume_3_0(double y0, double y1, double y2, double y3);
+__host__ __device__ double op_volume_3_0(
+  const double& y0, const double& y1, const double& y2, const double& y3);
 
-__host__ __device__ double
-op_volume_3_1(double y0, double y1, double y2, double y3);
+__host__ __device__ double op_volume_3_1(
+  const double& y0, const double& y1, const double& y2, const double& y3);
 
-__host__ __device__ double
-op_volume_3_2(double y0, double y1, double y2, double y3);
+__host__ __device__ double op_volume_3_2(
+  const double& y0, const double& y1, const double& y2, const double& y3);
 
-__host__ __device__ double
-op_volume_3_3(double y0, double y1, double y2, double y3);
+__host__ __device__ double op_volume_3_3(
+  const double& y0, const double& y1, const double& y2, const double& y3);
 
 __host__ __device__ double op_surface_3_0(
-  double s, double y0_l, double y1_l, double y2_l, double y3_l, double y0_r,
-  double y1_r, double y2_r, double y3_r);
+  const double& s, const double& y0_l, const double& y1_l, const double& y2_l,
+  const double& y3_l, const double& y0_r, const double& y1_r,
+  const double& y2_r, const double& y3_r);
 
 __host__ __device__ double op_surface_3_1(
-  double s, double y0_l, double y1_l, double y2_l, double y3_l, double y0_r,
-  double y1_r, double y2_r, double y3_r);
+  const double& s, const double& y0_l, const double& y1_l, const double& y2_l,
+  const double& y3_l, const double& y0_r, const double& y1_r,
+  const double& y2_r, const double& y3_r);
 
 __host__ __device__ double op_surface_3_2(
-  double s, double y0_l, double y1_l, double y2_l, double y3_l, double y0_r,
-  double y1_r, double y2_r, double y3_r);
+  const double& s, const double& y0_l, const double& y1_l, const double& y2_l,
+  const double& y3_l, const double& y0_r, const double& y1_r,
+  const double& y2_r, const double& y3_r);
 
 __host__ __device__ double op_surface_3_3(
-  double s, double y0_l, double y1_l, double y2_l, double y3_l, double y0_r,
-  double y1_r, double y2_r, double y3_r);
+  const double& s, const double& y0_l, const double& y1_l, const double& y2_l,
+  const double& y3_l, const double& y0_r, const double& y1_r,
+  const double& y2_r, const double& y3_r);
 
 } // namespace ra::dg::linear
 
