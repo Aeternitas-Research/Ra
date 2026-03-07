@@ -23,7 +23,8 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
       },
     .time =
       {
-        .stop = 10.0,
+        .initial = 1e-6,
+        .stop    = 10.0,
       },
   };
   config.space.h[0]    = 0.1;
