@@ -1,0 +1,173 @@
+#pragma once
+
+#include "ra/error.cuh"
+#include <cuda/iterator>
+#include <cuda_runtime.h>
+#include <mpi.h>
+#include <string>
+#include <thrust/device_vector.h>
+#include <thrust/host_vector.h>
+
+namespace ra {
+
+inline constexpr int DIMENSION_MAX = 6;
+
+enum struct Direction : int {
+  Upwind   = 0,
+  Downwind = 1,
+};
+
+enum struct OperationSpace : int {
+  Host   = 0,
+  Device = 1,
+};
+
+struct MeshConfig {
+  std::string name{};
+  struct {
+    MPI_Comm mpi_communicator = MPI_COMM_WORLD;
+    int mpi_rank              = 0;
+    std::size_t step          = 0;
+    double time               = 0.0;
+  } info{};
+  struct {
+    std::string name{};
+    std::string handle    = "mesh";
+    std::string directory = "./";
+  } file{};
+  struct {
+    std::size_t dof                   = 1;
+    std::size_t extent[DIMENSION_MAX] = {
+      0, 0, 0, 0, 0, 0,
+    };
+    std::size_t ghost_depth[DIMENSION_MAX][2] = {
+      {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0},
+    };
+  } geometry{};
+  struct {
+    std::size_t extent[DIMENSION_MAX] = {
+      0, 0, 0, 0, 0, 0,
+    };
+    std::size_t length = 0;
+    char* in           = nullptr;
+    char* out          = nullptr;
+  } buffer{};
+  MPI_Win window[DIMENSION_MAX][2] = {
+    {nullptr, nullptr}, {nullptr, nullptr}, {nullptr, nullptr},
+    {nullptr, nullptr}, {nullptr, nullptr}, {nullptr, nullptr},
+  };
+  struct {
+    struct {
+      int file = 0;
+      struct {
+        int extent[DIMENSION_MAX] = {
+          0, 0, 0, 0, 0, 0,
+        };
+        int x[1] = {0};
+        int f[1] = {0};
+      } dimension{};
+      struct {
+        int mpi_rank = 0;
+        int step     = 0;
+        int time     = 0;
+        int x        = 0;
+        int f        = 0;
+      } variable{};
+    } id{};
+    struct {
+      struct {
+        std::string x = "x";
+        std::string f = "f";
+      } variable{};
+    } name{};
+  } netcdf{};
+};
+
+struct Mesh1D {
+  using HostStencilIterator =
+    cuda::strided_iterator<thrust::host_vector<double>::iterator>;
+  using DeviceStencilIterator =
+    cuda::strided_iterator<thrust::device_vector<double>::iterator>;
+
+  struct HostStencil {
+    HostStencilIterator f0{};
+    HostStencilIterator f0_l{};
+    HostStencilIterator f0_r{};
+    HostStencilIterator f1{};
+    HostStencilIterator f1_l{};
+    HostStencilIterator f1_r{};
+    HostStencilIterator f2{};
+    HostStencilIterator f2_l{};
+    HostStencilIterator f2_r{};
+    HostStencilIterator f3{};
+    HostStencilIterator f3_l{};
+    HostStencilIterator f3_r{};
+  };
+
+  struct DeviceStencil {
+    DeviceStencilIterator f0{};
+    DeviceStencilIterator f0_l{};
+    DeviceStencilIterator f0_r{};
+    DeviceStencilIterator f1{};
+    DeviceStencilIterator f1_l{};
+    DeviceStencilIterator f1_r{};
+    DeviceStencilIterator f2{};
+    DeviceStencilIterator f2_l{};
+    DeviceStencilIterator f2_r{};
+    DeviceStencilIterator f3{};
+    DeviceStencilIterator f3_l{};
+    DeviceStencilIterator f3_r{};
+  };
+
+  __host__ ~Mesh1D();
+  __host__ Mesh1D();
+  Mesh1D(const Mesh1D&)     = delete;
+  Mesh1D(Mesh1D&&) noexcept = delete;
+  __host__ explicit Mesh1D(const MeshConfig& config);
+  Mesh1D& operator=(const Mesh1D&)     = delete;
+  Mesh1D& operator=(Mesh1D&&) noexcept = delete;
+
+  __host__ Error copy(const Mesh1D& other);
+  __host__ Error
+  transfer(const cudaMemcpyKind kind, const bool x, const bool f);
+  __host__ Error
+  sync(const int other, const int dimension, const Direction direction);
+  __host__ Error write(const int mpi_rank);
+  __host__ Error read(const int mpi_rank);
+
+  // arithmetic operations
+  __host__ Error assign(const OperationSpace space, const double c);
+  __host__ Error assign(const OperationSpace space, Mesh1D& x);
+  __host__ Error multiply(OperationSpace space, const double c);
+  __host__ Error multiply(OperationSpace space, Mesh1D& x);
+  __host__ Error add(OperationSpace space, const double c);
+  __host__ Error add(OperationSpace space, Mesh1D& x);
+  __host__ Error add(OperationSpace space, const double c, Mesh1D& x);
+  __host__ Error add(OperationSpace space, Mesh1D& c, Mesh1D& x);
+  __host__ Error divide(OperationSpace space, const double c);
+  __host__ Error divide(OperationSpace space, Mesh1D& x);
+  __host__ Error subtract(OperationSpace space, const double c);
+  __host__ Error subtract(OperationSpace space, Mesh1D& x);
+  __host__ Error subtract(OperationSpace space, const double c, Mesh1D& x);
+  __host__ Error subtract(OperationSpace space, Mesh1D& c, Mesh1D& x);
+  __host__ Error norm(OperationSpace space, double& r, const std::string type);
+  __host__ Error norm_1(OperationSpace space, double& r);
+  __host__ Error norm_2(OperationSpace space, double& r);
+  __host__ Error norm_infinity(OperationSpace space, double& r);
+
+  // stencil operations
+  __host__ __device__ Error get_host_stencil(HostStencil& stencil);
+  __host__ __device__ Error get_device_stencil(DeviceStencil& stencil);
+
+  MeshConfig config{};
+  struct {
+    thrust::host_vector<double> x{};
+    thrust::host_vector<double> f{};
+  } host{};
+  struct {
+    thrust::device_vector<double> x{};
+    thrust::device_vector<double> f{};
+  } device{};
+};
+
+} // namespace ra
