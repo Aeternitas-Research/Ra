@@ -90,6 +90,7 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
              velocity, y0_l, y1_l, y2_l, y3_l, y0_r, y1_r, y2_r, y3_r);
   };
 
+  // set RHS
   using DeviceStencil = ra::Mesh1D::DeviceStencil;
   s1.config.op.rhs    = [=] __host__(ra::PMesh1D & f, double, ra::PMesh1D& y) {
     DeviceStencil stencil_y{};
