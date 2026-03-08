@@ -18,7 +18,7 @@ PMesh1D::PMesh1D(
     config.topology.extent[d] = mpi_extent[d];
   }
 
-  mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
+  ra_mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
 }
 
 } // namespace ra

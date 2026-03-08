@@ -9,7 +9,7 @@ __host__ Error
 PMesh1D::read() {
   ra_invoke(local.read(config.topology.rank.self));
 
-  mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
+  ra_mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
 
   return cudaSuccess;
 }

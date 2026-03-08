@@ -18,9 +18,9 @@
 #endif
 
 #ifdef RA_DEBUG
-#define mpi_invoke(_expr) ra::mpi_invoke_impl((_expr), __FILE__, __LINE__)
+#define ra_mpi_invoke(_expr) ra::mpi_invoke_impl((_expr), __FILE__, __LINE__)
 #else
-#define mpi_invoke(_expr) (_expr)
+#define ra_mpi_invoke(_expr) (_expr)
 #endif
 
 namespace ra {
