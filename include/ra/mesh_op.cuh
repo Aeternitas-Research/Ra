@@ -84,7 +84,7 @@ struct MeshOp {
     auto op = [] __host__ __device__(
                 const Scalar& value_1, const Scalar& value_2,
                 const Scalar& value_3) { return value_1 + value_2 * value_3; };
-    cuda::zip_transform_iterator kernel{op, y.begin, c.begin(), x.begin()};
+    cuda::zip_transform_iterator kernel{op, y.begin(), c.begin(), x.begin()};
     thrust::copy(kernel, kernel + y.size(), y.begin());
 
     return cudaSuccess;
