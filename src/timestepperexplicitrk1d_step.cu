@@ -10,11 +10,11 @@ TimeStepperExplicitRK1D::step() {
   mesh.transfer(cudaMemcpyHostToDevice, true, true);
 
   // apply initial conditions
-  auto& time    = this->config.time;
   auto& initial = this->config.op.initial;
-  ra_invoke(initial(mesh, time.now, buffer));
+  ra_invoke(initial(mesh, buffer));
 
-  bool stop = false;
+  auto& time = this->config.time;
+  bool stop  = false;
   while (!stop) {
     const auto space = OperationSpace::Device;
 

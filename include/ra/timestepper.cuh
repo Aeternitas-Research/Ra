@@ -73,7 +73,7 @@ struct TimeStepperConfig {
     };
   } space{};
   struct {
-    nvstd::function<Error(PMesh1D&, const double, PMesh1D&)> initial{};
+    nvstd::function<Error(PMesh1D&, PMesh1D&)> initial{};
     nvstd::function<Error(PMesh1D&, const double, PMesh1D&)> boundary{};
     nvstd::function<Error(PMesh1D&, const double, PMesh1D&)> rhs{};
   } op{};
