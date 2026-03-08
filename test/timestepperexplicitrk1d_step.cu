@@ -71,9 +71,8 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
   RA_DG_GET_PROJECTION_1D_3();
 
   // set initial condition
-  using DeviceStencil = ra::Mesh1D::DeviceStencil;
-  t1.config.op.initial =
-    [=](ra::PMesh1D& f, const double t, ra::PMesh1D& buffer) {
+  using DeviceStencil  = ra::Mesh1D::DeviceStencil;
+  t1.config.op.initial = [=](ra::PMesh1D& f, ra::PMesh1D& buffer) {
     const auto& geometry = f.local.config.geometry;
     const auto n = geometry.extent[0] -
                    (geometry.ghost_depth[0][0] + geometry.ghost_depth[0][1]);
