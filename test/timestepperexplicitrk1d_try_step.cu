@@ -35,47 +35,53 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   ra_invoke(s1.calibrate());
 
   const double velocity = +1.0;
+  const double dt       = t1.config.time.initial;
+  const double dx       = t1.config.space.h[0];
   auto op_volume_0 =
     [=] __host__ __device__(double y0, double y1, double y2, double y3) {
-      return (-velocity) * ra::dg::linear::op_volume_3_0(y0, y1, y2, y3);
+      return (-velocity) * (dt / dx) *
+             ra::dg::linear::op_volume_3_0(y0, y1, y2, y3);
     };
   auto op_volume_1 =
     [=] __host__ __device__(double y0, double y1, double y2, double y3) {
-      return (-velocity) * ra::dg::linear::op_volume_3_1(y0, y1, y2, y3);
+      return (-velocity) * (dt / dx) *
+             ra::dg::linear::op_volume_3_1(y0, y1, y2, y3);
     };
   auto op_volume_2 =
     [=] __host__ __device__(double y0, double y1, double y2, double y3) {
-      return (-velocity) * ra::dg::linear::op_volume_3_2(y0, y1, y2, y3);
+      return (-velocity) * (dt / dx) *
+             ra::dg::linear::op_volume_3_2(y0, y1, y2, y3);
     };
   auto op_volume_3 =
     [=] __host__ __device__(double y0, double y1, double y2, double y3) {
-      return (-velocity) * ra::dg::linear::op_volume_3_3(y0, y1, y2, y3);
+      return (-velocity) * (dt / dx) *
+             ra::dg::linear::op_volume_3_3(y0, y1, y2, y3);
     };
   auto op_surface_0 = [=] __host__ __device__(
                         double y0_l, double y1_l, double y2_l, double y3_l,
                         double y0_r, double y1_r, double y2_r, double y3_r) {
-    return (-velocity) *
+    return (-velocity) * (dt / dx) *
            ra::dg::linear::op_surface_3_0(
              velocity, y0_l, y1_l, y2_l, y3_l, y0_r, y1_r, y2_r, y3_r);
   };
   auto op_surface_1 = [=] __host__ __device__(
                         double y0_l, double y1_l, double y2_l, double y3_l,
                         double y0_r, double y1_r, double y2_r, double y3_r) {
-    return (-velocity) *
+    return (-velocity) * (dt / dx) *
            ra::dg::linear::op_surface_3_1(
              velocity, y0_l, y1_l, y2_l, y3_l, y0_r, y1_r, y2_r, y3_r);
   };
   auto op_surface_2 = [=] __host__ __device__(
                         double y0_l, double y1_l, double y2_l, double y3_l,
                         double y0_r, double y1_r, double y2_r, double y3_r) {
-    return (-velocity) *
+    return (-velocity) * (dt / dx) *
            ra::dg::linear::op_surface_3_2(
              velocity, y0_l, y1_l, y2_l, y3_l, y0_r, y1_r, y2_r, y3_r);
   };
   auto op_surface_3 = [=] __host__ __device__(
                         double y0_l, double y1_l, double y2_l, double y3_l,
                         double y0_r, double y1_r, double y2_r, double y3_r) {
-    return (-velocity) *
+    return (-velocity) * (dt / dx) *
            ra::dg::linear::op_surface_3_3(
              velocity, y0_l, y1_l, y2_l, y3_l, y0_r, y1_r, y2_r, y3_r);
   };
