@@ -103,7 +103,7 @@ struct MeshOp {
   __host__ Error
   divide(T& y, T& x) {
     cuda::zip_transform_iterator kernel{
-      cuda::std::divides<Scalar>{}, y.begin(), , x.begin()};
+      cuda::std::divides<Scalar>{}, y.begin(), x.begin()};
     thrust::copy(kernel, kernel + y.size(), y.begin());
 
     return cudaSuccess;
