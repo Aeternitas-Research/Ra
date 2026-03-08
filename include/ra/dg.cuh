@@ -174,6 +174,30 @@ __host__ __device__ double op_1D_3_3(
 
 } // namespace ra::dg::projection
 
+/* macro: RA_DG_GET_PROJECTION_1D_3 */
+#define RA_DG_GET_PROJECTION_1D_3() \
+  auto ra_dg_projection_0 = [] __device__( \
+                              const double& f0, const double& f1, \
+                              const double& f2, const double f3) -> double { \
+    return ra::dg::projection::op_1D_3_0(f0, f1, f2, f3); \
+  }; \
+  auto ra_dg_projection_1 = [] __device__( \
+                              const double& f0, const double& f1, \
+                              const double& f2, const double f3) -> double { \
+    return ra::dg::projection::op_1D_3_1(f0, f1, f2, f3); \
+  }; \
+  auto ra_dg_projection_2 = [] __device__( \
+                              const double& f0, const double& f1, \
+                              const double& f2, const double f3) -> double { \
+    return ra::dg::projection::op_1D_3_2(f0, f1, f2, f3); \
+  }; \
+  auto ra_dg_projection_3 = [] __device__( \
+                              const double& f0, const double& f1, \
+                              const double& f2, const double f3) -> double { \
+    return ra::dg::projection::op_1D_3_3(f0, f1, f2, f3); \
+  }; \
+  /* macro: RA_DG_GET_PROJECTION_1D_3 */
+
 namespace ra::dg::linear {
 
 __host__ __device__ double op_volume_0_0(const double& y0);
