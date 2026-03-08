@@ -43,9 +43,6 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
     flag_modify_h = -1;
   } else if (epsilon < 0.5) {
     flag_modify_h = +1;
-    if (n_step == 0) {
-      flag_modify_h = 0;
-    }
   } else if (epsilon > 1.1) {
     flag_modify_h = -1;
   } else {
@@ -104,6 +101,8 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
       double h1 = history_h[n_step - 1];
       double e1 = history_e[n_step - 1];
       h         = h1 * std::pow(e1, -adaptivity.k1 / order);
+    } else if (n_step == 0) {
+      h *= 1.2;
     } else {
       cuda::std::terminate();
     }
