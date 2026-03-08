@@ -170,7 +170,7 @@ struct Mesh1D {
 
   // coordinate operations
   __host__ __device__ Error get_host_coordinate(HostStencil& coordinate);
-  __host__ __device__ Error get_device_coordinate(HostStencil& coordinate);
+  __host__ __device__ Error get_device_coordinate(DeviceStencil& coordinate);
 
   // stencil operations
   __host__ __device__ Error get_host_stencil(HostStencil& stencil);

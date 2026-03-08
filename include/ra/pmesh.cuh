@@ -80,7 +80,7 @@ struct PMesh1D {
   __host__ __device__ Error
   get_host_coordinate(Mesh1D::HostStencil& coordinate);
   __host__ __device__ Error
-  get_device_coordinate(Mesh1D::HostStencil& coordinate);
+  get_device_coordinate(Mesh1D::DeviceStencil& coordinate);
 
   // stencil operations
   __host__ __device__ Error get_host_stencil(Mesh1D::HostStencil& stencil);
