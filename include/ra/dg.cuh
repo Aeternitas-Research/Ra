@@ -105,6 +105,24 @@ constexpr double b3dx_3_1 = -0.63309667502214028723;
 constexpr double b3dx_3_2 = -0.63309667502214028723;
 constexpr double b3dx_3_3 = +4.06166810359356844629;
 
+// point 0
+constexpr double x0_0 = +0.0;
+
+// point 1
+constexpr double x1_0 = -0.57735026918962584208;
+constexpr double x1_1 = +0.57735026918962584208;
+
+// point 2
+constexpr double x2_0 = -0.77459666924148340428;
+constexpr double x2_1 = +0.0;
+constexpr double x2_2 = +0.77459666924148340428;
+
+// point 3
+constexpr double x3_0 = -0.86113631159405257254;
+constexpr double x3_1 = -0.33998104358485631282;
+constexpr double x3_2 = +0.33998104358485631282;
+constexpr double x3_3 = +0.86113631159405257254;
+
 // weight 0
 constexpr double w0_0 = 2.0;
 
