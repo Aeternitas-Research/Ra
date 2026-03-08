@@ -19,7 +19,7 @@ TimeStepperExplicitRK1D::step() {
     const auto space = OperationSpace::Device;
 
     time.n_fail = 0;
-    backup.assign(space, mesh);
+    ra_invoke(backup.assign(space, mesh));
 
     bool success   = false;
     double epsilon = 0.0;
