@@ -9,7 +9,7 @@ TEST_CASE(
   using ra::TimeStepperExplicitRK1D;
   using ra::TimeStepperType;
 
-  TimeStepperExplicitRK1D s1{};
+  TimeStepperExplicitRK1D t1{};
 
   TimeStepperConfig config = {
     .name = "test.TimeStepperExplicitRK1D",

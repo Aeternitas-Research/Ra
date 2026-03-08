@@ -31,8 +31,8 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
   config.space.x[0][0] = -10.0;
   config.space.x[0][1] = +10.0;
 
-  TimeStepperExplicitRK1D s1(config);
-  ra_invoke(s1.calibrate());
+  TimeStepperExplicitRK1D t1(config);
+  ra_invoke(t1.calibrate());
 
   const double velocity = 1.0;
   const double dx       = t1.config.space.h[0];
@@ -154,7 +154,7 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
 
   // set RHS
   using DeviceStencil = ra::Mesh1D::DeviceStencil;
-  s1.config.op.rhs    = [=] __host__(ra::PMesh1D & f, double, ra::PMesh1D& y) {
+  t1.config.op.rhs    = [=] __host__(ra::PMesh1D & f, double, ra::PMesh1D& y) {
     DeviceStencil stencil_y{};
     ra_invoke(y.get_device_stencil(stencil_y));
 
@@ -181,6 +181,6 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
     return cudaSuccess;
   };
 
-  const auto r = s1.step();
+  const auto r = t1.step();
   REQUIRE(r == cudaSuccess);
 }

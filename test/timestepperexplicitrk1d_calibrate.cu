@@ -28,15 +28,15 @@ TEST_CASE("TimeStepperExplicitRK1D::calibrate", "[timestepper]") {
   config.space.x[0][0] = -10.0;
   config.space.x[0][1] = +10.0;
 
-  TimeStepperExplicitRK1D s1(config);
-  const auto r = s1.calibrate();
+  TimeStepperExplicitRK1D t1(config);
+  const auto r = t1.calibrate();
   REQUIRE(r == cudaSuccess);
-  REQUIRE(s1.mesh.local.config.geometry.dof == 4);
+  REQUIRE(t1.mesh.local.config.geometry.dof == 4);
   REQUIRE(
-    s1.mesh.local.config.geometry.extent[0] ==
-    (200 / s1.mesh.config.topology.extent[0] +
-     s1.mesh.local.config.geometry.ghost_depth[0][0] +
-     s1.mesh.local.config.geometry.ghost_depth[0][1]));
+    t1.mesh.local.config.geometry.extent[0] ==
+    (200 / t1.mesh.config.topology.extent[0] +
+     t1.mesh.local.config.geometry.ghost_depth[0][0] +
+     t1.mesh.local.config.geometry.ghost_depth[0][1]));
 
   using Catch::Matchers::WithinRel;
   // todo

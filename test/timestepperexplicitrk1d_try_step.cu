@@ -31,8 +31,8 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   config.space.x[0][0] = -10.0;
   config.space.x[0][1] = +10.0;
 
-  TimeStepperExplicitRK1D s1(config);
-  ra_invoke(s1.calibrate());
+  TimeStepperExplicitRK1D t1(config);
+  ra_invoke(t1.calibrate());
 
   const double velocity = 1.0;
   const double dx       = t1.config.space.h[0];
@@ -154,7 +154,7 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
 
   // set RHS
   using DeviceStencil = ra::Mesh1D::DeviceStencil;
-  s1.config.op.rhs    = [=] __host__(ra::PMesh1D & f, double, ra::PMesh1D& y) {
+  t1.config.op.rhs    = [=] __host__(ra::PMesh1D & f, double, ra::PMesh1D& y) {
     DeviceStencil stencil_y{};
     ra_invoke(y.get_device_stencil(stencil_y));
 
@@ -184,18 +184,18 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   bool success   = false;
   double epsilon = 0.0;
 
-  ra_invoke(s1.backup.copy(s1.mesh));
+  ra_invoke(t1.backup.copy(t1.mesh));
 
   // step 1
-  s1.config.time.delta = 1e+100;
-  auto r               = s1.try_step(success, epsilon);
+  t1.config.time.delta = 1e+100;
+  auto r               = t1.try_step(success, epsilon);
   REQUIRE(r == cudaSuccess);
   REQUIRE(success == false);
 
   // step 1 again
-  ra_invoke(s1.reset_mesh());
-  s1.config.time.delta = 1e-6;
-  r                    = s1.try_step(success, epsilon);
+  ra_invoke(t1.reset_mesh());
+  t1.config.time.delta = 1e-6;
+  r                    = t1.try_step(success, epsilon);
   REQUIRE(r == cudaSuccess);
   REQUIRE(success == true);
 }

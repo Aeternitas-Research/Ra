@@ -28,8 +28,8 @@ TEST_CASE("TimeStepperExplicitRK1D::reset_mesh", "[timestepper]") {
   config.space.x[0][0] = -10.0;
   config.space.x[0][1] = +10.0;
 
-  TimeStepperExplicitRK1D s1(config);
-  ra_invoke(s1.calibrate());
+  TimeStepperExplicitRK1D t1(config);
+  ra_invoke(t1.calibrate());
 
   using Catch::Matchers::WithinRel;
   // todo
