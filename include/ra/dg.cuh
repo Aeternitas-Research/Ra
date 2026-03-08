@@ -172,4 +172,12 @@ __host__ __device__ double op_surface_3_3(
     cuda::std::minus<double>{}, ra_dg_kernel_s2_r, ra_dg_kernel_s2_l); \
   auto ra_dg_kernel_s3 = cuda::make_zip_transform_iterator( \
     cuda::std::minus<double>{}, ra_dg_kernel_s3_r, ra_dg_kernel_s3_l); \
+  auto ra_dg_kernel_0 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s0, ra_dg_kernel_v0); \
+  auto ra_dg_kernel_1 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s1, ra_dg_kernel_v1); \
+  auto ra_dg_kernel_2 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s2, ra_dg_kernel_v2); \
+  auto ra_dg_kernel_3 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s3, ra_dg_kernel_v3); \
 /* macro: RA_DG_GET_KERNEL_1D_3 */
