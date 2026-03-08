@@ -112,7 +112,7 @@ TimeStepperExplicitRK1D::calibrate() {
   backup.copy(mesh);
   error.copy(mesh);
   buffer.copy(mesh);
-  for (int stage = 1; stage < rk.stage; ++stage) {
+  for (int stage = 0; stage < rk.stage; ++stage) {
     k[stage].copy(mesh);
   }
 
