@@ -36,13 +36,6 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
 
   const double velocity = 1.0;
   const double dx       = t1.config.space.h[0];
-  auto x_center         = cuda::make_strided_iterator(
-    t1.local.device.x.begin() +
-      t1.local.config.geometry.ghost_depth[0][0] * 2 + 0,
-    2);
-  const auto n_x =
-    t1.local.geometry.extent[0] - (t1.local.geometry.ghost_depth[0][0] +
-                                   t1.local.geometry.ghost_depth[0][1]);
 
   // set initial condition
   t1.config.op.initial =
@@ -69,12 +62,17 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
       return cuda::std::sin(x - velocity * t);
     };
 
+    const auto& geometry = f.local.config.geometry;
+    const auto n = geometry.extent[0] -
+                   (geometry.ghost_depth[0][0] + geometry.ghost_depth[0][1]);
+
     DeviceStencil stencil_buffer{};
+    ra_invoke(buffer.get_device_coordinate(stencil_buffer));
     ra_invoke(buffer.get_device_stencil(stencil_buffer));
-    thrust::transform_n(x_center, n_x, stencil_buffer.f0, op_sample_0);
-    thrust::transform_n(x_center, n_x, stencil_buffer.f1, op_sample_1);
-    thrust::transform_n(x_center, n_x, stencil_buffer.f2, op_sample_2);
-    thrust::transform_n(x_center, n_x, stencil_buffer.f3, op_sample_3);
+    thrust::transform_n(stencil_buffer.x0, n, stencil_buffer.f0, op_sample_0);
+    thrust::transform_n(stencil_buffer.x0, n, stencil_buffer.f1, op_sample_1);
+    thrust::transform_n(stencil_buffer.x0, n, stencil_buffer.f2, op_sample_2);
+    thrust::transform_n(stencil_buffer.x0, n, stencil_buffer.f3, op_sample_3);
 
     // projection
     auto op_projection_0 = cuda::make_zip_transform_iterator(
@@ -92,10 +90,10 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
 
     DeviceStencil stencil_f{};
     ra_invoke(f.get_device_stencil(stencil_f));
-    thrust::copy_n(op_projection_0, n_x, stencil_f.f0);
-    thrust::copy_n(op_projection_1, n_x, stencil_f.f1);
-    thrust::copy_n(op_projection_2, n_x, stencil_f.f2);
-    thrust::copy_n(op_projection_3, n_x, stencil_f.f3);
+    thrust::copy_n(op_projection_0, n, stencil_f.f0);
+    thrust::copy_n(op_projection_1, n, stencil_f.f1);
+    thrust::copy_n(op_projection_2, n, stencil_f.f2);
+    thrust::copy_n(op_projection_3, n, stencil_f.f3);
 
     return cudaSuccess;
   };
