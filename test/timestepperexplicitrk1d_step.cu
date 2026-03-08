@@ -1,7 +1,7 @@
 #include "ra/dg.cuh"
 #include "ra/test.cuh"
 #include "ra/timestepper.cuh"
-#include <thrust/transform.h>
+#include <thrust/copy.h>
 
 RA_TEST_MAIN(argc, argv);
 
@@ -99,18 +99,10 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
                      (geometry.ghost_depth[0][0] + geometry.ghost_depth[0][1]);
 
       // output
-      thrust::transform_n(
-        ra_dg_kernel_s0, n, ra_dg_kernel_v0, stencil_f.f0,
-        cuda::std::minus<double>{});
-      thrust::transform_n(
-        ra_dg_kernel_s1, n, ra_dg_kernel_v1, stencil_f.f1,
-        cuda::std::minus<double>{});
-      thrust::transform_n(
-        ra_dg_kernel_s2, n, ra_dg_kernel_v2, stencil_f.f2,
-        cuda::std::minus<double>{});
-      thrust::transform_n(
-        ra_dg_kernel_s3, n, ra_dg_kernel_v3, stencil_f.f3,
-        cuda::std::minus<double>{});
+      thrust::copy_n(ra_dg_kernel_0, n, stencil_f.f0);
+      thrust::copy_n(ra_dg_kernel_1, n, stencil_f.f1);
+      thrust::copy_n(ra_dg_kernel_2, n, stencil_f.f2);
+      thrust::copy_n(ra_dg_kernel_3, n, stencil_f.f3);
     }
 
     return cudaSuccess;
