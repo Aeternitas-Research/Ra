@@ -101,7 +101,9 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
 
   // set boundary conditions
   t1.config.op.boundary =
-    [=] __host__(ra::PMesh1D & f, const double, PMesh1D&) { return f.sync(); };
+    [=] __host__(ra::PMesh1D & f, const double, ra::PMesh1D&) {
+    return f.sync();
+  };
 
   const double dt = t1.config.time.initial;
   auto op_volume_0 =
