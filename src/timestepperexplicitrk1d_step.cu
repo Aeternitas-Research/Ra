@@ -9,9 +9,13 @@ __host__ Error
 TimeStepperExplicitRK1D::step() {
   mesh.transfer(cudaMemcpyHostToDevice, true, true);
 
+  // apply initial conditions
+  auto& time    = this->config.time;
+  auto& initial = this->config.op.initial;
+  ra_invoke(initial(mesh, time.now, buffer));
+
   bool stop = false;
   while (!stop) {
-    auto& time       = this->config.time;
     const auto space = OperationSpace::Device;
 
     time.n_fail = 0;
