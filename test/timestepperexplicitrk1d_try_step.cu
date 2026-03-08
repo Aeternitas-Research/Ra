@@ -34,13 +34,77 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   TimeStepperExplicitRK1D s1(config);
   ra_invoke(s1.calibrate());
 
+  const double velocity = 1.0;
+  const double dx       = t1.config.space.h[0];
+  auto x_center         = cuda::make_strided_iterator(
+    t1.local.device.x.begin() +
+      t1.local.config.geometry.ghost_depth[0][0] * 2 + 0,
+    2);
+  const auto n_x =
+    t1.local.geometry.extent[0] - (t1.local.geometry.ghost_depth[0][0] +
+                                   t1.local.geometry.ghost_depth[0][1]);
+
+  // set initial condition
+  t1.config.op.initial =
+    [=] __host__(ra::PMesh1D & f, const double t, ra::PMesh1D& buffer) {
+    // sample
+    auto op_sample_0 = [=] __host__ __device__(const double& x_center) {
+      const auto x = x_center + dx * ra::dg::x3_0 / 2.0;
+
+      return cuda::std::sin(x - velocity * t);
+    };
+    auto op_sample_1 = [=] __host__ __device__(const double& x_center) {
+      const auto x = x_center + dx * ra::dg::x3_1 / 2.0;
+
+      return cuda::std::sin(x - velocity * t);
+    };
+    auto op_sample_2 = [=] __host__ __device__(const double& x_center) {
+      const auto x = x_center + dx * ra::dg::x3_2 / 2.0;
+
+      return cuda::std::sin(x - velocity * t);
+    };
+    auto op_sample_3 = [=] __host__ __device__(const double& x_center) {
+      const auto x = x_center + dx * ra::dg::x3_3 / 2.0;
+
+      return cuda::std::sin(x - velocity * t);
+    };
+
+    DeviceStencil stencil_buffer{};
+    ra_invoke(buffer.get_device_stencil(stencil_buffer));
+    thrust::transform_n(x_center, n_x, stencil_buffer.f0, op_sample_0);
+    thrust::transform_n(x_center, n_x, stencil_buffer.f1, op_sample_1);
+    thrust::transform_n(x_center, n_x, stencil_buffer.f2, op_sample_2);
+    thrust::transform_n(x_center, n_x, stencil_buffer.f3, op_sample_3);
+
+    // projection
+    auto op_projection_0 = cuda::make_zip_transform_iterator(
+      ra::dg::projection::op::1D_3_0, stencil_buffer.f0, stencil_buffer.f1,
+      stencil_buffer.f2, stencil_buffer.f3);
+    auto op_projection_1 = cuda::make_zip_transform_iterator(
+      ra::dg::projection::op::1D_3_1, stencil_buffer.f0, stencil_buffer.f1,
+      stencil_buffer.f2, stencil_buffer.f3);
+    auto op_projection_2 = cuda::make_zip_transform_iterator(
+      ra::dg::projection::op::1D_3_2, stencil_buffer.f0, stencil_buffer.f1,
+      stencil_buffer.f2, stencil_buffer.f3);
+    auto op_projection_3 = cuda::make_zip_transform_iterator(
+      ra::dg::projection::op::1D_3_3, stencil_buffer.f0, stencil_buffer.f1,
+      stencil_buffer.f2, stencil_buffer.f3);
+
+    DeviceStencil stencil_f{};
+    ra_invoke(f.get_device_stencil(stencil_f));
+    thrust::copy_n(op_projection_0, n_x, stencil_f.f0);
+    thrust::copy_n(op_projection_1, n_x, stencil_f.f1);
+    thrust::copy_n(op_projection_2, n_x, stencil_f.f2);
+    thrust::copy_n(op_projection_3, n_x, stencil_f.f3);
+
+    return cudaSuccess;
+  };
+
   // set boundary conditions
   t1.config.op.boundary =
     [=] __host__(ra::PMesh1D & f, const double, PMesh1D&) { return f.sync(); };
 
-  const double velocity = +1.0;
-  const double dt       = t1.config.time.initial;
-  const double dx       = t1.config.space.h[0];
+  const double dt = t1.config.time.initial;
   auto op_volume_0 =
     [=] __host__ __device__(double y0, double y1, double y2, double y3) {
     return (-velocity) * (dt / dx) *
