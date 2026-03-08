@@ -77,16 +77,16 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
 
     // projection
     auto op_projection_0 = cuda::make_zip_transform_iterator(
-      ra::dg::projection::op::1D_3_0, stencil_buffer.f0, stencil_buffer.f1,
+      ra::dg::projection::op_1D_3_0, stencil_buffer.f0, stencil_buffer.f1,
       stencil_buffer.f2, stencil_buffer.f3);
     auto op_projection_1 = cuda::make_zip_transform_iterator(
-      ra::dg::projection::op::1D_3_1, stencil_buffer.f0, stencil_buffer.f1,
+      ra::dg::projection::op_1D_3_1, stencil_buffer.f0, stencil_buffer.f1,
       stencil_buffer.f2, stencil_buffer.f3);
     auto op_projection_2 = cuda::make_zip_transform_iterator(
-      ra::dg::projection::op::1D_3_2, stencil_buffer.f0, stencil_buffer.f1,
+      ra::dg::projection::op_1D_3_2, stencil_buffer.f0, stencil_buffer.f1,
       stencil_buffer.f2, stencil_buffer.f3);
     auto op_projection_3 = cuda::make_zip_transform_iterator(
-      ra::dg::projection::op::1D_3_3, stencil_buffer.f0, stencil_buffer.f1,
+      ra::dg::projection::op_1D_3_3, stencil_buffer.f0, stencil_buffer.f1,
       stencil_buffer.f2, stencil_buffer.f3);
 
     DeviceStencil stencil_f{};
