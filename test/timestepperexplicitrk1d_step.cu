@@ -38,6 +38,7 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
   const double dx       = t1.config.space.h[0];
 
   // set initial condition
+  using DeviceStencil = ra::Mesh1D::DeviceStencil;
   t1.config.op.initial =
     [=] __host__(ra::PMesh1D & f, const double t, ra::PMesh1D& buffer) {
     // sample
@@ -153,8 +154,7 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
   };
 
   // set RHS
-  using DeviceStencil = ra::Mesh1D::DeviceStencil;
-  t1.config.op.rhs    = [=] __host__(ra::PMesh1D & f, double, ra::PMesh1D& y) {
+  t1.config.op.rhs = [=] __host__(ra::PMesh1D & f, double, ra::PMesh1D& y) {
     DeviceStencil stencil_y{};
     ra_invoke(y.get_device_stencil(stencil_y));
 
