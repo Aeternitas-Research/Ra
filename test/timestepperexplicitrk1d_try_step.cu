@@ -205,7 +205,7 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   };
 
   // apply initial conditions
-  ra_invoke(t1.config.op.initial(t1.mesh, t1.config.time.now, t1.buffer));
+  ra_invoke(t1.config.op.initial(t1.mesh, t1.buffer));
 
   bool success   = false;
   double epsilon = 0.0;
