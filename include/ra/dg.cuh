@@ -6,6 +6,7 @@
 namespace ra::dg {
 
 // basis 0
+constexpr double b0_scale = +0.5;
 constexpr double b0_0_0   = +1.0;
 constexpr double b0_1_0   = +1.0;
 constexpr double b0_1_1   = +1.0;
@@ -30,6 +31,7 @@ constexpr double b0dx_3_2 = +0.0;
 constexpr double b0dx_3_3 = +0.0;
 
 // basis 1
+constexpr double b1_scale = +0.66666666666666666667;
 constexpr double b1_0_0   = +0.0;
 constexpr double b1_1_0   = -0.57735026918962584208;
 constexpr double b1_1_1   = +0.57735026918962584208;
@@ -54,6 +56,7 @@ constexpr double b1dx_3_2 = +1.0;
 constexpr double b1dx_3_3 = +1.0;
 
 // basis 2
+constexpr double b2_scale = +0.4;
 constexpr double b2_0_0   = -0.5;
 constexpr double b2_1_0   = +0.0;
 constexpr double b2_1_1   = +0.0;
@@ -78,6 +81,7 @@ constexpr double b2dx_3_2 = +1.01994313075456899398;
 constexpr double b2dx_3_3 = +2.58340893478215782864;
 
 // basis 3
+constexpr double b3_scale = +0.28571428571428571429;
 constexpr double b3_0_0   = +0.0;
 constexpr double b3_1_0   = +0.38490017945975046887;
 constexpr double b3_1_1   = -0.38490017945975046887;
