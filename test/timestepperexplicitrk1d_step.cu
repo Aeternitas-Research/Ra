@@ -39,24 +39,24 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
   const double dx       = t1.config.space.h[0];
   auto op_volume_0 =
     [=] __host__ __device__(double y0, double y1, double y2, double y3) {
-      return (-velocity) * (dt / dx) *
-             ra::dg::linear::op_volume_3_0(y0, y1, y2, y3);
-    };
+    return (-velocity) * (dt / dx) *
+           ra::dg::linear::op_volume_3_0(y0, y1, y2, y3);
+  };
   auto op_volume_1 =
     [=] __host__ __device__(double y0, double y1, double y2, double y3) {
-      return (-velocity) * (dt / dx) *
-             ra::dg::linear::op_volume_3_1(y0, y1, y2, y3);
-    };
+    return (-velocity) * (dt / dx) *
+           ra::dg::linear::op_volume_3_1(y0, y1, y2, y3);
+  };
   auto op_volume_2 =
     [=] __host__ __device__(double y0, double y1, double y2, double y3) {
-      return (-velocity) * (dt / dx) *
-             ra::dg::linear::op_volume_3_2(y0, y1, y2, y3);
-    };
+    return (-velocity) * (dt / dx) *
+           ra::dg::linear::op_volume_3_2(y0, y1, y2, y3);
+  };
   auto op_volume_3 =
     [=] __host__ __device__(double y0, double y1, double y2, double y3) {
-      return (-velocity) * (dt / dx) *
-             ra::dg::linear::op_volume_3_3(y0, y1, y2, y3);
-    };
+    return (-velocity) * (dt / dx) *
+           ra::dg::linear::op_volume_3_3(y0, y1, y2, y3);
+  };
   auto op_surface_0 = [=] __host__ __device__(
                         double y0_l, double y1_l, double y2_l, double y3_l,
                         double y0_r, double y1_r, double y2_r, double y3_r) {
