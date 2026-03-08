@@ -26,8 +26,8 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
       },
     .time =
       {
-        .initial = 1e-6,
-        .stop    = 10.0,
+        .stop  = 10.0,
+        .delta = 1e-6,
       },
   };
   config.space.h[0]    = 0.1;
@@ -114,7 +114,7 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
     return f.sync();
   };
 
-  const double dt  = t1.config.time.initial;
+  const double dt  = t1.config.time.delta;
   auto op_volume_0 = [=] __device__(
                        const double& y0, const double& y1, const double& y2,
                        const double& y3) -> double {
