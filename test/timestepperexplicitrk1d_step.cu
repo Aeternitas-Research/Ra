@@ -39,31 +39,32 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
 
   const double velocity = 1.0;
   const double dx       = t1.config.space.h[0];
+  const double t_now    = t1.config.time.now;
 
-  auto f_initial = [=] __device__(const double t, const double& x) -> double {
-    return cuda::std::sin(x - velocity * t);
+  auto f_initial = [=] __device__(const double& x) -> double {
+    return cuda::std::sin(x - velocity * t_now);
   };
 
   // sample
   auto op_sample_0 = [=] __device__(const double& x_center) -> double {
     const auto x = x_center + dx * ra::dg::x3_0 / 2.0;
 
-    return f_initial(t, x);
+    return f_initial(x);
   };
   auto op_sample_1 = [=] __device__(const double& x_center) -> double {
     const auto x = x_center + dx * ra::dg::x3_1 / 2.0;
 
-    return f_initial(t, x);
+    return f_initial(x);
   };
   auto op_sample_2 = [=] __device__(const double& x_center) -> double {
     const auto x = x_center + dx * ra::dg::x3_2 / 2.0;
 
-    return f_initial(t, x);
+    return f_initial(x);
   };
   auto op_sample_3 = [=] __device__(const double& x_center) -> double {
     const auto x = x_center + dx * ra::dg::x3_3 / 2.0;
 
-    return f_initial(t, x);
+    return f_initial(x);
   };
 
   // projection
