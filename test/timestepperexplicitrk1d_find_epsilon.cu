@@ -205,7 +205,7 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
   };
 
   // apply initial conditions
-  ra_invoke(t1.config.op.initial(t1.mesh, t1.config.time.now, t1.buffer));
+  ra_invoke(t1.config.op.initial(t1.mesh, t1.buffer));
 
   // apply boundary conditions
   ra_invoke(t1.config.op.boundary(t1.mesh, t1.config.time.now, t1.buffer));
