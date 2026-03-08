@@ -40,32 +40,39 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
   const double velocity = 1.0;
   const double dx       = t1.config.space.h[0];
 
+  auto f_initial = [=] __device__(const double t, const double& x) -> double {
+    return cuda::std::sin(x - velocity * t);
+  };
+
+  // sample
+  auto op_sample_0 = [=] __device__(const double& x_center) -> double {
+    const auto x = x_center + dx * ra::dg::x3_0 / 2.0;
+
+    return f_initial(t, x);
+  };
+  auto op_sample_1 = [=] __device__(const double& x_center) -> double {
+    const auto x = x_center + dx * ra::dg::x3_1 / 2.0;
+
+    return f_initial(t, x);
+  };
+  auto op_sample_2 = [=] __device__(const double& x_center) -> double {
+    const auto x = x_center + dx * ra::dg::x3_2 / 2.0;
+
+    return f_initial(t, x);
+  };
+  auto op_sample_3 = [=] __device__(const double& x_center) -> double {
+    const auto x = x_center + dx * ra::dg::x3_3 / 2.0;
+
+    return f_initial(t, x);
+  };
+
+  // projection
+  RA_DG_GET_PROJECTION_1D_3();
+
   // set initial condition
   using DeviceStencil = ra::Mesh1D::DeviceStencil;
   t1.config.op.initial =
     [=](ra::PMesh1D& f, const double t, ra::PMesh1D& buffer) {
-    // sample
-    auto op_sample_0 = [=] __device__(const double& x_center) -> double {
-      const auto x = x_center + dx * ra::dg::x3_0 / 2.0;
-
-      return cuda::std::sin(x - velocity * t);
-    };
-    auto op_sample_1 = [=] __device__(const double& x_center) -> double {
-      const auto x = x_center + dx * ra::dg::x3_1 / 2.0;
-
-      return cuda::std::sin(x - velocity * t);
-    };
-    auto op_sample_2 = [=] __device__(const double& x_center) -> double {
-      const auto x = x_center + dx * ra::dg::x3_2 / 2.0;
-
-      return cuda::std::sin(x - velocity * t);
-    };
-    auto op_sample_3 = [=] __device__(const double& x_center) -> double {
-      const auto x = x_center + dx * ra::dg::x3_3 / 2.0;
-
-      return cuda::std::sin(x - velocity * t);
-    };
-
     const auto& geometry = f.local.config.geometry;
     const auto n = geometry.extent[0] -
                    (geometry.ghost_depth[0][0] + geometry.ghost_depth[0][1]);
@@ -80,16 +87,16 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
 
     // projection
     auto op_projection_0 = cuda::make_zip_transform_iterator(
-      ra::dg::projection::op_1D_3_0, stencil_buffer.f0, stencil_buffer.f1,
+      ra_dg_projection_0, stencil_buffer.f0, stencil_buffer.f1,
       stencil_buffer.f2, stencil_buffer.f3);
     auto op_projection_1 = cuda::make_zip_transform_iterator(
-      ra::dg::projection::op_1D_3_1, stencil_buffer.f0, stencil_buffer.f1,
+      ra_dg_projection_1, stencil_buffer.f0, stencil_buffer.f1,
       stencil_buffer.f2, stencil_buffer.f3);
     auto op_projection_2 = cuda::make_zip_transform_iterator(
-      ra::dg::projection::op_1D_3_2, stencil_buffer.f0, stencil_buffer.f1,
+      ra_dg_projection_2, stencil_buffer.f0, stencil_buffer.f1,
       stencil_buffer.f2, stencil_buffer.f3);
     auto op_projection_3 = cuda::make_zip_transform_iterator(
-      ra::dg::projection::op_1D_3_3, stencil_buffer.f0, stencil_buffer.f1,
+      ra_dg_projection_3, stencil_buffer.f0, stencil_buffer.f1,
       stencil_buffer.f2, stencil_buffer.f3);
 
     DeviceStencil stencil_f{};
@@ -197,6 +204,16 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
     return cudaSuccess;
   };
 
+  // apply initial conditions
+  ra_invoke(t1.config.op.initial(t1.mesh, t1.config.time.now, t1.buffer));
+
+  // apply boundary conditions
+  ra_invoke(t1.config.op.boundary(t1.mesh, t1.config.time.now, t1.buffer));
+
+  // keep initial mesh
+  ra_invoke(t1.backup.copy(t1.mesh));
+
+  // compute k
   auto& rhs        = t1.config.op.rhs;
   auto& time       = t1.config.time;
   auto& rk         = t1.config.parameter.table.rk_explicit;
