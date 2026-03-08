@@ -204,14 +204,17 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
     return cudaSuccess;
   };
 
+  // initialize data on device
+  ra_invoke(t1.mesh.transfer(cudaMemcpyHostToDevice, true, true));
+
   // apply initial conditions
   ra_invoke(t1.config.op.initial(t1.mesh, t1.buffer));
 
-  // apply boundary conditions
-  ra_invoke(t1.config.op.boundary(t1.mesh, t1.config.time.now, t1.buffer));
-
   // keep initial mesh
   ra_invoke(t1.backup.copy(t1.mesh));
+
+  // apply boundary conditions
+  ra_invoke(t1.config.op.boundary(t1.mesh, t1.config.time.now, t1.buffer));
 
   // compute k
   auto& rhs        = t1.config.op.rhs;

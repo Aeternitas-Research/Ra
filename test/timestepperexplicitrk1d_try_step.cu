@@ -204,8 +204,14 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
     return cudaSuccess;
   };
 
+  // initialize data on device
+  ra_invoke(t1.mesh.transfer(cudaMemcpyHostToDevice, true, true));
+
   // apply initial conditions
   ra_invoke(t1.config.op.initial(t1.mesh, t1.buffer));
+
+  // keep initial mesh
+  ra_invoke(t1.backup.copy(t1.mesh));
 
   bool success   = false;
   double epsilon = 0.0;
