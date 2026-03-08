@@ -8,8 +8,12 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
     return cudaSuccess;
   }
 
+  // apply boundary conditions
+  auto& time     = this->config.time;
+  auto& boundary = this->config.op.boundary;
+  ra_invoke(boundary(mesh, time.now, buffer));
+
   auto& rhs        = this->config.op.rhs;
-  auto& time       = this->config.time;
   auto& rk         = this->config.parameter.table.rk_explicit;
   double h         = time.delta;
   const auto space = OperationSpace::Device;
