@@ -39,7 +39,9 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
   const auto& history_h = time.history_delta;
   const auto n_step     = history_h.size();
   int flag_modify_h     = 0;
-  if (epsilon < 0.5) {
+  if (cuda::std::isnan(epsilon)) {
+    flag_modify_h = -1;
+  } else if (epsilon < 0.5) {
     flag_modify_h = +1;
     if (n_step == 0) {
       flag_modify_h = 0;
@@ -52,7 +54,8 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
 
   // good epsilon
   if (flag_modify_h == 0) {
-    success = true;
+    time.n_fail = 0;
+    success     = true;
 
     // update mesh
     mesh.assign(space, backup);
@@ -65,7 +68,13 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
     return cudaSuccess;
   }
 
-  time.n_fail += 1;
+  if (flag_modify_h == +1) {
+    time.n_fail = 0;
+    success     = true;
+  } else if (flag_modify_h == -1) {
+    time.n_fail += 1;
+    success = false;
+  }
 
   // compute h for the next attempt
   const auto& history_e  = time.history_error;
@@ -98,12 +107,8 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
     } else {
       cuda::std::terminate();
     }
-
-    success = false;
   } else if (flag_modify_h == -1) {
     h *= 0.8;
-
-    success = false;
   } else {
     cuda::std::terminate();
   }
