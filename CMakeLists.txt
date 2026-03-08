@@ -49,7 +49,7 @@ endif()
 target_compile_options(
   ra
   PUBLIC
-  $<$<COMPILE_LANGUAGE:CUDA>:--expt-extended-lambda>
+  $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
 )
 
 find_package(CUDAToolkit 12.0 REQUIRED)
