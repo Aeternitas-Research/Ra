@@ -27,9 +27,9 @@ TimeStepperExplicitRK1D::calibrate() {
   }
 
   int mpi_rank{};
-  mpi_invoke(MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank));
+  ra_mpi_invoke(MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank));
   int mpi_size{};
-  mpi_invoke(MPI_Comm_size(MPI_COMM_WORLD, &mpi_size));
+  ra_mpi_invoke(MPI_Comm_size(MPI_COMM_WORLD, &mpi_size));
   int mpi_extent[6] = {mpi_size, 0, 0, 0, 0, 0};
   PMesh1D result(mpi_rank, mpi_extent, mesh_config);
   ra_invoke(mesh.copy(result));
@@ -42,7 +42,7 @@ TimeStepperExplicitRK1D::calibrate() {
                 (ghost_depth[d][0] + ghost_depth[d][1]);
   };
 
-  mpi_invoke(
+  ra_mpi_invoke(
     MPI_Scan(MPI_IN_PLACE, stride, 1, MPI_SIZE_T, MPI_SUM, MPI_COMM_WORLD));
 
   auto start_0 = cuda::make_strided_iterator(mesh.local.host.x.begin(), 2);

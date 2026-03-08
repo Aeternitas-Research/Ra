@@ -39,7 +39,7 @@ TimeStepperExplicitRK1D::step() {
       stop = true;
     }
 
-    mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
+    ra_mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
   }
 
   return cudaSuccess;

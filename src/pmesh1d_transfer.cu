@@ -9,7 +9,7 @@ __host__ Error
 PMesh1D::transfer(const cudaMemcpyKind kind, const bool x, const bool f) {
   ra_invoke(local.transfer(kind, x, f));
 
-  mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
+  ra_mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
 
   return cudaSuccess;
 }

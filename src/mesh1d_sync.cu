@@ -56,7 +56,7 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
                  (geometry.ghost_depth[0][0] + geometry.ghost_depth[0][1]) +
                  j0;
       const auto offset = sub2ind(index, geometry.extent, 1);
-      mpi_invoke(MPI_Pack(
+      ra_mpi_invoke(MPI_Pack(
         host.f.data() + dof * offset, dof, MPI_DOUBLE, buffer.out,
         buffer.length, &position, MPI_COMM_WORLD));
     }
@@ -64,7 +64,7 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
     for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][1]; ++j0) {
       index[0]          = geometry.ghost_depth[0][0] + j0;
       const auto offset = sub2ind(index, geometry.extent, 1);
-      mpi_invoke(MPI_Pack(
+      ra_mpi_invoke(MPI_Pack(
         host.f.data() + dof * offset, dof, MPI_DOUBLE, buffer.out,
         buffer.length, &position, MPI_COMM_WORLD));
     }
@@ -74,14 +74,14 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
 
   // get
   auto id_window = config.window[dimension][i_direction];
-  mpi_invoke(MPI_Win_create(
+  ra_mpi_invoke(MPI_Win_create(
     buffer.out, buffer.length * sizeof(double), sizeof(double), MPI_INFO_NULL,
     MPI_COMM_WORLD, &id_window));
-  mpi_invoke(MPI_Win_fence(0, id_window));
-  mpi_invoke(MPI_Get(
+  ra_mpi_invoke(MPI_Win_fence(0, id_window));
+  ra_mpi_invoke(MPI_Get(
     buffer.in, buffer.length, MPI_DOUBLE, other, 0, buffer.length, MPI_DOUBLE,
     id_window));
-  mpi_invoke(MPI_Win_fence(0, id_window));
+  ra_mpi_invoke(MPI_Win_fence(0, id_window));
 
   // unpack
   position = 0;
@@ -89,7 +89,7 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
     for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][0]; ++j0) {
       index[0]          = j0;
       const auto offset = sub2ind(index, geometry.extent, 1);
-      mpi_invoke(MPI_Unpack(
+      ra_mpi_invoke(MPI_Unpack(
         buffer.in, buffer.length, &position, host.f.data() + dof * offset, dof,
         MPI_DOUBLE, MPI_COMM_WORLD));
     }
@@ -97,7 +97,7 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
     for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][1]; ++j0) {
       index[0]          = geometry.extent[0] - geometry.ghost_depth[0][1] + j0;
       const auto offset = sub2ind(index, geometry.extent, 1);
-      mpi_invoke(MPI_Unpack(
+      ra_mpi_invoke(MPI_Unpack(
         buffer.in, buffer.length, &position, host.f.data() + dof * offset, dof,
         MPI_DOUBLE, MPI_COMM_WORLD));
     }

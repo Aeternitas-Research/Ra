@@ -10,10 +10,10 @@
 
 #define RA_TEST_MAIN(argc, argv) \
   int main(int argc, char* argv[]) { \
-    mpi_invoke(MPI_Init(&argc, &argv)); \
+    ra_mpi_invoke(MPI_Init(&argc, &argv)); \
 \
     int mpi_rank{}; \
-    mpi_invoke(MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank)); \
+    ra_mpi_invoke(MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank)); \
     if (mpi_rank) { \
       std::cout.rdbuf(nullptr); \
     } \
@@ -33,7 +33,7 @@
 \
     const auto result = Catch::Session().run(argc, argv); \
 \
-    mpi_invoke(MPI_Finalize()); \
+    ra_mpi_invoke(MPI_Finalize()); \
 \
     return result; \
   }

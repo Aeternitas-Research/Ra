@@ -58,7 +58,7 @@ PMesh1D::calibrate() {
   Mesh1D mesh_local(config.local);
   ra_invoke(local.copy(mesh_local));
 
-  mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
+  ra_mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
 
   return cudaSuccess;
 }
