@@ -46,9 +46,9 @@ Mesh1D::norm_2(const OperationSpace space, double& r) {
 __host__ Error
 Mesh1D::norm_infinity(const OperationSpace space, double& r) {
   if (space == OperationSpace::Host) {
-    ra_invoke(host.op.norm_infinity(r, host.y));
+    ra_invoke(host.op.norm_infinity(r, host.f));
   } else if (space == OperationSpace::Device) {
-    ra_invoke(device.op.norm_infinity(r, device.y));
+    ra_invoke(device.op.norm_infinity(r, device.f));
   } else {
     return cudaErrorInvalidValue;
   }

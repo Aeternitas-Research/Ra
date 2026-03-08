@@ -5,9 +5,9 @@ namespace ra {
 __host__ Error
 Mesh1D::add(const OperationSpace space, const double c) {
   if (space == OperationSpace::Host) {
-    ra_invoke(host.op(host.f, c));
+    ra_invoke(host.op.add(host.f, c));
   } else if (space == OperationSpace::Device) {
-    ra_invoke(device.op(device.f, c));
+    ra_invoke(device.op.add(device.f, c));
   } else {
     return cudaErrorInvalidValue;
   }
