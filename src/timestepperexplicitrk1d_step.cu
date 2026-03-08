@@ -7,7 +7,7 @@ namespace ra {
 
 __host__ Error
 TimeStepperExplicitRK1D::step() {
-  mesh.transfer(cudaMemcpyHostToDevice, true, true);
+  ra_invoke(mesh.transfer(cudaMemcpyHostToDevice, true, true));
 
   // apply initial conditions
   auto& initial = this->config.op.initial;
