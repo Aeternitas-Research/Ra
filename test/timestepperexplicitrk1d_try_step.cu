@@ -34,6 +34,10 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   TimeStepperExplicitRK1D s1(config);
   ra_invoke(s1.calibrate());
 
+  // set boundary conditions
+  t1.config.op.boundary =
+    [=] __host__(ra::PMesh1D & f, const double, PMesh1D&) { return f.sync(); };
+
   const double velocity = +1.0;
   const double dt       = t1.config.time.initial;
   const double dx       = t1.config.space.h[0];
