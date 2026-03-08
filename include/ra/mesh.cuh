@@ -92,6 +92,9 @@ struct Mesh1D {
     cuda::strided_iterator<thrust::device_vector<double>::iterator>;
 
   struct HostStencil {
+    HostStencilIterator x0{};
+    HostStencilIterator dx0{};
+
     HostStencilIterator f0{};
     HostStencilIterator f0_l{};
     HostStencilIterator f0_r{};
@@ -107,6 +110,9 @@ struct Mesh1D {
   };
 
   struct DeviceStencil {
+    DeviceStencilIterator x0{};
+    DeviceStencilIterator dx0{};
+
     DeviceStencilIterator f0{};
     DeviceStencilIterator f0_l{};
     DeviceStencilIterator f0_r{};
@@ -161,6 +167,10 @@ struct Mesh1D {
   __host__ Error norm_1(const OperationSpace space, double& r);
   __host__ Error norm_2(const OperationSpace space, double& r);
   __host__ Error norm_infinity(const OperationSpace space, double& r);
+
+  // coordinate operations
+  __host__ __device__ Error get_host_coordinate(HostStencil& coordinate);
+  __host__ __device__ Error get_device_coordinate(HostStencil& coordinate);
 
   // stencil operations
   __host__ __device__ Error get_host_stencil(HostStencil& stencil);

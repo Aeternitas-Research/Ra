@@ -44,6 +44,8 @@ target_sources(
   mesh1d_divide.cu
   mesh1d_subtract.cu
   mesh1d_norm.cu
+  mesh1d_get_host_coordinate.cu
+  mesh1d_get_device_coordinate.cu
   mesh1d_get_host_stencil.cu
   mesh1d_get_device_stencil.cu
 )
@@ -65,6 +67,8 @@ target_sources(
   pmesh1d_divide.cu
   pmesh1d_subtract.cu
   pmesh1d_norm.cu
+  pmesh1d_get_host_coordinate.cu
+  pmesh1d_get_device_coordinate.cu
   pmesh1d_get_host_stencil.cu
   pmesh1d_get_device_stencil.cu
 )
