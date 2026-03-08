@@ -109,9 +109,9 @@ constexpr double w1_0 = 1.0;
 constexpr double w1_1 = 1.0;
 
 // weight 2
-constexpr double w2_0 = 0.55555555555555558023;
-constexpr double w2_1 = 0.88888888888888883955;
-constexpr double w2_2 = 0.55555555555555558023;
+constexpr double w2_0 = 0.55555555555555555556;
+constexpr double w2_1 = 0.88888888888888888889;
+constexpr double w2_2 = 0.55555555555555555556;
 
 // weight 3
 constexpr double w3_0 = 0.34785484513745384971;
