@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cuda/iterator>
+#include <cuda/std/functional>
+
 namespace ra::dg {
 
 // basis 0
@@ -96,6 +99,21 @@ constexpr double w3_3 = 0.34785484513745384971;
 
 namespace ra::dg::linear {
 
+__host__ __device__ double op_volume_0_0(const double& y0);
+
+__host__ __device__ double op_volume_1_0(const double& y0, const double& y1);
+
+__host__ __device__ double op_volume_1_1(const double& y0, const double& y1);
+
+__host__ __device__ double
+op_volume_2_0(const double& y0, const double& y1, const double& y2);
+
+__host__ __device__ double
+op_volume_2_1(const double& y0, const double& y1, const double& y2);
+
+__host__ __device__ double
+op_volume_2_2(const double& y0, const double& y1, const double& y2);
+
 __host__ __device__ double op_volume_3_0(
   const double& y0, const double& y1, const double& y2, const double& y3);
 
@@ -107,6 +125,29 @@ __host__ __device__ double op_volume_3_2(
 
 __host__ __device__ double op_volume_3_3(
   const double& y0, const double& y1, const double& y2, const double& y3);
+
+__host__ __device__ double
+op_surface_0_0(const double& s, const double& y0_l, const double& y0_r);
+
+__host__ __device__ double op_surface_1_0(
+  const double& s, const double& y0_l, const double& y0_r, const double& y1_l,
+  const double& y1_r);
+
+__host__ __device__ double op_surface_1_1(
+  const double& s, const double& y0_l, const double& y0_r, const double& y1_l,
+  const double& y1_r);
+
+__host__ __device__ double op_surface_2_0(
+  const double& s, const double& y0_l, const double& y0_r, const double& y1_l,
+  const double& y1_r, const double& y2_l, const double& y2_r);
+
+__host__ __device__ double op_surface_2_1(
+  const double& s, const double& y0_l, const double& y0_r, const double& y1_l,
+  const double& y1_r, const double& y2_l, const double& y2_r);
+
+__host__ __device__ double op_surface_2_2(
+  const double& s, const double& y0_l, const double& y0_r, const double& y1_l,
+  const double& y1_r, const double& y2_l, const double& y2_r);
 
 __host__ __device__ double op_surface_3_0(
   const double& s, const double& y0_l, const double& y1_l, const double& y2_l,
@@ -129,6 +170,77 @@ __host__ __device__ double op_surface_3_3(
   const double& y2_r, const double& y3_r);
 
 } // namespace ra::dg::linear
+
+/* macro: RA_DG_GET_KERNEL_1D_0 */
+#define RA_DG_GET_KERNEL_1D_0(_x, _v0, _s0) \
+  auto ra_dg_kernel_v0 = cuda::make_zip_transform_iterator((_v0), (_x).f0); \
+  auto ra_dg_kernel_s0_l = \
+    cuda::make_zip_transform_iterator((_s0), (_x).f0_l, (_x).f0); \
+  auto ra_dg_kernel_s0_r = \
+    cuda::make_zip_transform_iterator((_s0), (_x).f0, (_x).f0_r); \
+  auto ra_dg_kernel_s0 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s0_r, ra_dg_kernel_s0_l); \
+  auto ra_dg_kernel_0 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s0, ra_dg_kernel_v0); \
+/* macro: RA_DG_GET_KERNEL_1D_0 */
+
+/* macro: RA_DG_GET_KERNEL_1D_1 */
+#define RA_DG_GET_KERNEL_1D_1(_x, _v0, _s0, _v1, _s1) \
+  auto ra_dg_kernel_v0 = \
+    cuda::make_zip_transform_iterator((_v0), (_x).f0, (_x).f1); \
+  auto ra_dg_kernel_v1 = \
+    cuda::make_zip_transform_iterator((_v1), (_x).f0, (_x).f1); \
+  auto ra_dg_kernel_s0_l = cuda::make_zip_transform_iterator( \
+    (_s0), (_x).f0_l, (_x).f1_l, (_x).f0, (_x).f1); \
+  auto ra_dg_kernel_s1_l = cuda::make_zip_transform_iterator( \
+    (_s1), (_x).f0_l, (_x).f1_l, (_x).f0, (_x).f1); \
+  auto ra_dg_kernel_s0_r = cuda::make_zip_transform_iterator( \
+    (_s0), (_x).f0, (_x).f1, (_x).f0_r, (_x).f1_r); \
+  auto ra_dg_kernel_s1_r = cuda::make_zip_transform_iterator( \
+    (_s1), (_x).f0, (_x).f1, (_x).f0_r, (_x).f1_r); \
+  auto ra_dg_kernel_s0 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s0_r, ra_dg_kernel_s0_l); \
+  auto ra_dg_kernel_s1 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s1_r, ra_dg_kernel_s1_l); \
+  auto ra_dg_kernel_0 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s0, ra_dg_kernel_v0); \
+  auto ra_dg_kernel_1 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s1, ra_dg_kernel_v1); \
+/* macro: RA_DG_GET_KERNEL_1D_1 */
+
+/* macro: RA_DG_GET_KERNEL_1D_2 */
+#define RA_DG_GET_KERNEL_1D_2(_x, _v0, _s0, _v1, _s1, _v2, _s2) \
+  auto ra_dg_kernel_v0 = \
+    cuda::make_zip_transform_iterator((_v0), (_x).f0, (_x).f1, (_x).f2); \
+  auto ra_dg_kernel_v1 = \
+    cuda::make_zip_transform_iterator((_v1), (_x).f0, (_x).f1, (_x).f2); \
+  auto ra_dg_kernel_v2 = \
+    cuda::make_zip_transform_iterator((_v2), (_x).f0, (_x).f1, (_x).f2); \
+  auto ra_dg_kernel_s0_l = cuda::make_zip_transform_iterator( \
+    (_s0), (_x).f0_l, (_x).f1_l, (_x).f2_l, (_x).f0, (_x).f1, (_x).f2); \
+  auto ra_dg_kernel_s1_l = cuda::make_zip_transform_iterator( \
+    (_s1), (_x).f0_l, (_x).f1_l, (_x).f2_l, (_x).f0, (_x).f1, (_x).f2); \
+  auto ra_dg_kernel_s2_l = cuda::make_zip_transform_iterator( \
+    (_s2), (_x).f0_l, (_x).f1_l, (_x).f2_l, (_x).f0, (_x).f1, (_x).f2); \
+  auto ra_dg_kernel_s0_r = cuda::make_zip_transform_iterator( \
+    (_s0), (_x).f0, (_x).f1, (_x).f2, (_x).f0_r, (_x).f1_r, (_x).f2_r); \
+  auto ra_dg_kernel_s1_r = cuda::make_zip_transform_iterator( \
+    (_s1), (_x).f0, (_x).f1, (_x).f2, (_x).f0_r, (_x).f1_r, (_x).f2_r); \
+  auto ra_dg_kernel_s2_r = cuda::make_zip_transform_iterator( \
+    (_s2), (_x).f0, (_x).f1, (_x).f2, (_x).f0_r, (_x).f1_r, (_x).f2_r); \
+  auto ra_dg_kernel_s0 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s0_r, ra_dg_kernel_s0_l); \
+  auto ra_dg_kernel_s1 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s1_r, ra_dg_kernel_s1_l); \
+  auto ra_dg_kernel_s2 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s2_r, ra_dg_kernel_s2_l); \
+  auto ra_dg_kernel_0 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s0, ra_dg_kernel_v0); \
+  auto ra_dg_kernel_1 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s1, ra_dg_kernel_v1); \
+  auto ra_dg_kernel_2 = cuda::make_zip_transform_iterator( \
+    cuda::std::minus<double>{}, ra_dg_kernel_s2, ra_dg_kernel_v2); \
+/* macro: RA_DG_GET_KERNEL_1D_2 */
 
 /* macro: RA_DG_GET_KERNEL_1D_3 */
 #define RA_DG_GET_KERNEL_1D_3(_x, _v0, _s0, _v1, _s1, _v2, _s2, _v3, _s3) \
