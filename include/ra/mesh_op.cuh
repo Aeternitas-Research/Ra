@@ -61,7 +61,7 @@ struct MeshOp {
   __host__ Error
   add(T& y, T& x) {
     cuda::zip_transform_iterator kernel{
-      cuda::std::multiplies<Scalar>{}, y.begin(), x.begin()};
+      cuda::std::plus<Scalar>{}, y.begin(), x.begin()};
     thrust::copy(kernel, kernel + y.size(), y.begin());
 
     return cudaSuccess;
