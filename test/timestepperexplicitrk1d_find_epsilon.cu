@@ -117,25 +117,25 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
   auto op_volume_0 = [=] __device__(
                        const double& y0, const double& y1, const double& y2,
                        const double& y3) -> double {
-    return (-velocity) * (1.0 / dx) *
+    return (-velocity) * (2.0 / dx) *
            ra::dg::linear::op_volume_3_0(y0, y1, y2, y3);
   };
   auto op_volume_1 = [=] __device__(
                        const double& y0, const double& y1, const double& y2,
                        const double& y3) -> double {
-    return (-velocity) * (1.0 / dx) *
+    return (-velocity) * (2.0 / dx) *
            ra::dg::linear::op_volume_3_1(y0, y1, y2, y3);
   };
   auto op_volume_2 = [=] __device__(
                        const double& y0, const double& y1, const double& y2,
                        const double& y3) -> double {
-    return (-velocity) * (1.0 / dx) *
+    return (-velocity) * (2.0 / dx) *
            ra::dg::linear::op_volume_3_2(y0, y1, y2, y3);
   };
   auto op_volume_3 = [=] __device__(
                        const double& y0, const double& y1, const double& y2,
                        const double& y3) -> double {
-    return (-velocity) * (1.0 / dx) *
+    return (-velocity) * (2.0 / dx) *
            ra::dg::linear::op_volume_3_3(y0, y1, y2, y3);
   };
   auto op_surface_0 = [=] __device__(
@@ -143,7 +143,7 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
                         const double& y2_l, const double& y3_l,
                         const double& y0_r, const double& y1_r,
                         const double& y2_r, const double& y3_r) -> double {
-    return (-velocity) * (1.0 / dx) *
+    return (-velocity) * (2.0 / dx) *
            ra::dg::linear::op_surface_3_0(
              velocity, y0_l, y1_l, y2_l, y3_l, y0_r, y1_r, y2_r, y3_r);
   };
@@ -152,7 +152,7 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
                         const double& y2_l, const double& y3_l,
                         const double& y0_r, const double& y1_r,
                         const double& y2_r, const double& y3_r) -> double {
-    return (-velocity) * (1.0 / dx) *
+    return (-velocity) * (2.0 / dx) *
            ra::dg::linear::op_surface_3_1(
              velocity, y0_l, y1_l, y2_l, y3_l, y0_r, y1_r, y2_r, y3_r);
   };
@@ -161,7 +161,7 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
                         const double& y2_l, const double& y3_l,
                         const double& y0_r, const double& y1_r,
                         const double& y2_r, const double& y3_r) -> double {
-    return (-velocity) * (1.0 / dx) *
+    return (-velocity) * (2.0 / dx) *
            ra::dg::linear::op_surface_3_2(
              velocity, y0_l, y1_l, y2_l, y3_l, y0_r, y1_r, y2_r, y3_r);
   };
@@ -170,7 +170,7 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
                         const double& y2_l, const double& y3_l,
                         const double& y0_r, const double& y1_r,
                         const double& y2_r, const double& y3_r) -> double {
-    return (-velocity) * (1.0 / dx) *
+    return (-velocity) * (2.0 / dx) *
            ra::dg::linear::op_surface_3_3(
              velocity, y0_l, y1_l, y2_l, y3_l, y0_r, y1_r, y2_r, y3_r);
   };
