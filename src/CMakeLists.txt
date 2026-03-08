@@ -73,6 +73,7 @@ target_sources(
 target_sources(
   ra
   PRIVATE
+  dg_projection.cu
   dg_linear.cu
 )
 

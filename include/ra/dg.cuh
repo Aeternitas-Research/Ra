@@ -143,6 +143,37 @@ constexpr double w3_3 = 0.34785484513745384971;
 
 } // namespace ra::dg
 
+namespace ra::dg::projection {
+
+__host__ __device__ double op_1D_0_0(const double& f0);
+
+__host__ __device__ double op_1D_1_0(const double& f0, const double& f1);
+
+__host__ __device__ double op_1D_1_1(const double& f0, const double& f1);
+
+__host__ __device__ double
+op_1D_2_0(const double& f0, const double& f1, const double& f2);
+
+__host__ __device__ double
+op_1D_2_1(const double& f0, const double& f1, const double& f2);
+
+__host__ __device__ double
+op_1D_2_2(const double& f0, const double& f1, const double& f2);
+
+__host__ __device__ double op_1D_3_0(
+  const double& f0, const double& f1, const double& f2, const double f3);
+
+__host__ __device__ double op_1D_3_1(
+  const double& f0, const double& f1, const double& f2, const double f3);
+
+__host__ __device__ double op_1D_3_2(
+  const double& f0, const double& f1, const double& f2, const double f3);
+
+__host__ __device__ double op_1D_3_3(
+  const double& f0, const double& f1, const double& f2, const double f3);
+
+} // namespace ra::dg::projection
+
 namespace ra::dg::linear {
 
 __host__ __device__ double op_volume_0_0(const double& y0);
