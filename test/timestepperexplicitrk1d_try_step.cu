@@ -23,6 +23,17 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
             .time  = 4,
             .space = 4,
           },
+        .adaptivity =
+          {
+            .time =
+              {
+                .k1 = +0.58,
+                .k2 = -0.21,
+                .k3 = +0.1,
+                .k4 = +0.0,
+                .k5 = +0.0,
+              },
+          },
       },
     .time =
       {
