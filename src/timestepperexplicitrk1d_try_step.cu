@@ -76,12 +76,7 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
   // compute h for the next attempt
   const auto& history_e  = time.history_error;
   const auto& adaptivity = this->config.parameter.adaptivity.time;
-  double p      = static_cast<double>(this->config.parameter.order.time) + 1.0;
-  adaptivity.k1 = +0.58;
-  adaptivity.k2 = -0.21;
-  adaptivity.k3 = +0.1;
-  adaptivity.k4 = +0.0;
-  adaptivity.k5 = +0.0;
+  double p = static_cast<double>(this->config.parameter.order.time) + 1.0;
   if (n_step >= 2) {
     double h1 = history_h[n_step - 1];
     double h2 = history_h[n_step - 2];
