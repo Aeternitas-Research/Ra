@@ -26,13 +26,13 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
       },
     .time =
       {
-        .stop  = 10.0,
+        .stop  = 1.0,
         .delta = 1e-6,
       },
   };
   config.space.h[0]    = 0.1;
-  config.space.x[0][0] = -10.0;
-  config.space.x[0][1] = +10.0;
+  config.space.x[0][0] = -1.0;
+  config.space.x[0][1] = +1.0;
 
   TimeStepperExplicitRK1D t1(config);
   ra_invoke(t1.calibrate());
@@ -42,7 +42,7 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
   const double t_now    = t1.config.time.now;
 
   auto f_initial = [=] __device__(const double& x) -> double {
-    return cuda::std::sin(x - velocity * t_now);
+    return cuda::std::sin(2.0 * M_PI * (x - velocity * t_now));
   };
 
   // sample
