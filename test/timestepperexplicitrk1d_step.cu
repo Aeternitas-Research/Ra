@@ -214,6 +214,7 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
     return cudaSuccess;
   };
 
+  using Catch::Matchers::WithinAbs;
   using Catch::Matchers::WithinRel;
 
   const auto r = t1.step();
@@ -222,7 +223,7 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
   REQUIRE(t1.config.time.history_delta.size() == 210);
   REQUIRE_THAT(t1.config.time.history_delta[0], WithinRel(1e-6, 1e-14));
   REQUIRE_THAT(
-    t1.config.time.history_error[0], WithinRel(4.349667e-12, 1e-14));
+    t1.config.time.history_error[0], WithinAbs(4.349667e-12, 1e-14));
   REQUIRE_THAT(
     t1.config.time.history_delta[209], WithinRel(3.349953196453e-03, 1e-14));
   REQUIRE_THAT(
