@@ -8,8 +8,12 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
     return cudaSuccess;
   }
 
+  auto& time = this->config.time;
+  if ((time.now + time.delta + 1e-12) >= time.stop) {
+    time.delta = time.stop - time.now;
+  }
+
   // apply boundary conditions
-  auto& time     = this->config.time;
   auto& boundary = this->config.op.boundary;
   ra_invoke(boundary(mesh, time.now, buffer));
 
@@ -43,16 +47,15 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
     flag_modify_h = -1;
   } else if (epsilon < 0.5) {
     flag_modify_h = +1;
-  } else if (epsilon > 1.1) {
+  } else if (epsilon > 10.0) {
     flag_modify_h = -1;
   } else {
     flag_modify_h = 0;
   }
-
-  // good epsilon
-  if (flag_modify_h == 0) {
-    time.n_fail = 0;
-    success     = true;
+  if (flag_modify_h >= 0) {
+    time.n_fail     = 0;
+    time.delta_good = h;
+    success         = true;
 
     // update mesh
     mesh.assign(space, backup);
@@ -61,55 +64,39 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
 
       mesh.add(space, h * b, k[stage]);
     }
-
-    return cudaSuccess;
-  }
-
-  if (flag_modify_h == +1) {
-    time.n_fail = 0;
-    success     = true;
-  } else if (flag_modify_h == -1) {
+  } else {
     time.n_fail += 1;
     success = false;
+  }
+
+  if (flag_modify_h == 0) {
+    return cudaSuccess;
   }
 
   // compute h for the next attempt
   const auto& history_e  = time.history_error;
   const auto& adaptivity = this->config.parameter.adaptivity.time;
-  double order = static_cast<double>(this->config.parameter.order.time);
-  if (flag_modify_h == +1) {
-    if (n_step >= 3) {
-      double h1 = history_h[n_step - 1];
-      double h2 = history_h[n_step - 2];
-      double h3 = history_h[n_step - 3];
-      double e1 = history_e[n_step - 1];
-      double e2 = history_e[n_step - 2];
-      double e3 = history_e[n_step - 3];
-      h = h1 * std::pow(e1, -adaptivity.k1 / order) *
-          std::pow(e2, -adaptivity.k2 / order) *
-          std::pow(e3, -adaptivity.k3 / order) *
-          std::pow(h1 / h2, adaptivity.k4) * std::pow(h2 / h3, adaptivity.k5);
-    } else if (n_step == 2) {
-      double h1 = history_h[n_step - 1];
-      double h2 = history_h[n_step - 2];
-      double e1 = history_e[n_step - 1];
-      double e2 = history_e[n_step - 2];
-      h         = h1 * std::pow(e1, -adaptivity.k1 / order) *
-                  std::pow(e2, -adaptivity.k2 / order) *
-                  std::pow(h1 / h2, adaptivity.k4);
-    } else if (n_step == 1) {
-      double h1 = history_h[n_step - 1];
-      double e1 = history_e[n_step - 1];
-      h         = h1 * std::pow(e1, -adaptivity.k1 / order);
-    } else if (n_step == 0) {
-      h *= 1.2;
-    } else {
-      cuda::std::terminate();
-    }
-  } else if (flag_modify_h == -1) {
-    h *= 0.8;
+  double p      = static_cast<double>(this->config.parameter.order.time) + 1.0;
+  adaptivity.k1 = +0.58;
+  adaptivity.k2 = -0.21;
+  adaptivity.k3 = +0.1;
+  adaptivity.k4 = +0.0;
+  adaptivity.k5 = +0.0;
+  if (n_step >= 2) {
+    double h1 = history_h[n_step - 1];
+    double h2 = history_h[n_step - 2];
+    double e1 = history_e[n_step - 1];
+    double e2 = history_e[n_step - 2];
+    h *= std::pow(epsilon, -adaptivity.k1 / p) *
+         std::pow(e1, -adaptivity.k2 / p) * std::pow(e2, -adaptivity.k3 / p) *
+         std::pow(h / h1, adaptivity.k4) * std::pow(h1 / h2, adaptivity.k5);
+  } else if (n_step >= 1) {
+    double h1 = history_h[n_step - 1];
+    double e1 = history_e[n_step - 1];
+    h *= std::pow(epsilon, -adaptivity.k1 / p) *
+         std::pow(e1, -adaptivity.k2 / p) * std::pow(h / h1, adaptivity.k4);
   } else {
-    cuda::std::terminate();
+    h *= std::pow(epsilon, adaptivity.k1 / p);
   }
 
   time.delta = h;

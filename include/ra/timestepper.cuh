@@ -56,12 +56,13 @@ struct TimeStepperConfig {
     } adaptivity{};
   } parameter{};
   struct {
-    double now       = 0.0;
-    double initial   = 0.0;
-    double stop      = 0.0;
-    double delta     = 0.0;
-    double delta_min = 0.0;
-    double delta_max = 0.0;
+    double now        = 0.0;
+    double initial    = 0.0;
+    double stop       = 0.0;
+    double delta      = 0.0;
+    double delta_min  = 0.0;
+    double delta_max  = 0.0;
+    double delta_good = 0.0;
     thrust::host_vector<double> history_delta{};
     thrust::host_vector<double> history_error{};
     int n_fail = 0;

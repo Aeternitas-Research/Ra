@@ -31,9 +31,9 @@ TimeStepperExplicitRK1D::step() {
       ra_invoke(try_step(success, epsilon));
     }
 
-    time.history_delta.push_back(time.delta);
+    time.history_delta.push_back(time.delta_good);
     time.history_error.push_back(epsilon);
-    time.now += time.delta;
+    time.now += time.delta_good;
 
     if ((time.now + 1e-12) >= time.stop) {
       stop = true;
