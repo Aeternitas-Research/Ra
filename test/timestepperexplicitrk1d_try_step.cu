@@ -226,11 +226,16 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   bool success   = false;
   double epsilon = 0.0;
 
+  using Catch::Matchers::WithinRel;
+
   // step 1
   t1.config.time.delta = 1e+100;
   auto r               = t1.try_step(success, epsilon);
   REQUIRE(r == cudaSuccess);
   REQUIRE(success == false);
+  REQUIRE(t1.config.time.n_fail == 1);
+  REQUIRE_THAT(epsilon, WithinRel(3.799235784098e+17, 1e-14));
+  REQUIRE_THAT(t1.config.time.delta, WithinRel(1.094573084519e+02, 1e-14));
 
   // step 1 again
   ra_invoke(t1.reset_mesh());
@@ -238,4 +243,7 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   r                    = t1.try_step(success, epsilon);
   REQUIRE(r == cudaSuccess);
   REQUIRE(success == true);
+  REQUIRE(t1.config.time.n_fail == 0);
+  REQUIRE_THAT(epsilon, WithinRel(4.349667458531e-12, 1e-14));
+  REQUIRE_THAT(t1.config.time.delta, WithinRel(4.809067827408e-08, 1e-14));
 }
