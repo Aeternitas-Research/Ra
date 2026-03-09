@@ -235,6 +235,10 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
   }
 
   double epsilon = 0.0;
-  const auto r   = t1.find_epsilon(epsilon);
+
+  using Catch::Matchers::WithinRel;
+
+  const auto r = t1.find_epsilon(epsilon);
   REQUIRE(r == cudaSuccess);
+  REQUIRE_THAT(epsilon, WithinRel(4.349667458531e-12, 1e-14));
 }
