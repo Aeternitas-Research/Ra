@@ -14,9 +14,9 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
   }
 #endif
 
-  auto& buffer           = config.buffer;
-  auto& geometry         = config.geometry;
-  const auto dof         = geometry.dof;
+  auto& buffer = config.buffer;
+  auto& geometry = config.geometry;
+  const auto dof = geometry.dof;
   const auto i_direction = static_cast<int>(direction);
 
   for (int d = 0; d < 1; ++d) {
@@ -41,7 +41,7 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
       delete[] buffer.out;
     }
 
-    buffer.in  = new char[length * sizeof(double)];
+    buffer.in = new char[length * sizeof(double)];
     buffer.out = new char[length * sizeof(double)];
   }
 
@@ -62,7 +62,7 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
     }
   } else if (direction == Direction::Downwind) {
     for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][1]; ++j0) {
-      index[0]          = geometry.ghost_depth[0][0] + j0;
+      index[0] = geometry.ghost_depth[0][0] + j0;
       const auto offset = sub2ind(index, geometry.extent, 1);
       ra_mpi_invoke(MPI_Pack(
         host.f.data() + dof * offset, dof, MPI_DOUBLE, buffer.out,
@@ -87,7 +87,7 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
   position = 0;
   if (direction == Direction::Upwind) {
     for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][0]; ++j0) {
-      index[0]          = j0;
+      index[0] = j0;
       const auto offset = sub2ind(index, geometry.extent, 1);
       ra_mpi_invoke(MPI_Unpack(
         buffer.in, buffer.length, &position, host.f.data() + dof * offset, dof,
@@ -95,7 +95,7 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
     }
   } else if (direction == Direction::Downwind) {
     for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][1]; ++j0) {
-      index[0]          = geometry.extent[0] - geometry.ghost_depth[0][1] + j0;
+      index[0] = geometry.extent[0] - geometry.ghost_depth[0][1] + j0;
       const auto offset = sub2ind(index, geometry.extent, 1);
       ra_mpi_invoke(MPI_Unpack(
         buffer.in, buffer.length, &position, host.f.data() + dof * offset, dof,

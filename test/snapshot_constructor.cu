@@ -15,8 +15,8 @@ TEST_CASE("Snapshot::Snapshot", "[snapshot]") {
     .time =
       {
         .start = 0.0,
-        .stop  = 1.0,
-        .now   = 0.5,
+        .stop = 1.0,
+        .now = 0.5,
         .delta = 0.1,
       },
   };

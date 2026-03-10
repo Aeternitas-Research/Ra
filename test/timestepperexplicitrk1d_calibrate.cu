@@ -15,7 +15,7 @@ TEST_CASE("TimeStepperExplicitRK1D::calibrate", "[timestepper]") {
       {
         .order =
           {
-            .time  = 4,
+            .time = 4,
             .space = 4,
           },
       },
@@ -24,7 +24,7 @@ TEST_CASE("TimeStepperExplicitRK1D::calibrate", "[timestepper]") {
         .stop = 10.0,
       },
   };
-  config.space.h[0]    = 0.1;
+  config.space.h[0] = 0.1;
   config.space.x[0][0] = -10.0;
   config.space.x[0][1] = +10.0;
 

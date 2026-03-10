@@ -19,7 +19,7 @@ TEST_CASE(
         .stop = 10.0,
       },
   };
-  config.space.h[0]    = 0.1;
+  config.space.h[0] = 0.1;
   config.space.x[0][0] = -10.0;
   config.space.x[0][1] = +10.0;
 

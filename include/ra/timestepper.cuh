@@ -17,7 +17,7 @@ struct TimeStepperConfig {
   TimeStepperType type{};
   struct {
     struct {
-      int time  = 1;
+      int time = 1;
       int space = 1;
     } order{};
     struct {
@@ -56,19 +56,19 @@ struct TimeStepperConfig {
     } adaptivity{};
   } parameter{};
   struct {
-    double now        = 0.0;
-    double initial    = 0.0;
-    double stop       = 0.0;
-    double delta      = 0.0;
-    double delta_min  = 0.0;
-    double delta_max  = 0.0;
+    double now = 0.0;
+    double initial = 0.0;
+    double stop = 0.0;
+    double delta = 0.0;
+    double delta_min = 0.0;
+    double delta_max = 0.0;
     double delta_good = 0.0;
     thrust::host_vector<double> history_delta{};
     thrust::host_vector<double> history_error{};
     int n_fail = 0;
   } time{};
   struct {
-    double h[6]    = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
+    double h[6] = {0.0, 0.0, 0.0, 0.0, 0.0, 0.0};
     double x[6][2] = {
       {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0},
     };
@@ -83,18 +83,18 @@ struct TimeStepperConfig {
 struct TimeStepper {
   __host__ ~TimeStepper();
   __host__ TimeStepper();
-  TimeStepper(const TimeStepper&)     = delete;
+  TimeStepper(const TimeStepper&) = delete;
   TimeStepper(TimeStepper&&) noexcept = delete;
   __host__ TimeStepper(const TimeStepperConfig& config);
-  TimeStepper& operator=(const TimeStepper&)     = delete;
+  TimeStepper& operator=(const TimeStepper&) = delete;
   TimeStepper& operator=(TimeStepper&&) noexcept = delete;
 
   __host__ virtual Error calibrate() = 0;
-  __host__ virtual Error step()      = 0;
+  __host__ virtual Error step() = 0;
 
-  __host__ virtual Error find_epsilon(double& epsilon)            = 0;
+  __host__ virtual Error find_epsilon(double& epsilon) = 0;
   __host__ virtual Error try_step(bool& success, double& epsilon) = 0;
-  __host__ virtual Error reset_mesh()                             = 0;
+  __host__ virtual Error reset_mesh() = 0;
 
   TimeStepperConfig config{};
 };

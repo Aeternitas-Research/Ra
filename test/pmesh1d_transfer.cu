@@ -13,13 +13,13 @@ TEST_CASE("PMesh1D::transfer", "[pmesh]") {
     .name = "test.PMesh1D",
     .file =
       {
-        .handle    = "test",
+        .handle = "test",
         .directory = "./",
       },
     .geometry =
       {
-        .dof         = 3,
-        .extent      = {1'000'000, 0, 0, 0, 0, 0},
+        .dof = 3,
+        .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{5, 7}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
   };

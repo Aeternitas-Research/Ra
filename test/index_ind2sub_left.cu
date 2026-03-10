@@ -19,7 +19,7 @@ test_ind2sub_left_host(
   }
   thrust::fill(output.begin(), output.end(), 0);
   for (int index = 0; index < N; ++index) {
-    const auto offset     = 6 * index;
+    const auto offset = 6 * index;
     const int input_value = input[index];
     ra::ind2sub_left(
       output.data() + offset, input_value, extent.data(), dimension);

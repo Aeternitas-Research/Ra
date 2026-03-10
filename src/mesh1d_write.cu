@@ -38,7 +38,7 @@ Mesh1D::write(const int mpi_rank) {
   ra_netcdf_invoke(nc_put_var(file, variable.time, &(info.time)));
 
   auto& dimension = config.netcdf.id.dimension;
-  auto& geometry  = config.geometry;
+  auto& geometry = config.geometry;
   ra_netcdf_invoke(
     nc_def_dim(file, "extent.0", geometry.extent[0], &(dimension.extent[0])));
 

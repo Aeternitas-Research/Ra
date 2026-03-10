@@ -13,7 +13,7 @@ TEST_CASE("PMesh1D::PMesh1D", "[pmesh]") {
     .name = "test.PMesh1D",
     .file =
       {
-        .handle    = "test",
+        .handle = "test",
         .directory = "./",
       },
   };

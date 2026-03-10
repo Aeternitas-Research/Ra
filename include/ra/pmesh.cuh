@@ -24,7 +24,7 @@ struct PMeshConfig {
       {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0}, {0, 0, 0, 0, 0, 0},
     };
     struct {
-      int self                        = 0;
+      int self = 0;
       int neighbor[2 * DIMENSION_MAX] = {
         0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       };
@@ -38,12 +38,12 @@ struct PMeshConfig {
 struct PMesh1D {
   __host__ ~PMesh1D();
   __host__ PMesh1D();
-  PMesh1D(const PMesh1D&)     = delete;
+  PMesh1D(const PMesh1D&) = delete;
   PMesh1D(PMesh1D&&) noexcept = delete;
   __host__ PMesh1D(
     const int mpi_rank, const int* mpi_extent,
     const MeshConfig& config_global);
-  PMesh1D& operator=(const PMesh1D&)     = delete;
+  PMesh1D& operator=(const PMesh1D&) = delete;
   PMesh1D& operator=(PMesh1D&&) noexcept = delete;
 
   __host__ Error copy(const PMesh1D& other);

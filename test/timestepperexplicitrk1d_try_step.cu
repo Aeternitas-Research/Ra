@@ -20,7 +20,7 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
       {
         .order =
           {
-            .time  = 4,
+            .time = 4,
             .space = 4,
           },
         .adaptivity =
@@ -37,11 +37,11 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
       },
     .time =
       {
-        .stop  = 1.0,
+        .stop = 1.0,
         .delta = 1e-6,
       },
   };
-  config.space.h[0]    = 0.1;
+  config.space.h[0] = 0.1;
   config.space.x[0][0] = -1.0;
   config.space.x[0][1] = +1.0;
 
@@ -49,8 +49,8 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   ra_invoke(t1.calibrate());
 
   const double velocity = 1.0;
-  const double dx       = t1.config.space.h[0];
-  const double t_now    = t1.config.time.now;
+  const double dx = t1.config.space.h[0];
+  const double t_now = t1.config.time.now;
 
   auto f_initial = [=] __device__(const double& x) -> double {
     return cuda::std::sin(2.0 * M_PI * (x - velocity * t_now));
@@ -82,7 +82,7 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   RA_DG_GET_PROJECTION_1D_3();
 
   // set initial condition
-  using DeviceStencil  = ra::Mesh1D::DeviceStencil;
+  using DeviceStencil = ra::Mesh1D::DeviceStencil;
   t1.config.op.initial = [=](ra::PMesh1D& f, ra::PMesh1D& buffer) {
     const auto& geometry = f.local.config.geometry;
     const auto n = geometry.extent[0] -
@@ -223,7 +223,7 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   // keep initial mesh
   ra_invoke(t1.backup.copy(t1.mesh));
 
-  bool success   = false;
+  bool success = false;
   double epsilon = 0.0;
 
   using Catch::Matchers::WithinAbs;
@@ -231,7 +231,7 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
 
   // step 1
   t1.config.time.delta = 1e+100;
-  auto r               = t1.try_step(success, epsilon);
+  auto r = t1.try_step(success, epsilon);
   REQUIRE(r == cudaSuccess);
   REQUIRE(success == false);
   REQUIRE(t1.config.time.n_fail == 1);
@@ -242,7 +242,7 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   // step 1 again
   ra_invoke(t1.reset_mesh());
   t1.config.time.delta = 1e-6;
-  r                    = t1.try_step(success, epsilon);
+  r = t1.try_step(success, epsilon);
   REQUIRE(r == cudaSuccess);
   REQUIRE(success == true);
   REQUIRE(t1.config.time.n_fail == 0);

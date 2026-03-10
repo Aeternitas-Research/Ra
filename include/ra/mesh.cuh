@@ -14,13 +14,13 @@ namespace ra {
 inline constexpr int DIMENSION_MAX = 6;
 
 enum struct Direction : int {
-  Upwind   = 0,
+  Upwind = 0,
   Downwind = 1,
 };
 
 enum struct OperationSpace : int {
-  Host       = 0,
-  Device     = 1,
+  Host = 0,
+  Device = 1,
   HostDevice = 2,
 };
 
@@ -28,17 +28,18 @@ struct MeshConfig {
   std::string name{};
   struct {
     MPI_Comm mpi_communicator = MPI_COMM_WORLD;
-    int mpi_rank              = 0;
-    std::size_t step          = 0;
-    double time               = 0.0;
+    int mpi_rank = 0;
+    std::size_t step = 0;
+    double time = 0.0;
   } info{};
   struct {
     std::string name{};
-    std::string handle    = "mesh";
+    std::string handle = "mesh";
     std::string directory = "./";
   } file{};
   struct {
-    std::size_t dof                   = 1;
+    ElementType type = ElementType::Unknown;
+    std::size_t dof = 1;
     std::size_t extent[DIMENSION_MAX] = {
       0, 0, 0, 0, 0, 0,
     };
@@ -51,8 +52,8 @@ struct MeshConfig {
       0, 0, 0, 0, 0, 0,
     };
     std::size_t length = 0;
-    char* in           = nullptr;
-    char* out          = nullptr;
+    char* in = nullptr;
+    char* out = nullptr;
   } buffer{};
   MPI_Win window[DIMENSION_MAX][2] = {
     {nullptr, nullptr}, {nullptr, nullptr}, {nullptr, nullptr},
@@ -70,10 +71,10 @@ struct MeshConfig {
       } dimension{};
       struct {
         int mpi_rank = 0;
-        int step     = 0;
-        int time     = 0;
-        int x        = 0;
-        int f        = 0;
+        int step = 0;
+        int time = 0;
+        int x = 0;
+        int f = 0;
       } variable{};
     } id{};
     struct {
@@ -129,10 +130,10 @@ struct Mesh1D {
 
   __host__ ~Mesh1D();
   __host__ Mesh1D();
-  Mesh1D(const Mesh1D&)     = delete;
+  Mesh1D(const Mesh1D&) = delete;
   Mesh1D(Mesh1D&&) noexcept = delete;
   __host__ explicit Mesh1D(const MeshConfig& config);
-  Mesh1D& operator=(const Mesh1D&)     = delete;
+  Mesh1D& operator=(const Mesh1D&) = delete;
   Mesh1D& operator=(Mesh1D&&) noexcept = delete;
 
   __host__ Error copy(const Mesh1D& other);

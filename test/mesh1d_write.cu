@@ -12,13 +12,13 @@ TEST_CASE("Mesh1D::write", "[mesh]") {
     .name = "test.Mesh1D",
     .file =
       {
-        .handle    = "write",
+        .handle = "write",
         .directory = "./output-test/",
       },
     .geometry =
       {
-        .dof         = 2,
-        .extent      = {1'000'000, 0, 0, 0, 0, 0},
+        .dof = 2,
+        .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
   };

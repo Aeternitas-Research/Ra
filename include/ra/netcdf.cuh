@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef RA_DEBUG
-#define ra_netcdf_invoke(_expr) \
+#define ra_netcdf_invoke(_expr)                                               \
   ra::netcdf_invoke_impl((_expr), __FILE__, __LINE__)
 #else
 #define ra_netcdf_invoke(_expr) (_expr)

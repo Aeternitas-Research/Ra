@@ -13,13 +13,13 @@ TEST_CASE("Mesh1D::Mesh1D", "[mesh]") {
     .name = "test.Mesh1D",
     .file =
       {
-        .handle    = "test",
+        .handle = "test",
         .directory = "./",
       },
     .geometry =
       {
-        .dof         = 3,
-        .extent      = {1'000'000, 0, 0, 0, 0, 0},
+        .dof = 3,
+        .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
   };

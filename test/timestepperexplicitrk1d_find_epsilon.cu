@@ -20,17 +20,17 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
       {
         .order =
           {
-            .time  = 4,
+            .time = 4,
             .space = 4,
           },
       },
     .time =
       {
-        .stop  = 1.0,
+        .stop = 1.0,
         .delta = 1e-6,
       },
   };
-  config.space.h[0]    = 0.1;
+  config.space.h[0] = 0.1;
   config.space.x[0][0] = -1.0;
   config.space.x[0][1] = +1.0;
 
@@ -38,8 +38,8 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
   ra_invoke(t1.calibrate());
 
   const double velocity = 1.0;
-  const double dx       = t1.config.space.h[0];
-  const double t_now    = t1.config.time.now;
+  const double dx = t1.config.space.h[0];
+  const double t_now = t1.config.time.now;
 
   auto f_initial = [=] __device__(const double& x) -> double {
     return cuda::std::sin(2.0 * M_PI * (x - velocity * t_now));
@@ -71,7 +71,7 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
   RA_DG_GET_PROJECTION_1D_3();
 
   // set initial condition
-  using DeviceStencil  = ra::Mesh1D::DeviceStencil;
+  using DeviceStencil = ra::Mesh1D::DeviceStencil;
   t1.config.op.initial = [=](ra::PMesh1D& f, ra::PMesh1D& buffer) {
     const auto& geometry = f.local.config.geometry;
     const auto n = geometry.extent[0] -
@@ -216,15 +216,15 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
   ra_invoke(t1.config.op.boundary(t1.mesh, t1.config.time.now, t1.buffer));
 
   // compute k
-  auto& rhs        = t1.config.op.rhs;
-  auto& time       = t1.config.time;
-  auto& rk         = t1.config.parameter.table.rk_explicit;
+  auto& rhs = t1.config.op.rhs;
+  auto& time = t1.config.time;
+  auto& rk = t1.config.parameter.table.rk_explicit;
   const auto space = ra::OperationSpace::Device;
-  double h         = time.delta;
+  double h = time.delta;
   ra_invoke(rhs(t1.k[0], time.now, t1.mesh));
   for (int stage = 1; stage < rk.stage; ++stage) {
     const double* a = rk.a[stage];
-    const double c  = rk.c[stage];
+    const double c = rk.c[stage];
 
     t1.buffer.assign(space, t1.backup);
     for (int index = 0; index < stage; ++index) {

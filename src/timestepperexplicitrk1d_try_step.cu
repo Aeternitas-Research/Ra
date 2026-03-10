@@ -17,16 +17,16 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
   auto& boundary = this->config.op.boundary;
   ra_invoke(boundary(mesh, time.now, buffer));
 
-  auto& rhs        = this->config.op.rhs;
-  auto& rk         = this->config.parameter.table.rk_explicit;
-  double h         = time.delta;
+  auto& rhs = this->config.op.rhs;
+  auto& rk = this->config.parameter.table.rk_explicit;
+  double h = time.delta;
   const auto space = OperationSpace::Device;
 
   // compute k
   ra_invoke(rhs(k[0], time.now, mesh));
   for (int stage = 1; stage < rk.stage; ++stage) {
     const double* a = rk.a[stage];
-    const double c  = rk.c[stage];
+    const double c = rk.c[stage];
 
     buffer.assign(space, backup);
     for (int index = 0; index < stage; ++index) {
@@ -41,8 +41,8 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
 
   // check epsilon
   const auto& history_h = time.history_delta;
-  const auto n_step     = history_h.size();
-  int flag_modify_h     = 0;
+  const auto n_step = history_h.size();
+  int flag_modify_h = 0;
   if (cuda::std::isnan(epsilon)) {
     flag_modify_h = -1;
   } else if (epsilon < 0.5) {
@@ -53,9 +53,9 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
     flag_modify_h = 0;
   }
   if (flag_modify_h >= 0) {
-    time.n_fail     = 0;
+    time.n_fail = 0;
     time.delta_good = h;
-    success         = true;
+    success = true;
 
     // update mesh
     mesh.assign(space, backup);
@@ -74,7 +74,7 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
   }
 
   // compute h for the next attempt
-  const auto& history_e  = time.history_error;
+  const auto& history_e = time.history_error;
   const auto& adaptivity = this->config.parameter.adaptivity.time;
   double p = static_cast<double>(this->config.parameter.order.time) + 1.0;
   if (n_step >= 2) {

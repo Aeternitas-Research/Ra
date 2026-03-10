@@ -19,7 +19,7 @@ block_reduce(const T* data, T* result, std::size_t n) {
   __shared__ typename BlockReduce::TempStorage storage;
 
   int index = threadIdx.x + blockIdx.x * blockDim.x;
-  T sum     = 0;
+  T sum = 0;
   if (index < n) {
     sum += data[index];
   }

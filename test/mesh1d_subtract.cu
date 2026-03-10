@@ -13,8 +13,8 @@ TEST_CASE("Mesh1D::subtract 1", "[mesh]") {
     .name = "test.Mesh1D",
     .geometry =
       {
-        .dof         = 2,
-        .extent      = {1'000'000, 0, 0, 0, 0, 0},
+        .dof = 2,
+        .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
   };
@@ -56,8 +56,8 @@ TEST_CASE("Mesh1D::subtract 2", "[mesh]") {
     .name = "test.Mesh1D",
     .geometry =
       {
-        .dof         = 2,
-        .extent      = {1'000'000, 0, 0, 0, 0, 0},
+        .dof = 2,
+        .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
   };
@@ -109,8 +109,8 @@ TEST_CASE("Mesh1D::subtract 3", "[mesh]") {
     .name = "test.Mesh1D",
     .geometry =
       {
-        .dof         = 2,
-        .extent      = {1'000'000, 0, 0, 0, 0, 0},
+        .dof = 2,
+        .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
   };
@@ -162,8 +162,8 @@ TEST_CASE("Mesh1D::subtract 4", "[mesh]") {
     .name = "test.Mesh1D",
     .geometry =
       {
-        .dof         = 2,
-        .extent      = {1'000'000, 0, 0, 0, 0, 0},
+        .dof = 2,
+        .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
   };
