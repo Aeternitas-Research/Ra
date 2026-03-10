@@ -6,7 +6,7 @@
 RA_TEST_MAIN(argc, argv);
 
 template <typename T, int block_size_x>
-__host__ void
+void
 benchmark_block_reduce(const size_t n) {
   const int n_block = cuda::ceil_div(n, block_size_x);
 

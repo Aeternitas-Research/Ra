@@ -5,7 +5,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 PMesh1D::transfer(const cudaMemcpyKind kind, const bool x, const bool f) {
   ra_invoke(local.transfer(kind, x, f));
 

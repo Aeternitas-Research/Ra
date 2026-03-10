@@ -6,7 +6,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 PMesh1D::norm(const OperationSpace space, double& r, const std::string type) {
   ra_invoke(local.norm(space, r, type));
 

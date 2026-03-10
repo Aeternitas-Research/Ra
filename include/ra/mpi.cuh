@@ -25,7 +25,6 @@
 
 namespace ra {
 
-__host__ int
-mpi_invoke_impl(const int result, const char* file, const int line);
+int mpi_invoke_impl(const int result, const char* file, const int line);
 
 } // namespace ra

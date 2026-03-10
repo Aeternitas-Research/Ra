@@ -8,7 +8,7 @@ RA_TEST_MAIN(argc, argv);
 
 constexpr int N = 262144;
 
-__host__ void
+void
 test_sub2ind_left_host(
   thrust::host_vector<int>& output, thrust::host_vector<int>& input,
   thrust::host_vector<int>& extent, const int dimension) {
@@ -71,7 +71,7 @@ invoke_sub2ind_left_device(
   }
 }
 
-__host__ void
+void
 test_sub2ind_left_device(
   thrust::device_vector<int>& output, thrust::device_vector<int>& input,
   thrust::device_vector<int>& extent, const int dimension,

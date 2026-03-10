@@ -2,13 +2,10 @@
 
 namespace ra {
 
-__host__ Snapshot::~Snapshot() {}
+Snapshot::~Snapshot() {}
 
-__host__
 Snapshot::Snapshot() {}
 
-__host__
-Snapshot::Snapshot(SnapshotConfig& config)
-    : config(&config) {}
+Snapshot::Snapshot(SnapshotConfig& config) : config(&config) {}
 
 } // namespace ra

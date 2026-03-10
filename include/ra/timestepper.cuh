@@ -81,35 +81,35 @@ struct TimeStepperConfig {
 };
 
 struct TimeStepper {
-  __host__ ~TimeStepper();
-  __host__ TimeStepper();
+  ~TimeStepper();
+  TimeStepper();
   TimeStepper(const TimeStepper&) = delete;
   TimeStepper(TimeStepper&&) noexcept = delete;
-  __host__ TimeStepper(const TimeStepperConfig& config);
+  TimeStepper(const TimeStepperConfig& config);
   TimeStepper& operator=(const TimeStepper&) = delete;
   TimeStepper& operator=(TimeStepper&&) noexcept = delete;
 
-  __host__ virtual Error calibrate() = 0;
-  __host__ virtual Error step() = 0;
+  virtual Error calibrate() = 0;
+  virtual Error step() = 0;
 
-  __host__ virtual Error find_epsilon(double& epsilon) = 0;
-  __host__ virtual Error try_step(bool& success, double& epsilon) = 0;
-  __host__ virtual Error reset_mesh() = 0;
+  virtual Error find_epsilon(double& epsilon) = 0;
+  virtual Error try_step(bool& success, double& epsilon) = 0;
+  virtual Error reset_mesh() = 0;
 
   TimeStepperConfig config{};
 };
 
 struct TimeStepperExplicitRK1D : TimeStepper {
-  __host__ ~TimeStepperExplicitRK1D();
-  __host__ TimeStepperExplicitRK1D();
-  __host__ TimeStepperExplicitRK1D(const TimeStepperConfig& config);
+  ~TimeStepperExplicitRK1D();
+  TimeStepperExplicitRK1D();
+  TimeStepperExplicitRK1D(const TimeStepperConfig& config);
 
-  __host__ Error calibrate() override;
-  __host__ Error step() override;
+  Error calibrate() override;
+  Error step() override;
 
-  __host__ Error find_epsilon(double& epsilon) override;
-  __host__ Error try_step(bool& success, double& epsilon) override;
-  __host__ Error reset_mesh() override;
+  Error find_epsilon(double& epsilon) override;
+  Error try_step(bool& success, double& epsilon) override;
+  Error reset_mesh() override;
 
   PMesh1D mesh{};
   PMesh1D backup{};

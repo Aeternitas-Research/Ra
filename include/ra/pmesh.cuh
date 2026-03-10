@@ -36,45 +36,39 @@ struct PMeshConfig {
 };
 
 struct PMesh1D {
-  __host__ ~PMesh1D();
-  __host__ PMesh1D();
+  ~PMesh1D();
+  PMesh1D();
   PMesh1D(const PMesh1D&) = delete;
   PMesh1D(PMesh1D&&) noexcept = delete;
-  __host__ PMesh1D(
+  PMesh1D(
     const int mpi_rank, const int* mpi_extent,
     const MeshConfig& config_global);
   PMesh1D& operator=(const PMesh1D&) = delete;
   PMesh1D& operator=(PMesh1D&&) noexcept = delete;
 
-  __host__ Error copy(const PMesh1D& other);
-  __host__ Error calibrate();
-  __host__ Error
-  transfer(const cudaMemcpyKind kind, const bool x, const bool f);
-  __host__ Error sync();
-  __host__ Error write();
-  __host__ Error read();
+  Error copy(const PMesh1D& other);
+  Error calibrate();
+  Error transfer(const cudaMemcpyKind kind, const bool x, const bool f);
+  Error sync();
+  Error write();
+  Error read();
 
   // arithmetic operations
-  __host__ Error assign(const OperationSpace space, const double c);
-  __host__ Error assign(const OperationSpace space, PMesh1D& mesh_x);
-  __host__ Error multiply(const OperationSpace space, const double c);
-  __host__ Error multiply(const OperationSpace space, PMesh1D& mesh_x);
-  __host__ Error add(const OperationSpace space, const double c);
-  __host__ Error add(const OperationSpace space, PMesh1D& mesh_x);
-  __host__ Error
-  add(const OperationSpace space, const double c, PMesh1D& mesh_x);
-  __host__ Error
-  add(const OperationSpace space, PMesh1D& mesh_c, PMesh1D& mesh_x);
-  __host__ Error divide(const OperationSpace space, const double c);
-  __host__ Error divide(const OperationSpace space, PMesh1D& mesh_x);
-  __host__ Error subtract(const OperationSpace space, const double c);
-  __host__ Error subtract(const OperationSpace space, PMesh1D& mesh_x);
-  __host__ Error
-  subtract(const OperationSpace space, const double c, PMesh1D& mesh_x);
-  __host__ Error
-  subtract(const OperationSpace space, PMesh1D& mesh_c, PMesh1D& mesh_x);
-  __host__ Error
-  norm(const OperationSpace space, double& r, const std::string type);
+  Error assign(const OperationSpace space, const double c);
+  Error assign(const OperationSpace space, PMesh1D& mesh_x);
+  Error multiply(const OperationSpace space, const double c);
+  Error multiply(const OperationSpace space, PMesh1D& mesh_x);
+  Error add(const OperationSpace space, const double c);
+  Error add(const OperationSpace space, PMesh1D& mesh_x);
+  Error add(const OperationSpace space, const double c, PMesh1D& mesh_x);
+  Error add(const OperationSpace space, PMesh1D& mesh_c, PMesh1D& mesh_x);
+  Error divide(const OperationSpace space, const double c);
+  Error divide(const OperationSpace space, PMesh1D& mesh_x);
+  Error subtract(const OperationSpace space, const double c);
+  Error subtract(const OperationSpace space, PMesh1D& mesh_x);
+  Error subtract(const OperationSpace space, const double c, PMesh1D& mesh_x);
+  Error subtract(const OperationSpace space, PMesh1D& mesh_c, PMesh1D& mesh_x);
+  Error norm(const OperationSpace space, double& r, const std::string type);
 
   // coordinate operations
   __host__ __device__ Error

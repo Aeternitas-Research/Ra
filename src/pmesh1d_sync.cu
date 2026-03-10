@@ -5,7 +5,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 PMesh1D::sync() {
   auto rank = config.topology.rank;
   for (int d = 0; d < 1; ++d) {

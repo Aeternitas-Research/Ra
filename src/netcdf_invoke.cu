@@ -5,7 +5,7 @@
 
 namespace ra {
 
-__host__ int
+int
 netcdf_invoke_impl(const int result, const char* file, const int line) {
   if (result != NC_NOERR) {
     std::cerr << "NetCDF error " << result << " in " << file << ":" << line

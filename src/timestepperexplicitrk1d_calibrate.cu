@@ -8,7 +8,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 TimeStepperExplicitRK1D::calibrate() {
   MeshConfig mesh_config = mesh.config.global;
   mesh_config.name = this->config.name;

@@ -2,7 +2,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 Snapshot::copy(const Snapshot& other) {
   config = other.config;
 

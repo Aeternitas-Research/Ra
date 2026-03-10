@@ -4,7 +4,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 Snapshot::calibrate() {
   auto ptr_config = config.get();
 

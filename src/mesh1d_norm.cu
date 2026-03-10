@@ -2,7 +2,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 Mesh1D::norm(const OperationSpace space, double& r, const std::string type) {
   if ((type == "1") || (type == "l1") || (type == "l^1")) {
     return norm_1(space, r);
@@ -17,7 +17,7 @@ Mesh1D::norm(const OperationSpace space, double& r, const std::string type) {
   return cudaSuccess;
 }
 
-__host__ Error
+Error
 Mesh1D::norm_1(const OperationSpace space, double& r) {
   if (space == OperationSpace::Host) {
     ra_invoke(host.op.norm_1(r, host.f));
@@ -30,7 +30,7 @@ Mesh1D::norm_1(const OperationSpace space, double& r) {
   return cudaSuccess;
 }
 
-__host__ Error
+Error
 Mesh1D::norm_2(const OperationSpace space, double& r) {
   if (space == OperationSpace::Host) {
     ra_invoke(host.op.norm_2(r, host.f));
@@ -43,7 +43,7 @@ Mesh1D::norm_2(const OperationSpace space, double& r) {
   return cudaSuccess;
 }
 
-__host__ Error
+Error
 Mesh1D::norm_infinity(const OperationSpace space, double& r) {
   if (space == OperationSpace::Host) {
     ra_invoke(host.op.norm_infinity(r, host.f));

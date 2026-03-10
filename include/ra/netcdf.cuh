@@ -9,7 +9,6 @@
 
 namespace ra {
 
-__host__ int
-netcdf_invoke_impl(const int result, const char* file, const int line);
+int netcdf_invoke_impl(const int result, const char* file, const int line);
 
 } // namespace ra

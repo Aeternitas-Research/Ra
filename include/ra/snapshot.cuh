@@ -25,16 +25,16 @@ struct SnapshotConfig {
 };
 
 struct Snapshot {
-  __host__ ~Snapshot();
-  __host__ Snapshot();
+  ~Snapshot();
+  Snapshot();
   Snapshot(const Snapshot&) = delete;
   Snapshot(Snapshot&&) noexcept = delete;
-  __host__ explicit Snapshot(SnapshotConfig& config);
+  explicit Snapshot(SnapshotConfig& config);
   Snapshot& operator=(const Snapshot&) = delete;
   Snapshot& operator=(Snapshot&&) noexcept = delete;
 
-  __host__ Error copy(const Snapshot& other);
-  __host__ Error calibrate();
+  Error copy(const Snapshot& other);
+  Error calibrate();
 
   thrust::pointer<SnapshotConfig, thrust::host_system_tag> config{};
 };

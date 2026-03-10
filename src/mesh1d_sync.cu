@@ -6,7 +6,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 Mesh1D::sync(const int other, const int dimension, const Direction direction) {
 #ifdef RA_DEBUG
   if (dimension > 0) {

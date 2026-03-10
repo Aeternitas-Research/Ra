@@ -2,7 +2,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 Mesh1D::multiply(const OperationSpace space, const double c) {
 
   if (space == OperationSpace::Host) {
@@ -16,7 +16,7 @@ Mesh1D::multiply(const OperationSpace space, const double c) {
   return cudaSuccess;
 }
 
-__host__ Error
+Error
 Mesh1D::multiply(const OperationSpace space, Mesh1D& mesh_x) {
   if (space == OperationSpace::Host) {
     ra_invoke(host.op.multiply(host.f, mesh_x.host.f));

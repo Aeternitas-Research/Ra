@@ -6,7 +6,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 TimeStepperExplicitRK1D::find_epsilon(double& epsilon) {
   const auto h = this->config.time.delta;
   auto& rk = this->config.parameter.table.rk_explicit;
