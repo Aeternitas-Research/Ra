@@ -4,6 +4,8 @@ namespace ra {
 
 Mesh1D::~Mesh1D() {}
 
+Mesh1D::Mesh1D() : Mesh() {}
+
 Mesh1D::Mesh1D(const MeshConfig& in_config) : Mesh(in_config) {
   auto& config = this->config;
 
