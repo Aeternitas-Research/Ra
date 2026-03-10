@@ -6,9 +6,9 @@ IndentWidth: 2
 UseTab: Never
 
 AlignAfterOpenBracket: AlwaysBreak
-AlignConsecutiveAssignments: Consecutive
-AlignConsecutiveMacros: Consecutive
-AlignEscapedNewlines: DontAlign
+AlignConsecutiveAssignments: None
+AlignConsecutiveMacros: None
+AlignEscapedNewlines: Right
 AlwaysBreakAfterDefinitionReturnType: All
 BreakAfterAttributes: Always
 BreakTemplateDeclarations: Yes
