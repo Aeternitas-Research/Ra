@@ -8,9 +8,9 @@ namespace ra {
 
 __host__ Error
 TimeStepperExplicitRK1D::find_epsilon(double& epsilon) {
-  const auto h       = this->config.time.delta;
-  auto& rk           = this->config.parameter.table.rk_explicit;
-  const auto& b      = rk.b;
+  const auto h = this->config.time.delta;
+  auto& rk = this->config.parameter.table.rk_explicit;
+  const auto& b = rk.b;
   const auto& b_star = rk.b_star;
 
   error.assign(OperationSpace::Device, 0.0);

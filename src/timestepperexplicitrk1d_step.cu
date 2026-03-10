@@ -14,14 +14,14 @@ TimeStepperExplicitRK1D::step() {
   ra_invoke(initial(mesh, buffer));
 
   auto& time = this->config.time;
-  bool stop  = false;
+  bool stop = false;
   while (!stop) {
     const auto space = OperationSpace::Device;
 
     time.n_fail = 0;
     ra_invoke(backup.assign(space, mesh));
 
-    bool success   = false;
+    bool success = false;
     double epsilon = 0.0;
     while (!success) {
       if (time.n_fail > 0) {

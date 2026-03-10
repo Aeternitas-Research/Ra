@@ -11,13 +11,13 @@ TEST_CASE("PMesh1D::write", "[pmesh]") {
     .name = "test.PMesh1D",
     .file =
       {
-        .handle    = "write",
+        .handle = "write",
         .directory = "./output-test/",
       },
     .geometry =
       {
-        .dof         = 3,
-        .extent      = {1'000'000, 0, 0, 0, 0, 0},
+        .dof = 3,
+        .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{5, 7}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
   };

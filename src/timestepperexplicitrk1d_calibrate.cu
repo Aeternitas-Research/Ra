@@ -10,8 +10,8 @@ namespace ra {
 
 __host__ Error
 TimeStepperExplicitRK1D::calibrate() {
-  MeshConfig mesh_config   = mesh.config.global;
-  mesh_config.name         = this->config.name;
+  MeshConfig mesh_config = mesh.config.global;
+  mesh_config.name = this->config.name;
   mesh_config.geometry.dof = this->config.parameter.order.space;
 
   auto x = this->config.space.x;
@@ -46,7 +46,7 @@ TimeStepperExplicitRK1D::calibrate() {
     MPI_Scan(MPI_IN_PLACE, stride, 1, MPI_SIZE_T, MPI_SUM, MPI_COMM_WORLD));
 
   auto start_0 = cuda::make_strided_iterator(mesh.local.host.x.begin(), 2);
-  auto stop_0  = cuda::make_strided_iterator(mesh.local.host.x.end(), 2);
+  auto stop_0 = cuda::make_strided_iterator(mesh.local.host.x.end(), 2);
   thrust::tabulate(start_0, stop_0, [&](const size_t j0) {
     return x[0][0] + static_cast<double>(stride[0] + j0) * h[0] -
            static_cast<double>(ghost_depth[0][0]) * h[0];
@@ -55,12 +55,12 @@ TimeStepperExplicitRK1D::calibrate() {
   thrust::fill_n(start_1, mesh.local.config.geometry.extent[0], h[0]);
 
   // set RK coefficients
-  auto& order  = this->config.parameter.order;
-  auto& rk     = this->config.parameter.table.rk_explicit;
-  auto& a      = rk.a;
-  auto& b      = rk.b;
+  auto& order = this->config.parameter.order;
+  auto& rk = this->config.parameter.table.rk_explicit;
+  auto& a = rk.a;
+  auto& b = rk.b;
   auto& b_star = rk.b_star;
-  auto& c      = rk.c;
+  auto& c = rk.c;
   if (order.time == 4) {
     rk.stage = 7;
 

@@ -9,7 +9,7 @@ namespace ra {
 
 __host__ Error
 PMesh1D::calibrate() {
-  auto self   = config.topology.self;
+  auto self = config.topology.self;
   auto extent = config.topology.extent;
   ind2sub(self, config.topology.rank.self, extent, 1);
 
@@ -36,13 +36,13 @@ PMesh1D::calibrate() {
     }
   }
 
-  config.local.name           = config.global.name + std::string{".local"};
-  config.local.info.mpi_rank  = config.topology.rank.self;
-  config.local.info.step      = config.global.info.step;
-  config.local.info.time      = config.global.info.time;
-  config.local.file.handle    = config.global.file.handle;
+  config.local.name = config.global.name + std::string{".local"};
+  config.local.info.mpi_rank = config.topology.rank.self;
+  config.local.info.step = config.global.info.step;
+  config.local.info.time = config.global.info.time;
+  config.local.file.handle = config.global.file.handle;
   config.local.file.directory = config.global.file.directory;
-  config.local.geometry.dof   = config.global.geometry.dof;
+  config.local.geometry.dof = config.global.geometry.dof;
   for (int d = 0; d < 1; ++d) {
     config.local.geometry.extent[d] =
       config.global.geometry.extent[d] / config.topology.extent[d] +

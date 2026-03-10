@@ -33,7 +33,7 @@ Mesh1D::read(const int mpi_rank) {
   ra_netcdf_invoke(nc_get_var(file, variable.time, &(info.time)));
 
   auto& dimension = config.netcdf.id.dimension;
-  auto& geometry  = config.geometry;
+  auto& geometry = config.geometry;
   ra_netcdf_invoke(nc_inq_dimid(file, "extent.0", &(dimension.extent[0])));
   ra_netcdf_invoke(nc_inq_dimid(file, "x", &(dimension.x[0])));
   ra_netcdf_invoke(nc_inq_dimid(file, "f", &(dimension.f[0])));

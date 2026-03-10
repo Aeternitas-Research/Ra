@@ -12,8 +12,8 @@ TEST_CASE("Mesh1D::norm 1", "[mesh]") {
     .name = "test.Mesh1D",
     .geometry =
       {
-        .dof         = 2,
-        .extent      = {1'000'000, 0, 0, 0, 0, 0},
+        .dof = 2,
+        .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
   };
@@ -59,8 +59,8 @@ TEST_CASE("Mesh1D::norm 2", "[mesh]") {
     .name = "test.Mesh1D",
     .geometry =
       {
-        .dof         = 2,
-        .extent      = {1'000'000, 0, 0, 0, 0, 0},
+        .dof = 2,
+        .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
   };
@@ -106,8 +106,8 @@ TEST_CASE("Mesh1D::norm infinity", "[mesh]") {
     .name = "test.Mesh1D",
     .geometry =
       {
-        .dof         = 2,
-        .extent      = {1'000'000, 0, 0, 0, 0, 0},
+        .dof = 2,
+        .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
   };

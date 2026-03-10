@@ -6,8 +6,8 @@ namespace ra {
 
 __host__ __device__ Error
 Mesh1D::get_host_stencil(HostStencil& stencil) {
-  auto& geometry                 = config.geometry;
-  const auto offset              = geometry.ghost_depth[0][0];
+  auto& geometry = config.geometry;
+  const auto offset = geometry.ghost_depth[0][0];
   const cuda::std::ptrdiff_t dof = geometry.dof;
 
   auto begin = host.f.begin();

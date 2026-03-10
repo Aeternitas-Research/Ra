@@ -12,13 +12,13 @@ TEST_CASE("Mesh1D::sync", "[mesh]") {
     .name = "test.Mesh1D",
     .file =
       {
-        .handle    = "test",
+        .handle = "test",
         .directory = "./",
       },
     .geometry =
       {
-        .dof         = 3,
-        .extent      = {1'000'000, 0, 0, 0, 0, 0},
+        .dof = 3,
+        .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{5, 7}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
   };
@@ -28,11 +28,11 @@ TEST_CASE("Mesh1D::sync", "[mesh]") {
   REQUIRE(MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank) == MPI_SUCCESS);
   int mpi_size{};
   REQUIRE(MPI_Comm_size(MPI_COMM_WORLD, &mpi_size) == MPI_SUCCESS);
-  const auto mpi_rank_0  = mpi_rank;
+  const auto mpi_rank_0 = mpi_rank;
   const auto mpi_rank_1m = (mpi_rank_0 + mpi_size - 1) % mpi_size;
   const auto mpi_rank_1p = (mpi_rank_0 + 1) % mpi_size;
-  const auto stride_x    = m1.host.x.size();
-  const auto stride_f    = m1.host.f.size();
+  const auto stride_x = m1.host.x.size();
+  const auto stride_f = m1.host.f.size();
   thrust::sequence(
     m1.host.x.begin(), m1.host.x.end(),
     static_cast<double>(mpi_rank * stride_x));
@@ -46,8 +46,8 @@ TEST_CASE("Mesh1D::sync", "[mesh]") {
 
   const auto block_x = 2 * 1;
   const auto block_f = m1.config.geometry.dof;
-  auto ghost_depth   = m1.config.geometry.ghost_depth;
-  auto extent        = m1.config.geometry.extent;
+  auto ghost_depth = m1.config.geometry.ghost_depth;
+  auto extent = m1.config.geometry.extent;
   for (std::size_t index = 0; index < extent[0]; ++index) {
     for (std::size_t point = 0; point < block_x; ++point) {
       REQUIRE(
