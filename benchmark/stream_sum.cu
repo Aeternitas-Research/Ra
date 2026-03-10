@@ -27,7 +27,7 @@ benchmark_stream_sum(const std::size_t n) {
 
 TEST_CASE("stream_sum", "[!benchmark]") {
   BENCHMARK("int, 1<<20") { benchmark_stream_sum<int>(1 << 20); };
-  BENCHMARK("int, 1<<30") { benchmark_stream_sum<int>(1 << 30); };
+  BENCHMARK("int, 1<<25") { benchmark_stream_sum<int>(1 << 25); };
   BENCHMARK("double, 1<<20") { benchmark_stream_sum<double>(1 << 20); };
-  BENCHMARK("double, 1<<30") { benchmark_stream_sum<double>(1 << 30); };
+  BENCHMARK("double, 1<<25") { benchmark_stream_sum<double>(1 << 25); };
 }
