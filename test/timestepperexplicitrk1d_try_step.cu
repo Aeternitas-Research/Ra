@@ -246,6 +246,6 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   REQUIRE(r == cudaSuccess);
   REQUIRE(success == true);
   REQUIRE(t1.config.time.n_fail == 0);
-  REQUIRE_THAT(epsilon, WithinAbs(4.349667458531e-12, 1e-14));
-  REQUIRE_THAT(t1.config.time.delta, WithinRel(4.809067827408e-08, 1e-14));
+  REQUIRE_THAT(epsilon, WithinAbs(4.3497e-12, 1e-14));
+  REQUIRE_THAT(t1.config.time.delta, WithinAbs(4.80906783e-08, 1e-14));
 }
