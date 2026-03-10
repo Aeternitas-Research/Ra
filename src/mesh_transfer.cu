@@ -4,7 +4,7 @@
 namespace ra {
 
 Error
-Mesh1D::transfer(const cudaMemcpyKind kind, const bool x, const bool f) {
+Mesh::transfer(const cudaMemcpyKind kind, const bool x, const bool f) {
   if (kind == cudaMemcpyHostToDevice) {
     if (x) {
       device.x = host.x;

@@ -3,19 +3,6 @@
 namespace ra {
 
 Error
-Mesh1D::subtract(const OperationSpace space, const double c) {
-  if (space == OperationSpace::Host) {
-    ra_invoke(host.op.subtract(host.f, c));
-  } else if (space == OperationSpace::Device) {
-    ra_invoke(device.op.subtract(device.f, c));
-  } else {
-    return cudaErrorInvalidValue;
-  }
-
-  return cudaSuccess;
-}
-
-Error
 Mesh1D::subtract(const OperationSpace space, Mesh1D& mesh_x) {
   if (space == OperationSpace::Host) {
     ra_invoke(host.op.subtract(host.f, mesh_x.host.f));

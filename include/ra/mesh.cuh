@@ -104,7 +104,46 @@ struct MeshConfig {
   } netcdf{};
 };
 
-struct Mesh1D {
+struct Mesh {
+  ~Mesh();
+  Mesh();
+  Mesh(const Mesh&) = delete;
+  Mesh(Mesh&&) noexcept = delete;
+  explicit Mesh(const MeshConfig& config);
+  Mesh& operator=(const Mesh&) = delete;
+  Mesh& operator=(Mesh&&) noexcept = delete;
+
+  Error transfer(const cudaMemcpyKind kind, const bool x, const bool f);
+  virtual Error
+  sync(const int other, const int dimension, const Direction direction) = 0;
+  virtual Error write(const int mpi_rank) = 0;
+  virtual Error read(const int mpi_rank) = 0;
+
+  // arithmetic operations
+  Error assign(const OperationSpace space, const double c);
+  Error multiply(const OperationSpace space, const double c);
+  Error add(const OperationSpace space, const double c);
+  Error divide(const OperationSpace space, const double c);
+  Error subtract(const OperationSpace space, const double c);
+  Error norm(const OperationSpace space, double& r, const std::string type);
+  Error norm_1(const OperationSpace space, double& r);
+  Error norm_2(const OperationSpace space, double& r);
+  Error norm_infinity(const OperationSpace space, double& r);
+
+  MeshConfig config{};
+  struct {
+    thrust::host_vector<double> x{};
+    thrust::host_vector<double> f{};
+    MeshOp<thrust::host_vector<double>> op{};
+  } host{};
+  struct {
+    thrust::device_vector<double> x{};
+    thrust::device_vector<double> f{};
+    MeshOp<thrust::device_vector<double>> op{};
+  } device{};
+};
+
+struct Mesh1D final : Mesh {
   using HostStencilIterator =
     cuda::strided_iterator<thrust::host_vector<double>::iterator>;
   using DeviceStencilIterator =
@@ -147,38 +186,24 @@ struct Mesh1D {
   };
 
   ~Mesh1D();
-  Mesh1D();
-  Mesh1D(const Mesh1D&) = delete;
-  Mesh1D(Mesh1D&&) noexcept = delete;
   explicit Mesh1D(const MeshConfig& config);
-  Mesh1D& operator=(const Mesh1D&) = delete;
-  Mesh1D& operator=(Mesh1D&&) noexcept = delete;
 
   Error copy(const Mesh1D& other);
-  Error transfer(const cudaMemcpyKind kind, const bool x, const bool f);
-  Error sync(const int other, const int dimension, const Direction direction);
-  Error write(const int mpi_rank);
-  Error read(const int mpi_rank);
+  Error sync(
+    const int other, const int dimension, const Direction direction) override;
+  Error write(const int mpi_rank) override;
+  Error read(const int mpi_rank) override;
 
   // arithmetic operations
-  Error assign(const OperationSpace space, const double c);
   Error assign(const OperationSpace space, Mesh1D& mesh_x);
-  Error multiply(const OperationSpace space, const double c);
   Error multiply(const OperationSpace space, Mesh1D& mesh_x);
-  Error add(const OperationSpace space, const double c);
   Error add(const OperationSpace space, Mesh1D& mesh_x);
   Error add(const OperationSpace space, const double c, Mesh1D& mesh_x);
   Error add(const OperationSpace space, Mesh1D& mesh_c, Mesh1D& mesh_x);
-  Error divide(const OperationSpace space, const double c);
   Error divide(const OperationSpace space, Mesh1D& mesh_x);
-  Error subtract(const OperationSpace space, const double c);
   Error subtract(const OperationSpace space, Mesh1D& mesh_x);
   Error subtract(const OperationSpace space, const double c, Mesh1D& mesh_x);
   Error subtract(const OperationSpace space, Mesh1D& mesh_c, Mesh1D& mesh_x);
-  Error norm(const OperationSpace space, double& r, const std::string type);
-  Error norm_1(const OperationSpace space, double& r);
-  Error norm_2(const OperationSpace space, double& r);
-  Error norm_infinity(const OperationSpace space, double& r);
 
   // coordinate operations
   __host__ __device__ Error get_host_coordinate(HostStencil& coordinate);
@@ -187,28 +212,81 @@ struct Mesh1D {
   // stencil operations
   __host__ __device__ Error get_host_stencil(HostStencil& stencil);
   __host__ __device__ Error get_device_stencil(DeviceStencil& stencil);
-
-  MeshConfig config{};
-  struct {
-    thrust::host_vector<double> x{};
-    thrust::host_vector<double> f{};
-    MeshOp<thrust::host_vector<double>> op{};
-  } host{};
-  struct {
-    thrust::device_vector<double> x{};
-    thrust::device_vector<double> f{};
-    MeshOp<thrust::device_vector<double>> op{};
-  } device{};
 };
 
-struct Mesh2D {
+struct Mesh2D final : Mesh {
+  using HostStencilIterator =
+    cuda::strided_iterator<thrust::host_vector<double>::iterator>;
+  using DeviceStencilIterator =
+    cuda::strided_iterator<thrust::device_vector<double>::iterator>;
+
+  struct HostStencil {
+    HostStencilIterator x0{};
+    HostStencilIterator x1{};
+    HostStencilIterator dx0{};
+    HostStencilIterator dx1{};
+
+    HostStencilIterator f0{};
+    HostStencilIterator f0_l{};
+    HostStencilIterator f0_r{};
+    HostStencilIterator f1{};
+    HostStencilIterator f1_l{};
+    HostStencilIterator f1_r{};
+    HostStencilIterator f2{};
+    HostStencilIterator f2_l{};
+    HostStencilIterator f2_r{};
+    HostStencilIterator f3{};
+    HostStencilIterator f3_l{};
+    HostStencilIterator f3_r{};
+  };
+
+  struct DeviceStencil {
+    DeviceStencilIterator x0{};
+    DeviceStencilIterator x1{};
+    DeviceStencilIterator dx0{};
+    DeviceStencilIterator dx1{};
+
+    DeviceStencilIterator f0{};
+    DeviceStencilIterator f0_l{};
+    DeviceStencilIterator f0_r{};
+    DeviceStencilIterator f1{};
+    DeviceStencilIterator f1_l{};
+    DeviceStencilIterator f1_r{};
+    DeviceStencilIterator f2{};
+    DeviceStencilIterator f2_l{};
+    DeviceStencilIterator f2_r{};
+    DeviceStencilIterator f3{};
+    DeviceStencilIterator f3_l{};
+    DeviceStencilIterator f3_r{};
+  };
+
   ~Mesh2D();
-  Mesh2D();
-  Mesh2D(const Mesh2D&) = delete;
-  Mesh2D(Mesh2D&&) noexcept = delete;
   explicit Mesh2D(const MeshConfig& config);
-  Mesh2D& operator=(const Mesh2D&) = delete;
-  Mesh2D& operator=(Mesh2D&&) noexcept = delete;
+
+  Error copy(const Mesh2D& other);
+  Error sync(
+    const int other, const int dimension, const Direction direction) override;
+  Error write(const int mpi_rank) override;
+  Error read(const int mpi_rank) override;
+
+  // arithmetic operations
+  Error assign(const OperationSpace space, Mesh2D& mesh_x);
+  Error multiply(const OperationSpace space, Mesh2D& mesh_x);
+  Error add(const OperationSpace space, Mesh2D& mesh_x);
+  Error add(const OperationSpace space, const double c, Mesh2D& mesh_x);
+  Error add(const OperationSpace space, Mesh2D& mesh_c, Mesh2D& mesh_x);
+  Error divide(const OperationSpace space, Mesh2D& mesh_x);
+  Error subtract(const OperationSpace space, Mesh2D& mesh_x);
+  Error subtract(const OperationSpace space, const double c, Mesh2D& mesh_x);
+  Error subtract(const OperationSpace space, Mesh2D& mesh_c, Mesh2D& mesh_x);
+
+  // coordinate operations
+  __host__ __device__ Error get_host_coordinate(HostStencil& coordinate);
+  __host__ __device__ Error get_device_coordinate(DeviceStencil& coordinate);
+
+  // stencil operations
+  __host__ __device__ Error get_host_stencil(HostStencil& stencil);
+  __host__ __device__ Error get_device_stencil(DeviceStencil& stencil);
 };
 
 } // namespace ra

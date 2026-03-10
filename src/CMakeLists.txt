@@ -28,13 +28,26 @@ target_sources(
   snapshot_calibrate.cu
 )
 
+# Mesh
+target_sources(
+  ra
+  PRIVATE
+  mesh_constructor.cu
+  mesh_transfer.cu
+  mesh_assign.cu
+  mesh_multiply.cu
+  mesh_add.cu
+  mesh_divide.cu
+  mesh_subtract.cu
+  mesh_norm.cu
+)
+
 # Mesh1D
 target_sources(
   ra
   PRIVATE
   mesh1d_constructor.cu
   mesh1d_copy.cu
-  mesh1d_transfer.cu
   mesh1d_sync.cu
   mesh1d_write.cu
   mesh1d_read.cu
@@ -43,7 +56,6 @@ target_sources(
   mesh1d_add.cu
   mesh1d_divide.cu
   mesh1d_subtract.cu
-  mesh1d_norm.cu
   mesh1d_get_host_coordinate.cu
   mesh1d_get_device_coordinate.cu
   mesh1d_get_host_stencil.cu
