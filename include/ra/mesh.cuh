@@ -187,7 +187,11 @@ struct Mesh1D final : Mesh {
 
   ~Mesh1D();
   Mesh1D();
+  Mesh1D(const Mesh1D&) = delete;
+  Mesh1D(Mesh1D&&) noexcept = delete;
   explicit Mesh1D(const MeshConfig& in_config);
+  Mesh1D& operator=(const Mesh1D&) = delete;
+  Mesh1D& operator=(Mesh1D&&) noexcept = delete;
 
   Error copy(const Mesh1D& other);
   Error sync(
