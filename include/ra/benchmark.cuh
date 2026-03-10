@@ -46,13 +46,11 @@ stream_sum(
 
   thrust::copy(policy, x1.begin(), x1.end(), r.begin());
 
-  cuda::zip_transform_iterator k1{cuda::std::plus<T>(), r.begin(), x1.begin()};
   cuda::zip_transform_iterator k2{cuda::std::plus<T>(), r.begin(), x2.begin()};
   cuda::zip_transform_iterator k3{cuda::std::plus<T>(), r.begin(), x3.begin()};
   cuda::zip_transform_iterator k4{cuda::std::plus<T>(), r.begin(), x4.begin()};
 
   const auto n = r.size();
-  thrust::copy(policy, k1, k1 + n, r.begin());
   thrust::copy(policy, k2, k2 + n, r.begin());
   thrust::copy(policy, k3, k3 + n, r.begin());
   thrust::copy(policy, k4, k4 + n, r.begin());
