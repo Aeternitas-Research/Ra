@@ -102,7 +102,12 @@ struct TimeStepper {
 struct TimeStepperExplicitRK1D final : TimeStepper {
   ~TimeStepperExplicitRK1D();
   TimeStepperExplicitRK1D();
+  TimeStepperExplicitRK1D(const TimeStepperExplicitRK1D&) = delete;
+  TimeStepperExplicitRK1D(TimeStepperExplicitRK1D&&) noexcept = delete;
   TimeStepperExplicitRK1D(const TimeStepperConfig& config);
+  TimeStepperExplicitRK1D& operator=(const TimeStepperExplicitRK1D&) = delete;
+  TimeStepperExplicitRK1D&
+  operator=(TimeStepperExplicitRK1D&&) noexcept = delete;
 
   Error calibrate() override;
   Error step() override;
