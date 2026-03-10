@@ -19,13 +19,12 @@ Mesh1D::Mesh1D(const MeshConfig& config)
     : config(config) {
   this->config.geometry.type = MeshElementType::Line;
 
-  host.x.resize(2 * 1 * config.geometry.extent[0], thrust::no_init);
-  host.f.resize(
-    config.geometry.element.dof * config.geometry.extent[0], thrust::no_init);
-
-  device.x.resize(2 * 1 * config.geometry.extent[0], thrust::no_init);
-  device.f.resize(
-    config.geometry.element.dof * config.geometry.extent[0], thrust::no_init);
+  const auto extent = this->config.geometry.extent;
+  const auto dof = this->config.geometry.element.dof;
+  host.x.resize(2 * 1 * extent[0], thrust::no_init);
+  host.f.resize(dof * extent[0], thrust::no_init);
+  device.x.resize(2 * 1 * extent[0], thrust::no_init);
+  device.f.resize(dof * extent[0], thrust::no_init);
 }
 
 } // namespace ra
