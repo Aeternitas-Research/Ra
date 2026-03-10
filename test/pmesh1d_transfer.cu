@@ -18,7 +18,10 @@ TEST_CASE("PMesh1D::transfer", "[pmesh]") {
       },
     .geometry =
       {
-        .dof = 3,
+        .element =
+          {
+            .dof = 3,
+          },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{5, 7}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },

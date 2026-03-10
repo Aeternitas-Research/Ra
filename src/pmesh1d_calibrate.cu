@@ -42,7 +42,7 @@ PMesh1D::calibrate() {
   config.local.info.time = config.global.info.time;
   config.local.file.handle = config.global.file.handle;
   config.local.file.directory = config.global.file.directory;
-  config.local.geometry.dof = config.global.geometry.dof;
+  config.local.geometry.element.dof = config.global.geometry.element.dof;
   for (int d = 0; d < 1; ++d) {
     config.local.geometry.extent[d] =
       config.global.geometry.extent[d] / config.topology.extent[d] +

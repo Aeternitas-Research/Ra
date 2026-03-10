@@ -17,7 +17,10 @@ TEST_CASE("PMesh1D::sync", "[pmesh]") {
       },
     .geometry =
       {
-        .dof = 3,
+        .element =
+          {
+            .dof = 3,
+          },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{5, 7}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
@@ -42,7 +45,7 @@ TEST_CASE("PMesh1D::sync", "[pmesh]") {
   REQUIRE(r == cudaSuccess);
 
   const auto block_x = 2 * 1;
-  const auto block_f = m1.config.local.geometry.dof;
+  const auto block_f = m1.config.local.geometry.element.dof;
   auto ghost_depth = m1.config.local.geometry.ghost_depth;
   auto extent = m1.config.local.geometry.extent;
   for (std::size_t index = 0; index < extent[0]; ++index) {

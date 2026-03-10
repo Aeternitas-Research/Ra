@@ -17,7 +17,10 @@ TEST_CASE("Mesh1D::sync", "[mesh]") {
       },
     .geometry =
       {
-        .dof = 3,
+        .element =
+          {
+            .dof = 3,
+          },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{5, 7}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
@@ -45,7 +48,7 @@ TEST_CASE("Mesh1D::sync", "[mesh]") {
   REQUIRE(r == cudaSuccess);
 
   const auto block_x = 2 * 1;
-  const auto block_f = m1.config.geometry.dof;
+  const auto block_f = m1.config.geometry.element.dof;
   auto ghost_depth = m1.config.geometry.ghost_depth;
   auto extent = m1.config.geometry.extent;
   for (std::size_t index = 0; index < extent[0]; ++index) {

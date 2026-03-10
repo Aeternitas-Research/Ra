@@ -13,7 +13,10 @@ TEST_CASE("Mesh1D::assign 1", "[mesh]") {
     .name = "test.Mesh1D",
     .geometry =
       {
-        .dof = 2,
+        .element =
+          {
+            .dof = 2,
+          },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
@@ -56,7 +59,10 @@ TEST_CASE("Mesh1D::assign 2", "[mesh]") {
     .name = "test.Mesh1D",
     .geometry =
       {
-        .dof = 2,
+        .element =
+          {
+            .dof = 2,
+          },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },

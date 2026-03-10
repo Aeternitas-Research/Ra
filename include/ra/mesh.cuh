@@ -54,8 +54,10 @@ struct MeshConfig {
     std::string directory = "./";
   } file{};
   struct {
-    MeshElementType type = MeshElementType::Unknown;
-    std::size_t dof = 1;
+    struct {
+      MeshElementType type = MeshElementType::Unknown;
+      std::size_t dof = 1;
+    } element{};
     std::size_t extent[DIMENSION_MAX] = {
       0, 0, 0, 0, 0, 0,
     };
