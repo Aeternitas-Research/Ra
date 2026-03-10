@@ -17,7 +17,7 @@ Mesh1D::Mesh1D() {}
 __host__
 Mesh1D::Mesh1D(const MeshConfig& config)
     : config(config) {
-  this->config.geometry.type = MeshElementType::Line;
+  this->config.geometry.element.type = MeshElementType::Line;
 
   const auto extent = this->config.geometry.extent;
   const auto dof = this->config.geometry.element.dof;
