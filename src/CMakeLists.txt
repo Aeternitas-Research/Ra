@@ -62,6 +62,14 @@ target_sources(
   mesh1d_get_device_stencil.cu
 )
 
+# PMesh
+target_sources(
+  ra
+  PRIVATE
+  pmesh_constructor.cu
+  pmesh_calibrate.cu
+)
+
 # PMesh1D
 target_sources(
   ra

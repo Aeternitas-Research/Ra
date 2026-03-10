@@ -7,7 +7,7 @@ namespace ra {
 
 Error
 PMesh1D::read() {
-  ra_invoke(local.read(config.topology.rank.self));
+  ra_invoke(local.read(this->config.topology.rank.self));
 
   ra_mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
 

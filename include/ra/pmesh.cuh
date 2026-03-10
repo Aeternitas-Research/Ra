@@ -35,7 +35,23 @@ struct PMeshConfig {
   } mpi{};
 };
 
-struct PMesh1D {
+struct PMesh {
+  ~PMesh();
+  PMesh();
+  PMesh(const PMesh&) = delete;
+  PMesh(PMesh&&) noexcept = delete;
+  PMesh(
+    const int mpi_rank, const int* mpi_extent,
+    const MeshConfig& config_global);
+  PMesh& operator=(const PMesh&) = delete;
+  PMesh& operator=(PMesh&&) noexcept = delete;
+
+  Error calibrate(const int d_max);
+
+  PMeshConfig config{};
+};
+
+struct PMesh1D final : PMesh {
   ~PMesh1D();
   PMesh1D();
   PMesh1D(const PMesh1D&) = delete;
@@ -80,7 +96,6 @@ struct PMesh1D {
   __host__ __device__ Error get_host_stencil(Mesh1D::HostStencil& stencil);
   __host__ __device__ Error get_device_stencil(Mesh1D::DeviceStencil& stencil);
 
-  PMeshConfig config{};
   Mesh1D local{};
 };
 

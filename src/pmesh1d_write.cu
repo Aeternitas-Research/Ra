@@ -7,7 +7,7 @@ namespace ra {
 
 Error
 PMesh1D::write() {
-  ra_invoke(local.write(config.topology.rank.self));
+  ra_invoke(local.write(this->config.topology.rank.self));
 
   ra_mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
 
