@@ -32,11 +32,11 @@ block_reduce(const T* data, T* result, std::size_t n) {
   }
 }
 
-__host__ void
+void
 mesh1d_add(const ra::OperationSpace space, Mesh1D& y, Mesh1D& c, Mesh1D& x);
 
 template <typename T>
-__host__ void
+void
 stream_sum(
   thrust::device_vector<T>& r, const thrust::device_vector<T> x1,
   const thrust::device_vector<T> x2, const thrust::device_vector<T> x3,

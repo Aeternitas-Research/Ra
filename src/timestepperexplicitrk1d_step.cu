@@ -5,7 +5,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 TimeStepperExplicitRK1D::step() {
   ra_invoke(mesh.transfer(cudaMemcpyHostToDevice, true, true));
 

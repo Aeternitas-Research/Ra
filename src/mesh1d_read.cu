@@ -9,7 +9,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 Mesh1D::read(const int mpi_rank) {
   config.info.mpi_rank = mpi_rank;
 

@@ -5,7 +5,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 TimeStepperExplicitRK1D::reset_mesh() {
   ra_invoke(mesh.copy(backup));
 

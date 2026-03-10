@@ -5,7 +5,7 @@
 
 RA_TEST_MAIN(argc, argv);
 
-__host__ void
+void
 benchmark_mesh1d_add(ra::OperationSpace space, const size_t n) {
   using Config = ra::MeshConfig;
   Config config = {

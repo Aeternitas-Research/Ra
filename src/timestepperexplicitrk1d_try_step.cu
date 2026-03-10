@@ -2,7 +2,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
   if (success) {
     return cudaSuccess;

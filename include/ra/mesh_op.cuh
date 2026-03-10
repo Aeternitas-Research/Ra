@@ -15,21 +15,21 @@ template <typename T>
 struct MeshOp {
   using Scalar = typename T::value_type;
 
-  __host__ Error
+  Error
   assign(T& y, const Scalar c) {
     thrust::fill(y.begin(), y.end(), c);
 
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   assign(T& y, T& x) {
     thrust::copy(x.begin(), x.end(), y.begin());
 
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   multiply(T& y, const Scalar c) {
     auto op = [=] __host__ __device__(const Scalar& value) {
       return value * c;
@@ -39,7 +39,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   multiply(T& y, T& x) {
     cuda::zip_transform_iterator kernel{
       cuda::std::multiplies<Scalar>{}, y.begin(), x.begin()};
@@ -48,7 +48,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   add(T& y, const Scalar c) {
     auto op = [=] __host__ __device__(const Scalar& value) {
       return value + c;
@@ -58,7 +58,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   add(T& y, T& x) {
     cuda::zip_transform_iterator kernel{
       cuda::std::plus<Scalar>{}, y.begin(), x.begin()};
@@ -67,7 +67,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   add(T& y, const Scalar c, T& x) {
     auto op =
       [=] __host__ __device__(const Scalar& value_1, const Scalar& value_2) {
@@ -79,7 +79,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   add(T& y, T& c, T& x) {
     auto op = [] __host__ __device__(
                 const Scalar& value_1, const Scalar& value_2,
@@ -90,7 +90,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   divide(T& y, const Scalar c) {
     auto op = [=] __host__ __device__(const Scalar& value) {
       return value / c;
@@ -100,7 +100,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   divide(T& y, T& x) {
     cuda::zip_transform_iterator kernel{
       cuda::std::divides<Scalar>{}, y.begin(), x.begin()};
@@ -109,7 +109,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   subtract(T& y, const Scalar c) {
     auto op = [=] __host__ __device__(const Scalar& value) {
       return value - c;
@@ -119,7 +119,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   subtract(T& y, T& x) {
     cuda::zip_transform_iterator kernel{
       cuda::std::minus<Scalar>{}, y.begin(), x.begin()};
@@ -128,7 +128,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   subtract(T& y, const Scalar c, T& x) {
     auto op =
       [=] __host__ __device__(const Scalar& value_1, const Scalar& value_2) {
@@ -140,7 +140,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   subtract(T& y, T& c, T& x) {
     auto op = [] __host__ __device__(
                 const Scalar& value_1, const Scalar& value_2,
@@ -151,7 +151,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   norm_1(Scalar& r, T& y) {
     auto op = [] __host__ __device__(const Scalar& value) {
       return cuda::std::abs(value);
@@ -163,7 +163,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   norm_2(Scalar& r, T& y) {
     auto op = [] __host__ __device__(const Scalar& value) {
       return value * value;
@@ -176,7 +176,7 @@ struct MeshOp {
     return cudaSuccess;
   }
 
-  __host__ Error
+  Error
   norm_infinity(Scalar& r, T& y) {
     auto op = [] __host__ __device__(const Scalar& value) {
       return cuda::std::abs(value);

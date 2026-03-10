@@ -7,7 +7,7 @@
 RA_TEST_MAIN(argc, argv);
 
 template <typename T>
-__host__ void
+void
 benchmark_stream_sum(const std::size_t n) {
   using vector = thrust::device_vector<T>;
   vector r(n);

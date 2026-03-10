@@ -2,7 +2,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 Mesh1D::assign(const OperationSpace space, const double c) {
   if (space == OperationSpace::Host) {
     ra_invoke(host.op.assign(host.f, c));
@@ -15,7 +15,7 @@ Mesh1D::assign(const OperationSpace space, const double c) {
   return cudaSuccess;
 }
 
-__host__ Error
+Error
 Mesh1D::assign(const OperationSpace space, Mesh1D& mesh_x) {
   if (space == OperationSpace::Host) {
     ra_invoke(host.op.assign(host.f, mesh_x.host.f));

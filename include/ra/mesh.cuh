@@ -146,46 +146,39 @@ struct Mesh1D {
     DeviceStencilIterator f3_r{};
   };
 
-  __host__ ~Mesh1D();
-  __host__ Mesh1D();
+  ~Mesh1D();
+  Mesh1D();
   Mesh1D(const Mesh1D&) = delete;
   Mesh1D(Mesh1D&&) noexcept = delete;
-  __host__ explicit Mesh1D(const MeshConfig& config);
+  explicit Mesh1D(const MeshConfig& config);
   Mesh1D& operator=(const Mesh1D&) = delete;
   Mesh1D& operator=(Mesh1D&&) noexcept = delete;
 
-  __host__ Error copy(const Mesh1D& other);
-  __host__ Error
-  transfer(const cudaMemcpyKind kind, const bool x, const bool f);
-  __host__ Error
-  sync(const int other, const int dimension, const Direction direction);
-  __host__ Error write(const int mpi_rank);
-  __host__ Error read(const int mpi_rank);
+  Error copy(const Mesh1D& other);
+  Error transfer(const cudaMemcpyKind kind, const bool x, const bool f);
+  Error sync(const int other, const int dimension, const Direction direction);
+  Error write(const int mpi_rank);
+  Error read(const int mpi_rank);
 
   // arithmetic operations
-  __host__ Error assign(const OperationSpace space, const double c);
-  __host__ Error assign(const OperationSpace space, Mesh1D& mesh_x);
-  __host__ Error multiply(const OperationSpace space, const double c);
-  __host__ Error multiply(const OperationSpace space, Mesh1D& mesh_x);
-  __host__ Error add(const OperationSpace space, const double c);
-  __host__ Error add(const OperationSpace space, Mesh1D& mesh_x);
-  __host__ Error
-  add(const OperationSpace space, const double c, Mesh1D& mesh_x);
-  __host__ Error
-  add(const OperationSpace space, Mesh1D& mesh_c, Mesh1D& mesh_x);
-  __host__ Error divide(const OperationSpace space, const double c);
-  __host__ Error divide(const OperationSpace space, Mesh1D& mesh_x);
-  __host__ Error subtract(const OperationSpace space, const double c);
-  __host__ Error subtract(const OperationSpace space, Mesh1D& mesh_x);
-  __host__ Error
-  subtract(const OperationSpace space, const double c, Mesh1D& mesh_x);
-  __host__ Error
-  subtract(const OperationSpace space, Mesh1D& mesh_c, Mesh1D& mesh_x);
-  __host__ Error
-  norm(const OperationSpace space, double& r, const std::string type);
-  __host__ Error norm_1(const OperationSpace space, double& r);
-  __host__ Error norm_2(const OperationSpace space, double& r);
-  __host__ Error norm_infinity(const OperationSpace space, double& r);
+  Error assign(const OperationSpace space, const double c);
+  Error assign(const OperationSpace space, Mesh1D& mesh_x);
+  Error multiply(const OperationSpace space, const double c);
+  Error multiply(const OperationSpace space, Mesh1D& mesh_x);
+  Error add(const OperationSpace space, const double c);
+  Error add(const OperationSpace space, Mesh1D& mesh_x);
+  Error add(const OperationSpace space, const double c, Mesh1D& mesh_x);
+  Error add(const OperationSpace space, Mesh1D& mesh_c, Mesh1D& mesh_x);
+  Error divide(const OperationSpace space, const double c);
+  Error divide(const OperationSpace space, Mesh1D& mesh_x);
+  Error subtract(const OperationSpace space, const double c);
+  Error subtract(const OperationSpace space, Mesh1D& mesh_x);
+  Error subtract(const OperationSpace space, const double c, Mesh1D& mesh_x);
+  Error subtract(const OperationSpace space, Mesh1D& mesh_c, Mesh1D& mesh_x);
+  Error norm(const OperationSpace space, double& r, const std::string type);
+  Error norm_1(const OperationSpace space, double& r);
+  Error norm_2(const OperationSpace space, double& r);
+  Error norm_infinity(const OperationSpace space, double& r);
 
   // coordinate operations
   __host__ __device__ Error get_host_coordinate(HostStencil& coordinate);

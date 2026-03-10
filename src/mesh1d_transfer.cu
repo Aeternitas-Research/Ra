@@ -3,7 +3,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 Mesh1D::transfer(const cudaMemcpyKind kind, const bool x, const bool f) {
   if (kind == cudaMemcpyHostToDevice) {
     if (x) {

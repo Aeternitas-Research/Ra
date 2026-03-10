@@ -7,7 +7,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 PMesh1D::calibrate() {
   auto self = config.topology.self;
   auto extent = config.topology.extent;

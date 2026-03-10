@@ -5,7 +5,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 PMesh1D::write() {
   ra_invoke(local.write(config.topology.rank.self));
 

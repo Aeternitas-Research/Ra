@@ -5,7 +5,7 @@
 
 namespace ra {
 
-__host__ Error
+Error
 PMesh1D::read() {
   ra_invoke(local.read(config.topology.rank.self));
 

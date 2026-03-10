@@ -2,13 +2,10 @@
 
 namespace ra {
 
-__host__ TimeStepperExplicitRK1D::~TimeStepperExplicitRK1D() {}
+TimeStepperExplicitRK1D::~TimeStepperExplicitRK1D() {}
 
-__host__
-TimeStepperExplicitRK1D::TimeStepperExplicitRK1D()
-    : TimeStepper() {}
+TimeStepperExplicitRK1D::TimeStepperExplicitRK1D() : TimeStepper() {}
 
-__host__
 TimeStepperExplicitRK1D::TimeStepperExplicitRK1D(
   const TimeStepperConfig& config)
     : TimeStepper(config) {}

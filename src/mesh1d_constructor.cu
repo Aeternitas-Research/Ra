@@ -2,7 +2,7 @@
 
 namespace ra {
 
-__host__ Mesh1D::~Mesh1D() {
+Mesh1D::~Mesh1D() {
   if (config.buffer.in) {
     delete[] config.buffer.in;
   }
@@ -11,12 +11,9 @@ __host__ Mesh1D::~Mesh1D() {
   }
 }
 
-__host__
 Mesh1D::Mesh1D() {}
 
-__host__
-Mesh1D::Mesh1D(const MeshConfig& config)
-    : config(config) {
+Mesh1D::Mesh1D(const MeshConfig& config) : config(config) {
   this->config.geometry.element.type = MeshElementType::Line;
 
   const auto extent = this->config.geometry.extent;
