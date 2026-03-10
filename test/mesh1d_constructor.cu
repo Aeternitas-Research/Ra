@@ -30,7 +30,7 @@ TEST_CASE("Mesh1D::Mesh1D", "[mesh]") {
   REQUIRE(m2.config.name == config.name);
   REQUIRE(m2.config.file.handle == config.file.handle);
   REQUIRE(m2.config.file.directory == config.file.directory);
-  REQUIRE(m2.config.geometry.type == ra::MeshElementType::Line);
+  REQUIRE(m2.config.geometry.element.type == ra::MeshElementType::Line);
   REQUIRE(m2.host.x.size() == 2'000'000);
   REQUIRE(m2.host.f.size() == 3'000'000);
   REQUIRE(m2.device.x.size() == 2'000'000);
