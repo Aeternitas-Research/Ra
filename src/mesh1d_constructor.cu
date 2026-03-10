@@ -4,7 +4,7 @@ namespace ra {
 
 Mesh1D::~Mesh1D() {}
 
-Mesh1D::Mesh1D(const MeshConfig& config) : Mesh(config) {
+Mesh1D::Mesh1D(const MeshConfig& in_config) : Mesh(in_config) {
   auto& config = this->config;
 
   config.geometry.element.type = MeshElementType::Line;

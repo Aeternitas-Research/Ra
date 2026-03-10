@@ -186,7 +186,7 @@ struct Mesh1D final : Mesh {
   };
 
   ~Mesh1D();
-  explicit Mesh1D(const MeshConfig& config);
+  explicit Mesh1D(const MeshConfig& in_config);
 
   Error copy(const Mesh1D& other);
   Error sync(
