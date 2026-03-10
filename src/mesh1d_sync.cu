@@ -14,6 +14,9 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
   }
 #endif
 
+  auto& config = this->config;
+  auto& host = this->host;
+
   auto& buffer = config.buffer;
   auto& geometry = config.geometry;
   const auto dof = geometry.element.dof;

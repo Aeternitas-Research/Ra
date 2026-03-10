@@ -6,6 +6,9 @@ namespace ra {
 
 __host__ __device__ Error
 Mesh1D::get_host_coordinate(HostStencil& coordinate) {
+  auto& config = this->config;
+  auto& host = this->host;
+
   const auto offset = config.geometry.ghost_depth[0][0];
   const cuda::std::ptrdiff_t dof = 2;
 

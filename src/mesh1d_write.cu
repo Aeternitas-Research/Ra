@@ -11,6 +11,9 @@ namespace ra {
 
 Error
 Mesh1D::write(const int mpi_rank) {
+  auto& config = this->config;
+  auto& host = this->host;
+
   config.info.mpi_rank = mpi_rank;
 
   std::filesystem::create_directory(config.file.directory);

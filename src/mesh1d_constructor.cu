@@ -5,6 +5,8 @@ namespace ra {
 Mesh1D::~Mesh1D() {}
 
 Mesh1D::Mesh1D(const MeshConfig& config) : Mesh(config) {
+  auto& config = this->config;
+
   config.geometry.element.type = MeshElementType::Line;
 
   const auto extent = config.geometry.extent;
