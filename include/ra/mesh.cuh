@@ -24,6 +24,22 @@ enum struct OperationSpace : int {
   HostDevice = 2,
 };
 
+enum struct MeshElementType : int {
+  Unknown = -1,
+  // 1D
+  Line = 0,
+  // 2D
+  Rectangle = 1,
+  CurvilinearRectangle = 2,
+  Triangle = 3,
+  CurvilinearTriangle = 4,
+  // 3D
+  Prism = 5,
+  CurvilinearPrism = 6,
+  // 5D
+  GyroPrismSpectral = 7,
+};
+
 struct MeshConfig {
   std::string name{};
   struct {
@@ -38,7 +54,7 @@ struct MeshConfig {
     std::string directory = "./";
   } file{};
   struct {
-    ElementType type = ElementType::Unknown;
+    MeshElementType type = MeshElementType::Unknown;
     std::size_t dof = 1;
     std::size_t extent[DIMENSION_MAX] = {
       0, 0, 0, 0, 0, 0,
