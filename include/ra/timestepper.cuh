@@ -99,7 +99,7 @@ struct TimeStepper {
   TimeStepperConfig config{};
 };
 
-struct TimeStepperExplicitRK1D : TimeStepper {
+struct TimeStepperExplicitRK1D final : TimeStepper {
   ~TimeStepperExplicitRK1D();
   TimeStepperExplicitRK1D();
   TimeStepperExplicitRK1D(const TimeStepperConfig& config);
