@@ -18,7 +18,10 @@ TEST_CASE("Mesh1D::Mesh1D", "[mesh]") {
       },
     .geometry =
       {
-        .dof = 3,
+        .element =
+          {
+            .dof = 3,
+          },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },

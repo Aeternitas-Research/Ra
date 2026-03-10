@@ -21,11 +21,11 @@ Mesh1D::Mesh1D(const MeshConfig& config)
 
   host.x.resize(2 * 1 * config.geometry.extent[0], thrust::no_init);
   host.f.resize(
-    config.geometry.dof * config.geometry.extent[0], thrust::no_init);
+    config.geometry.element.dof * config.geometry.extent[0], thrust::no_init);
 
   device.x.resize(2 * 1 * config.geometry.extent[0], thrust::no_init);
   device.f.resize(
-    config.geometry.dof * config.geometry.extent[0], thrust::no_init);
+    config.geometry.element.dof * config.geometry.extent[0], thrust::no_init);
 }
 
 } // namespace ra

@@ -16,7 +16,7 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
 
   auto& buffer = config.buffer;
   auto& geometry = config.geometry;
-  const auto dof = geometry.dof;
+  const auto dof = geometry.element.dof;
   const auto i_direction = static_cast<int>(direction);
 
   for (int d = 0; d < 1; ++d) {

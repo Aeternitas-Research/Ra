@@ -12,7 +12,10 @@ benchmark_mesh1d_add(ra::OperationSpace space, const size_t n) {
     .name = "benchmark.Mesh1D",
     .geometry =
       {
-        .dof = 2,
+        .element =
+          {
+            .dof = 2,
+          },
         .extent = {n, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },

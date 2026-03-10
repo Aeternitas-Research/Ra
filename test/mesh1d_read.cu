@@ -17,7 +17,10 @@ TEST_CASE("Mesh1D::read", "[mesh]") {
       },
     .geometry =
       {
-        .dof = 2,
+        .element =
+          {
+            .dof = 2,
+          },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
