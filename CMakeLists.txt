@@ -44,7 +44,14 @@ elseif(RA_BUILD_TYPE STREQUAL "Debug")
     $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler>
     $<$<COMPILE_LANGUAGE:CUDA>:-rdynamic>
   )
-  target_compile_definitions(ra PUBLIC -DRA_DEBUG)
+  target_compile_definitions(
+    ra
+    PUBLIC
+    -DCUB_STDERR
+    -DRA_DEBUG
+    <$<COMPILE_LANGUAGE:CUDA>:-DCUB_STDERR>
+    <$<COMPILE_LANGUAGE:CUDA>:-DRA_DEBUG>
+  )
 endif()
 target_compile_options(
   ra
