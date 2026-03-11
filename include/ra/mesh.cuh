@@ -288,7 +288,12 @@ struct Mesh2D final : Mesh {
   };
 
   ~Mesh2D();
-  explicit Mesh2D(const MeshConfig& config);
+  Mesh2D();
+  Mesh2D(const Mesh2D&) = delete;
+  Mesh2D(Mesh2D&&) noexcept = delete;
+  explicit Mesh2D(const MeshConfig& in_config);
+  Mesh2D& operator=(const Mesh2D&) = delete;
+  Mesh2D& operator=(Mesh2D&&) noexcept = delete;
 
   Error copy(const Mesh2D& other);
   Error sync(

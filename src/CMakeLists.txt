@@ -64,6 +64,13 @@ target_sources(
   mesh1d_get_device_stencil.cu
 )
 
+# Mesh2D
+target_sources(
+  ra
+  PRIVATE
+  mesh2d_constructor.cu
+)
+
 # PMesh
 target_sources(
   ra
