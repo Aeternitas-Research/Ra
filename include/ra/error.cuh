@@ -30,7 +30,7 @@ struct Error {
   void get_message(std::string& output) const;
 
   int value = 0;
-  ErrorCategory category = Unknown;
+  ErrorCategory category = ErrorCategory::Unknown;
 };
 
 __host__ __device__ Error
