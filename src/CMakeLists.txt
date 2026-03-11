@@ -69,6 +69,7 @@ target_sources(
   ra
   PRIVATE
   mesh2d_constructor.cu
+  mesh2d_copy.cu
 )
 
 # PMesh
