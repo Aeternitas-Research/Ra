@@ -7,7 +7,7 @@ namespace ra {
 
 Error
 PMesh1D::calibrate() {
-  this->calibrate(1);
+  ra_invoke(this->calibrate(1));
 
   Mesh1D mesh_local(this->config.local);
   ra_invoke(local.copy(mesh_local));
