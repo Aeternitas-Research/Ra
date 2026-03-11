@@ -52,6 +52,8 @@ struct PMesh {
 };
 
 struct PMesh1D final : PMesh {
+  using PMesh::calibrate;
+
   ~PMesh1D();
   PMesh1D();
   PMesh1D(const PMesh1D&) = delete;
