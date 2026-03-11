@@ -28,7 +28,7 @@ struct Error {
 
   inline __host__ __device__ bool
   operator==(const cudaError& other) const {
-    return value == other.value;
+    return value == other;
   }
 
   inline __host__ __device__ bool
