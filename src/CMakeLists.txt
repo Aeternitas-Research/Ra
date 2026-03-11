@@ -2,6 +2,8 @@
 target_sources(
   ra
   PRIVATE
+  error_constructor.cu
+  error_get_message.cu
   error_invoke.cu
 )
 
