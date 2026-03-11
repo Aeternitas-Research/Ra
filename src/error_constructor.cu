@@ -9,7 +9,7 @@ Error::Error() {}
 Error::Error(const Error& other)
     : value{other.value}, category{other.category} {}
 
-Error::Error(Error&&) noexcept
+Error::Error(Error&& other) noexcept
     : value{other.value}, category{other.category} {}
 
 Error::Error(const int value, const ErrorCategory& category)
@@ -26,7 +26,7 @@ Error::operator=(const Error& other) {
 }
 
 Error&
-Error::operator=(Error&&) noexcept {
+Error::operator=(Error&& other) noexcept {
   value = other.value;
   category = other.category;
 
