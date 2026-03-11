@@ -13,10 +13,11 @@ Mesh1D::Mesh1D(const MeshConfig& in_config) : Mesh(in_config) {
 
   const auto extent = config.geometry.extent;
   const auto dof = config.geometry.element.dof;
-  host.x.resize(2 * 1 * extent[0], thrust::no_init);
-  host.f.resize(dof * extent[0], thrust::no_init);
-  device.x.resize(2 * 1 * extent[0], thrust::no_init);
-  device.f.resize(dof * extent[0], thrust::no_init);
+  const auto n = extent[0];
+  host.x.resize(2 * 1 * n, thrust::no_init);
+  host.f.resize(dof * n, thrust::no_init);
+  device.x.resize(2 * 1 * n, thrust::no_init);
+  device.f.resize(dof * n, thrust::no_init);
 }
 
 } // namespace ra
