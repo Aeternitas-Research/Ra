@@ -17,14 +17,14 @@ enum struct ErrorCategory : int {
 };
 
 struct Error {
-  ~Error();
-  Error();
-  Error(const Error& other);
-  Error(Error&& other) noexcept;
-  Error(const int value, const ErrorCategory& category);
-  Error(const cudaError& value);
-  Error& operator=(const Error& other);
-  Error& operator=(Error&& other) noexcept;
+  __host__ __device__ ~Error();
+  __host__ __device__ Error();
+  __host__ __device__ Error(const Error& other);
+  __host__ __device__ Error(Error&& other) noexcept;
+  __host__ __device__ Error(const int value, const ErrorCategory& category);
+  __host__ __device__ Error(const cudaError& value);
+  __host__ __device__ Error& operator=(const Error& other);
+  __host__ __device__ Error& operator=(Error&& other) noexcept;
 
   void get_message(std::string& output) const;
 

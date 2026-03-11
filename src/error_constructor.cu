@@ -2,22 +2,28 @@
 
 namespace ra {
 
-Error::~Error() {}
+__host__ __device__ Error::~Error() {}
 
+__host__ __device__
 Error::Error() {}
 
+__host__ __device__
 Error::Error(const Error& other)
     : value{other.value}, category{other.category} {}
 
+__host__ __device__
 Error::Error(Error&& other) noexcept
     : value{other.value}, category{other.category} {}
 
+__host__ __device__
 Error::Error(const int value, const ErrorCategory& category)
     : value{value}, category{category} {}
 
-Error::Error(const cudaError& value) : value{value} {}
+__host__ __device__
+Error::Error(const cudaError& value)
+    : value{value} {}
 
-Error&
+__host__ __device__ Error&
 Error::operator=(const Error& other) {
   value = other.value;
   category = other.category;
@@ -25,7 +31,7 @@ Error::operator=(const Error& other) {
   return *this;
 }
 
-Error&
+__host__ __device__ Error&
 Error::operator=(Error&& other) noexcept {
   value = other.value;
   category = other.category;
