@@ -56,6 +56,7 @@ endif()
 target_compile_options(
   ra
   PUBLIC
+  -fno-exceptions
   $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
 )
 
