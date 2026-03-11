@@ -49,8 +49,6 @@ elseif(RA_BUILD_TYPE STREQUAL "Debug")
     PUBLIC
     -DCUB_STDERR
     -DRA_DEBUG
-    <$<COMPILE_LANGUAGE:CUDA>:-DCUB_STDERR>
-    <$<COMPILE_LANGUAGE:CUDA>:-DRA_DEBUG>
   )
 endif()
 target_compile_options(
