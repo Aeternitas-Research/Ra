@@ -26,6 +26,16 @@ struct Error {
   __host__ __device__ Error& operator=(const Error& other);
   __host__ __device__ Error& operator=(Error&& other) noexcept;
 
+  inline __host__ __device__ bool
+  operator==(const cudaError& other) const {
+    return value == other;
+  }
+
+  inline __host__ __device__ bool
+  operator!=(const cudaError& other) const {
+    return !(*this == other);
+  }
+
   void get_message(std::string& output) const;
 
   int value = 0;
