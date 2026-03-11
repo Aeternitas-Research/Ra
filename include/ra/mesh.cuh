@@ -144,6 +144,17 @@ struct Mesh {
 };
 
 struct Mesh1D final : Mesh {
+  using Mesh::add;
+  using Mesh::assign;
+  using Mesh::divide;
+  using Mesh::multiply;
+  using Mesh::norm;
+  using Mesh::norm_1;
+  using Mesh::norm_2;
+  using Mesh::norm_infinity;
+  using Mesh::subtract;
+  using Mesh::transfer;
+
   using HostStencilIterator =
     cuda::strided_iterator<thrust::host_vector<double>::iterator>;
   using DeviceStencilIterator =
@@ -220,6 +231,17 @@ struct Mesh1D final : Mesh {
 };
 
 struct Mesh2D final : Mesh {
+  using Mesh::add;
+  using Mesh::assign;
+  using Mesh::divide;
+  using Mesh::multiply;
+  using Mesh::norm;
+  using Mesh::norm_1;
+  using Mesh::norm_2;
+  using Mesh::norm_infinity;
+  using Mesh::subtract;
+  using Mesh::transfer;
+
   using HostStencilIterator =
     cuda::strided_iterator<thrust::host_vector<double>::iterator>;
   using DeviceStencilIterator =
