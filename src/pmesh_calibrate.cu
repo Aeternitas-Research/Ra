@@ -55,11 +55,6 @@ PMesh::calibrate(const int d_max) {
     }
   }
 
-  Mesh1D mesh_local(config.local);
-  ra_invoke(local.copy(mesh_local));
-
-  ra_mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
-
   return cudaSuccess;
 }
 
