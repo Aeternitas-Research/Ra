@@ -41,8 +41,7 @@ elseif(RA_BUILD_TYPE STREQUAL "Debug")
     -O0
     -fno-omit-frame-pointer
     $<$<COMPILE_LANGUAGE:CUDA>:-G>
-    $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler>
-    $<$<COMPILE_LANGUAGE:CUDA>:-rdynamic>
+    $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-rdynamic>
   )
   target_compile_definitions(
     ra
@@ -54,7 +53,6 @@ endif()
 target_compile_options(
   ra
   PUBLIC
-  -fno-exceptions
   $<$<COMPILE_LANGUAGE:CUDA>:--extended-lambda>
 )
 
