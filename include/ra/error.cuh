@@ -25,7 +25,6 @@ struct Error {
   Error(const cudaError& value);
   Error& operator=(const Error& other);
   Error& operator=(Error&& other) noexcept;
-  operator bool() const;
 
   void get_message(std::string& output) const;
 

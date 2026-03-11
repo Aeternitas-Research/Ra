@@ -7,7 +7,7 @@ namespace ra {
 __host__ __device__ Error
 invoke_impl(const Error result, const char* file, const int line) {
   cub::Debug(static_cast<cudaError_t>(result.value), file, line);
-  if (result) {
+  if (result.value != 0) {
     cuda::std::terminate();
   }
 

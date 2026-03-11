@@ -33,9 +33,4 @@ Error::operator=(Error&& other) noexcept {
   return *this;
 }
 
-Error::
-operator bool() const {
-  return (value != 0);
-}
-
 } // namespace ra
