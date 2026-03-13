@@ -20,24 +20,24 @@ enum struct Direction : int {
 
 enum struct OperationSpace : int {
   Host = 0,
-  Device = 1,
-  HostDevice = 2,
+  Device,
+  HostDevice,
 };
 
 enum struct MeshElementType : int {
   Unknown = -1,
   // 1D
-  Line = 0,
+  Line,
   // 2D
-  Rectangle = 1,
-  CurvilinearRectangle = 2,
-  Triangle = 3,
-  CurvilinearTriangle = 4,
+  Rectangle,
+  CurvilinearRectangle,
+  Triangle,
+  CurvilinearTriangle,
   // 3D
-  Prism = 5,
-  CurvilinearPrism = 6,
+  Prism,
+  CurvilinearPrism,
   // 5D
-  GyroPrismSpectral = 7,
+  GyroPrismSpectral,
 };
 
 struct MeshConfig {
