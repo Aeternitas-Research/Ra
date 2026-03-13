@@ -10,7 +10,10 @@ Error
 Mesh1D::sync(const int other, const int dimension, const Direction direction) {
 #ifdef RA_DEBUG
   if (dimension > 0) {
-    cuda::std::terminate();
+    return RA_ERROR_HOST(ErrorValue::InvalidGeometry);
+  }
+  if (!(geometry.element.type == MeshElementType::Line)) {
+    return RA_ERROR_HOST(ErrorValue::InvalidGeometry);
   }
 #endif
 
@@ -22,36 +25,41 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
   const auto dof = geometry.element.dof;
   const auto i_direction = static_cast<int>(direction);
 
-  for (int d = 0; d < 1; ++d) {
-    buffer.extent[d] = geometry.extent[d];
-  }
-  for (int d = 0; d < 1; ++d) {
-    if (d == dimension) {
-      buffer.extent[d] =
-        std::max(geometry.ghost_depth[d][0], geometry.ghost_depth[d][1]);
-    } else {
+  if (geometry.element.type == MeshElementType::Line) {
+    // find buffer extent
+    for (int d = 0; d < 1; ++d) {
       buffer.extent[d] = geometry.extent[d];
     }
-  }
-
-  const auto length = dof * buffer.extent[0] * sizeof(double);
-  if (buffer.length <= length) {
-    buffer.length = length;
-    if (buffer.in) {
-      delete[] buffer.in;
-    }
-    if (buffer.out) {
-      delete[] buffer.out;
+    for (int d = 0; d < 1; ++d) {
+      if (d == dimension) {
+        buffer.extent[d] =
+          std::max(geometry.ghost_depth[d][0], geometry.ghost_depth[d][1]);
+      } else {
+        buffer.extent[d] = geometry.extent[d];
+      }
     }
 
-    buffer.in = new char[length * sizeof(double)];
-    buffer.out = new char[length * sizeof(double)];
-  }
+    // allocate buffer
+    const auto length = dof * buffer.extent[0] * sizeof(double);
+    if (buffer.length <= length) {
+      buffer.length = length;
+      if (buffer.in) {
+        delete[] buffer.in;
+      }
+      if (buffer.out) {
+        delete[] buffer.out;
+      }
 
-  int position;
-  std::size_t index[1] = {0};
+      buffer.in = new char[length * sizeof(double)];
+      buffer.out = new char[length * sizeof(double)];
+    }
+  } else {
+    return RA_ERROR_HOST(ErrorValue::InvalidGeometry);
+  }
 
   // pack
+  int position;
+  std::size_t index[1] = {0};
   position = 0;
   if (direction == Direction::Upwind) {
     for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][0]; ++j0) {
