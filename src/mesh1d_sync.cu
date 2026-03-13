@@ -10,7 +10,7 @@ Error
 Mesh1D::sync(const int other, const int dimension, const Direction direction) {
 #ifdef RA_DEBUG
   if (dimension > 0) {
-    return RA_ERROR_HOST(ErrorValue::InvalidGeometry);
+    return RA_ERROR_HOST(ErrorValue::InvalidParameter);
   }
   if (!(geometry.element.type == MeshElementType::Line)) {
     return RA_ERROR_HOST(ErrorValue::InvalidGeometry);
@@ -58,34 +58,38 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
   }
 
   // pack
-  int position = 0;
-  std::size_t index[1] = {0};
-  if (direction == Direction::Upwind) {
-    for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][0]; ++j0) {
-      // find index
-      index[0] = geometry.extent[0] -
-                 (geometry.ghost_depth[0][0] + geometry.ghost_depth[0][1]) +
-                 j0;
+  if (geometry.element.type == MeshElementType::Line) {
+    int position = 0;
+    std::size_t index[1] = {0};
+    if (direction == Direction::Upwind) {
+      for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][0]; ++j0) {
+        // find index
+        index[0] = geometry.extent[0] -
+                   (geometry.ghost_depth[0][0] + geometry.ghost_depth[0][1]) +
+                   j0;
 
-      // fill buffer
-      const auto offset = sub2ind(index, geometry.extent, 1);
-      ra_mpi_invoke(MPI_Pack(
-        host.f.data() + dof * offset, dof, MPI_DOUBLE, buffer.out,
-        buffer.length, &position, MPI_COMM_WORLD));
-    }
-  } else if (direction == Direction::Downwind) {
-    for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][1]; ++j0) {
-      // find index
-      index[0] = geometry.ghost_depth[0][0] + j0;
+        // fill buffer
+        const auto offset = sub2ind(index, geometry.extent, 1);
+        ra_mpi_invoke(MPI_Pack(
+          host.f.data() + dof * offset, dof, MPI_DOUBLE, buffer.out,
+          buffer.length, &position, MPI_COMM_WORLD));
+      }
+    } else if (direction == Direction::Downwind) {
+      for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][1]; ++j0) {
+        // find index
+        index[0] = geometry.ghost_depth[0][0] + j0;
 
-      // fill buffer
-      const auto offset = sub2ind(index, geometry.extent, 1);
-      ra_mpi_invoke(MPI_Pack(
-        host.f.data() + dof * offset, dof, MPI_DOUBLE, buffer.out,
-        buffer.length, &position, MPI_COMM_WORLD));
+        // fill buffer
+        const auto offset = sub2ind(index, geometry.extent, 1);
+        ra_mpi_invoke(MPI_Pack(
+          host.f.data() + dof * offset, dof, MPI_DOUBLE, buffer.out,
+          buffer.length, &position, MPI_COMM_WORLD));
+      }
+    } else {
+      return RA_ERROR_HOST(ErrorValue::InvalidParameter);
     }
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR_HOST(ErrorValue::InvalidGeometry);
   }
 
   // get
@@ -100,25 +104,29 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
   ra_mpi_invoke(MPI_Win_fence(0, id_window));
 
   // unpack
-  position = 0;
-  if (direction == Direction::Upwind) {
-    for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][0]; ++j0) {
-      index[0] = j0;
-      const auto offset = sub2ind(index, geometry.extent, 1);
-      ra_mpi_invoke(MPI_Unpack(
-        buffer.in, buffer.length, &position, host.f.data() + dof * offset, dof,
-        MPI_DOUBLE, MPI_COMM_WORLD));
-    }
-  } else if (direction == Direction::Downwind) {
-    for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][1]; ++j0) {
-      index[0] = geometry.extent[0] - geometry.ghost_depth[0][1] + j0;
-      const auto offset = sub2ind(index, geometry.extent, 1);
-      ra_mpi_invoke(MPI_Unpack(
-        buffer.in, buffer.length, &position, host.f.data() + dof * offset, dof,
-        MPI_DOUBLE, MPI_COMM_WORLD));
+  if (geometry.element.type == MeshElementType::Line) {
+    int position = 0;
+    if (direction == Direction::Upwind) {
+      for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][0]; ++j0) {
+        index[0] = j0;
+        const auto offset = sub2ind(index, geometry.extent, 1);
+        ra_mpi_invoke(MPI_Unpack(
+          buffer.in, buffer.length, &position, host.f.data() + dof * offset,
+          dof, MPI_DOUBLE, MPI_COMM_WORLD));
+      }
+    } else if (direction == Direction::Downwind) {
+      for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][1]; ++j0) {
+        index[0] = geometry.extent[0] - geometry.ghost_depth[0][1] + j0;
+        const auto offset = sub2ind(index, geometry.extent, 1);
+        ra_mpi_invoke(MPI_Unpack(
+          buffer.in, buffer.length, &position, host.f.data() + dof * offset,
+          dof, MPI_DOUBLE, MPI_COMM_WORLD));
+      }
+    } else {
+      return RA_ERROR_HOST(ErrorValue::InvalidParameter);
     }
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR_HOST(ErrorValue::InvalidGeometry);
   }
 
   return cudaSuccess;
