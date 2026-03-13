@@ -59,8 +59,8 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
 
   // pack
   if (geometry.element.type == MeshElementType::Line) {
-    int position = 0;
     std::size_t index[1] = {0};
+    int position = 0;
     if (direction == Direction::Upwind) {
       for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][0]; ++j0) {
         // find index
