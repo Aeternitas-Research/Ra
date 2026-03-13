@@ -62,9 +62,12 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
   std::size_t index[1] = {0};
   if (direction == Direction::Upwind) {
     for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][0]; ++j0) {
+      // find index
       index[0] = geometry.extent[0] -
                  (geometry.ghost_depth[0][0] + geometry.ghost_depth[0][1]) +
                  j0;
+
+      // fill buffer
       const auto offset = sub2ind(index, geometry.extent, 1);
       ra_mpi_invoke(MPI_Pack(
         host.f.data() + dof * offset, dof, MPI_DOUBLE, buffer.out,
@@ -72,7 +75,10 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
     }
   } else if (direction == Direction::Downwind) {
     for (std::size_t j0 = 0; j0 < geometry.ghost_depth[0][1]; ++j0) {
+      // find index
       index[0] = geometry.ghost_depth[0][0] + j0;
+
+      // fill buffer
       const auto offset = sub2ind(index, geometry.extent, 1);
       ra_mpi_invoke(MPI_Pack(
         host.f.data() + dof * offset, dof, MPI_DOUBLE, buffer.out,
