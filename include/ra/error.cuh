@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ra/utility.cuh"
 #include <string>
 
 #ifdef RA_DEBUG
@@ -30,6 +31,11 @@ struct Error {
   __host__ __device__ Error(const cudaError& value);
   __host__ __device__ Error& operator=(const Error& other);
   __host__ __device__ Error& operator=(Error&& other) noexcept;
+
+  template <typename T>
+  __host__ __device__
+  Error(const T& value, const ErrorCategory& category)
+      : Error(ra::to_underlying(value), category) {}
 
   inline __host__ __device__ bool
   operator==(const cudaError& other) const {
