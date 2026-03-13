@@ -21,7 +21,7 @@ Error::Error(const int value, const ErrorCategory& category)
 
 __host__ __device__
 Error::Error(const cudaError& value)
-    : value{value} {}
+    : value{value}, category{ErrorCategory::Device} {}
 
 __host__ __device__ Error&
 Error::operator=(const Error& other) {
