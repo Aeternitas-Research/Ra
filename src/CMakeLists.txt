@@ -70,6 +70,7 @@ target_sources(
   PRIVATE
   mesh2d_constructor.cu
   mesh2d_copy.cu
+  mesh2d_sync.cu
 )
 
 # PMesh
