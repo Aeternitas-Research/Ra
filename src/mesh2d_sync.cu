@@ -12,8 +12,9 @@ Mesh2D::sync(const int other, const int dimension, const Direction direction) {
   if (dimension > 1) {
     return RA_ERROR_HOST(ErrorValue::InvalidParameter);
   }
-  if (!((geometry.element.type == MeshElementType::Line) ||
-        (geometry.element.type == MeshElementType::CurvilinearRectangle))) {
+  if (!((this->config.geometry.element.type == MeshElementType::Line) ||
+        (this->config.geometry.element.type ==
+         MeshElementType::CurvilinearRectangle))) {
     return RA_ERROR_HOST(ErrorValue::InvalidGeometry);
   }
 #endif

@@ -12,7 +12,7 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
   if (dimension > 0) {
     return RA_ERROR_HOST(ErrorValue::InvalidParameter);
   }
-  if (!(geometry.element.type == MeshElementType::Line)) {
+  if (!(this->config.geometry.element.type == MeshElementType::Line)) {
     return RA_ERROR_HOST(ErrorValue::InvalidGeometry);
   }
 #endif
