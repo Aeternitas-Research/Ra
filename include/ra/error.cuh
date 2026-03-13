@@ -22,6 +22,7 @@ enum struct ErrorCategory : int {
 
 enum struct ErrorValue : int {
   Success = 0,
+  InvalidParameter,
   InvalidGeometry,
 };
 
