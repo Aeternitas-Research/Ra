@@ -3,6 +3,9 @@
 #include "ra/utility.cuh"
 #include <string>
 
+#define RA_ERROR_HOST(_value) ra::Error((_value), ErrorCategory::Host)
+#define RA_ERROR_DEVICE(_value) ra::Error((_value), ErrorCategory::Device)
+
 #ifdef RA_DEBUG
 #define ra_invoke(_expr) ra::invoke_impl((_expr), __FILE__, __LINE__)
 #else
