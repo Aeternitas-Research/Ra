@@ -25,7 +25,7 @@ enum struct OperationSpace : int {
 };
 
 enum struct MeshElementType : int {
-  Unknown = -1,
+  Unknown = 0,
   // 1D
   Line,
   // 2D
