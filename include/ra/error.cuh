@@ -16,6 +16,11 @@ enum struct ErrorCategory : int {
   Device = 2,
 };
 
+enum struct ErrorValue : int {
+  Success = 0,
+  InvalidGeometry,
+};
+
 struct Error {
   __host__ __device__ ~Error();
   __host__ __device__ Error();
