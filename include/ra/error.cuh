@@ -13,8 +13,8 @@ namespace ra {
 
 enum struct ErrorCategory : int {
   Unknown = 0,
-  Host = 1,
-  Device = 2,
+  Host,
+  Device,
 };
 
 enum struct ErrorValue : int {
