@@ -47,6 +47,11 @@ struct Error {
       : Error(ra::to_underlying(value), category) {}
 
   inline __host__ __device__ bool
+  operator==(const Error& other) const {
+    return (value == other.value) && (category == other.category);
+  }
+
+  inline __host__ __device__ bool
   operator==(const cudaError& other) const {
     return value == other;
   }
