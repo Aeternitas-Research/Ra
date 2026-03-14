@@ -67,10 +67,10 @@ Mesh2D::get_device_stencil(DeviceStencil& stencil) {
       cuda::make_strided_iterator(begin + (offset + offset_x1) * dof + 0, dof);
     break;
   default:
-    return RA_HOST_ERROR(ErrorValue::InvalidParameter);
+    return RA_ERROR_HOST(ErrorValue::InvalidParameter);
   }
 
-  return RA_HOST_ERROR(ErrorValue::Success);
+  return RA_ERROR_HOST(ErrorValue::Success);
 }
 
 } // namespace ra
