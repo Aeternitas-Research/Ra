@@ -79,6 +79,7 @@ target_sources(
   mesh2d_divide.cu
   mesh2d_subtract.cu
   mesh2d_get_host_coordinate.cu
+  mesh2d_get_device_coordinate.cu
 )
 
 # PMesh
