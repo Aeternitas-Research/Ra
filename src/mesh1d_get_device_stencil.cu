@@ -8,8 +8,8 @@ __host__ __device__ Error
 Mesh1D::get_device_stencil(DeviceStencil& stencil) {
   auto& config = this->config;
   auto& device = this->device;
-
   auto& geometry = config.geometry;
+
   const auto offset = geometry.ghost_depth[0][0];
   const cuda::std::ptrdiff_t dof = geometry.element.dof;
 
