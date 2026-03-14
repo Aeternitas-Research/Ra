@@ -72,8 +72,8 @@ Mesh2D::sync(const int other, const int dimension, const Direction direction) {
     int position = 0;
     if (direction == Direction::Upwind) {
       j_max[dimension] = geometry.ghost_depth[dimension][0];
-      for (std::size_t j[1] = 0; j[1] < j_max[1]; ++j[1]) {
-        for (std::size_t j[0] = 0; j[0] < j_max[0]; ++j[0]) {
+      for (j[1] = 0; j[1] < j_max[1]; ++j[1]) {
+        for (j[0] = 0; j[0] < j_max[0]; ++j[0]) {
           // find index
           for (int d = 0; d < 2; ++d) {
             if (d == dimension) {
@@ -95,8 +95,8 @@ Mesh2D::sync(const int other, const int dimension, const Direction direction) {
       }
     } else if (direction == Direction::Downwind) {
       j_max[dimension] = geometry.ghost_depth[dimension][1];
-      for (std::size_t j[1] = 0; j[1] < j_max[1]; ++j[1]) {
-        for (std::size_t j[0] = 0; j[0] < j_max[0]; ++j[0]) {
+      for (j[1] = 0; j[1] < j_max[1]; ++j[1]) {
+        for (j[0] = 0; j[0] < j_max[0]; ++j[0]) {
           // find index
           for (int d = 0; d < 2; ++d) {
             if (d == dimension) {
@@ -141,8 +141,8 @@ Mesh2D::sync(const int other, const int dimension, const Direction direction) {
     int position = 0;
     if (direction == Direction::Upwind) {
       j_max[dimension] = geometry.ghost_depth[dimension][0];
-      for (std::size_t j[1] = 0; j[1] < j_max[1]; ++j[1]) {
-        for (std::size_t j[0] = 0; j[0] < j_max[0]; ++j[0]) {
+      for (j[1] = 0; j[1] < j_max[1]; ++j[1]) {
+        for (j[0] = 0; j[0] < j_max[0]; ++j[0]) {
           // find index
           for (int d = 0; d < 2; ++d) {
             index[d] = j[d];
@@ -157,8 +157,8 @@ Mesh2D::sync(const int other, const int dimension, const Direction direction) {
       }
     } else if (direction == Direction::Downwind) {
       j_max[dimension] = geometry.ghost_depth[dimension][1];
-      for (std::size_t j[1] = 0; j[1] < j_max[1]; ++j[1]) {
-        for (std::size_t j[0] = 0; j[0] < j_max[0]; ++j[0]) {
+      for (j[1] = 0; j[1] < j_max[1]; ++j[1]) {
+        for (j[0] = 0; j[0] < j_max[0]; ++j[0]) {
           // find index
           for (int d = 0; d < 2; ++d) {
             if (d == dimension) {
