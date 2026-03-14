@@ -18,6 +18,10 @@ TEST_CASE("Error::operator==", "[error]") {
 }
 
 TEST_CASE("Error::operator!=", "[error]") {
+  using ra::Error;
+  using ra::ErrorCategory;
+  using ra::ErrorValue;
+
   Error e1(ErrorValue::Success, ErrorCategory::Host);
   Error e2(ErrorValue::Success, ErrorCategory::Device);
   REQUIRE(e1 != e2);
