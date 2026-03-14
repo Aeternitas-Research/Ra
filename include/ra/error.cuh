@@ -4,9 +4,9 @@
 #include <string>
 
 #if !defined(__CUDA_ARCH__)
-#define RA_ERROR(_value) ra::Error((_value), ErrorCategory::Host)
+#define RA_ERROR(_value) ra::Error((_value), ra::ErrorCategory::Host)
 #else
-#define RA_ERROR(_value) ra::Error((_value), ErrorCategory::Device)
+#define RA_ERROR(_value) ra::Error((_value), ra::ErrorCategory::Device)
 #endif
 
 #define RA_SUCCESS RA_ERROR(ra::ErrorValue::Success)
