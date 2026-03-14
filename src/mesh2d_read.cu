@@ -51,8 +51,8 @@ Mesh2D::read(const int mpi_rank) {
   ra_netcdf_invoke(nc_inq_varid(file, name.variable.f.c_str(), &(variable.f)));
 
   const std::size_t length_x =
-    (2 * 2) *
-    (geometry.extent[0] * geometry.extent[1]) if (host.x.size() != length_x) {
+    (2 * 2) * (geometry.extent[0] * geometry.extent[1]);
+  if (host.x.size() != length_x) {
     host.x.resize(length_x);
   }
   ra_netcdf_invoke(nc_get_var(file, variable.x, host.x.data()));
