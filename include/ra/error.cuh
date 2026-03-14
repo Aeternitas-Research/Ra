@@ -9,6 +9,8 @@
 #define RA_ERROR(_value) ra::Error((_value), ErrorCategory::Device)
 #endif
 
+#define RA_SUCCESS RA_ERROR(ra::ErrorValue::Success)
+
 #ifdef RA_DEBUG
 #define ra_invoke(_expr) ra::invoke_impl((_expr), __FILE__, __LINE__)
 #else
