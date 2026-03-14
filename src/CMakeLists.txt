@@ -77,6 +77,7 @@ target_sources(
   mesh2d_multiply.cu
   mesh2d_add.cu
   mesh2d_divide.cu
+  mesh2d_subtract.cu
 )
 
 # PMesh
