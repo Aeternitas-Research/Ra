@@ -71,6 +71,7 @@ target_sources(
   mesh2d_constructor.cu
   mesh2d_copy.cu
   mesh2d_sync.cu
+  mesh2d_write.cu
 )
 
 # PMesh
