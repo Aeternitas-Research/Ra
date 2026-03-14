@@ -81,6 +81,7 @@ target_sources(
   mesh2d_get_host_coordinate.cu
   mesh2d_get_device_coordinate.cu
   mesh2d_get_host_stencil.cu
+  mesh2d_get_device_stencil.cu
 )
 
 # PMesh
