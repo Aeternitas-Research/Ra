@@ -40,6 +40,7 @@ ra_add_test(MODULE index NAME ind2sub_right)
 
 # Error
 ra_add_test(MODULE error NAME constructor)
+ra_add_test(MODULE error NAME operator)
 
 # Snapshot
 ra_add_test(MODULE snapshot NAME constructor)
