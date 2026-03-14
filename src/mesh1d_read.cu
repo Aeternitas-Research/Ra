@@ -40,8 +40,10 @@ Mesh1D::read(const int mpi_rank) {
   ra_netcdf_invoke(nc_inq_dimid(file, "extent.0", &(dimension.extent[0])));
   ra_netcdf_invoke(nc_inq_dimid(file, "x", &(dimension.x[0])));
   ra_netcdf_invoke(nc_inq_dimid(file, "f", &(dimension.f[0])));
-  ra_netcdf_invoke(
-    nc_inq_dimlen(file, dimension.extent[0], &(geometry.extent[0])));
+  for (int d = 0; d < 1; ++d) {
+    ra_netcdf_invoke(
+      nc_inq_dimlen(file, dimension.extent[d], &(geometry.extent[d])));
+  }
 
   auto& name = config.netcdf.name;
   ra_netcdf_invoke(nc_inq_varid(file, name.variable.x.c_str(), &(variable.x)));
