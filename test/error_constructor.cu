@@ -16,6 +16,6 @@ TEST_CASE("Error::Error", "[error]") {
   Error e5(cudaSuccess);
   Error e6(ErrorValue::Success, ErrorCategory::Device);
 
-  e6 = s5;
+  e6 = e5;
   e6 = std::move(e4);
 }
