@@ -14,7 +14,7 @@ Mesh::norm(const OperationSpace space, double& r, const std::string type) {
     return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 Error
@@ -27,7 +27,7 @@ Mesh::norm_1(const OperationSpace space, double& r) {
     return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 Error
@@ -40,7 +40,7 @@ Mesh::norm_2(const OperationSpace space, double& r) {
     return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 Error
@@ -53,7 +53,7 @@ Mesh::norm_infinity(const OperationSpace space, double& r) {
     return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

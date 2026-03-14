@@ -66,7 +66,7 @@ Mesh2D::read(const int mpi_rank) {
 
   ra_netcdf_invoke(nc_close(file));
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

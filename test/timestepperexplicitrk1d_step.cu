@@ -117,7 +117,7 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
     thrust::copy_n(op_projection_2, n, stencil_f.f2);
     thrust::copy_n(op_projection_3, n, stencil_f.f3);
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   };
 
   // set boundary conditions
@@ -211,14 +211,14 @@ TEST_CASE("TimeStepperExplicitRK1D::step", "[timestepper]") {
       thrust::copy_n(ra_dg_kernel_3, n, stencil_f.f3);
     }
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   };
 
   using Catch::Matchers::WithinAbs;
   using Catch::Matchers::WithinRel;
 
   const auto r = t1.step();
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
   REQUIRE_THAT(t1.config.time.now, WithinRel(1.0, 1e-14));
   REQUIRE(t1.config.time.history_delta.size() == 210);
   REQUIRE_THAT(t1.config.time.history_delta[0], WithinAbs(1e-6, 1e-14));

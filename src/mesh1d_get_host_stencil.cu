@@ -47,7 +47,7 @@ Mesh1D::get_host_stencil(HostStencil& stencil) {
     return RA_ERROR(ErrorValue::InvalidSize);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

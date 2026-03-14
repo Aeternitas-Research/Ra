@@ -18,7 +18,7 @@ TEST_CASE("Snapshot::calibrate", "[snapshot]") {
       },
   };
   Snapshot s(config);
-  REQUIRE(s.calibrate() == cudaSuccess);
+  REQUIRE(s.calibrate() == RA_SUCCESS);
 
   auto s_config = s.config.get();
 

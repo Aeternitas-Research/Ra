@@ -23,7 +23,7 @@ Mesh::transfer(const cudaMemcpyKind kind, const bool x, const bool f) {
     return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

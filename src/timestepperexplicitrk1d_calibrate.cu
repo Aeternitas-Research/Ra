@@ -116,7 +116,7 @@ TimeStepperExplicitRK1D::calibrate() {
     k[stage].copy(mesh);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

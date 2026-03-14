@@ -29,7 +29,7 @@ PMesh1D::norm(const OperationSpace space, double& r, const std::string type) {
     return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

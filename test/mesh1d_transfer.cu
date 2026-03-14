@@ -36,8 +36,8 @@ TEST_CASE("Mesh1D::transfer", "[mesh]") {
     m1.host.f.begin(), m1.host.f.end(), [&] { return dist(rng); });
 
   auto r = m1.transfer(cudaMemcpyHostToDevice, false, true);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
 
   r = m1.transfer(cudaMemcpyDeviceToHost, false, true);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
 }

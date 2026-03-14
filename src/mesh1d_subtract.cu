@@ -15,7 +15,7 @@ Mesh1D::subtract(const OperationSpace space, Mesh1D& mesh_x) {
     return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 Error
@@ -31,7 +31,7 @@ Mesh1D::subtract(const OperationSpace space, const double c, Mesh1D& mesh_x) {
     return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 Error
@@ -47,7 +47,7 @@ Mesh1D::subtract(const OperationSpace space, Mesh1D& mesh_c, Mesh1D& mesh_x) {
     return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

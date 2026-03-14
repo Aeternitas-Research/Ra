@@ -37,5 +37,5 @@ TEST_CASE("Mesh1D::write", "[mesh]") {
   REQUIRE(MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank) == MPI_SUCCESS);
 
   const auto r = m1.write(mpi_rank);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
 }

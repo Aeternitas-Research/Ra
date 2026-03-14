@@ -30,7 +30,7 @@ TEST_CASE("Mesh1D::multiply 1", "[mesh]") {
     thrust::fill(m1.host.f.begin(), m1.host.f.end(), 2.0);
 
     const auto r = m1.multiply(ra::OperationSpace::Host, 3.0);
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {
       REQUIRE_THAT(value, WithinRel(6.0, 1e-14));
@@ -42,7 +42,7 @@ TEST_CASE("Mesh1D::multiply 1", "[mesh]") {
     thrust::fill(m1.device.f.begin(), m1.device.f.end(), 4.0);
 
     const auto r = m1.multiply(ra::OperationSpace::Device, 5.0);
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     m1.transfer(cudaMemcpyDeviceToHost, false, true);
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {
@@ -78,7 +78,7 @@ TEST_CASE("Mesh1D::multiply 2", "[mesh]") {
     thrust::fill(m2.host.f.begin(), m2.host.f.end(), 3.0);
 
     const auto r = m2.multiply(ra::OperationSpace::Host, m1);
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {
       REQUIRE_THAT(value, WithinRel(2.0, 1e-14));
@@ -94,7 +94,7 @@ TEST_CASE("Mesh1D::multiply 2", "[mesh]") {
     thrust::fill(m2.device.f.begin(), m2.device.f.end(), 5.0);
 
     const auto r = m2.multiply(ra::OperationSpace::Device, m1);
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     m1.transfer(cudaMemcpyDeviceToHost, false, true);
     m2.transfer(cudaMemcpyDeviceToHost, false, true);

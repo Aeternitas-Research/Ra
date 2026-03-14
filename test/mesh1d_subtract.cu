@@ -30,7 +30,7 @@ TEST_CASE("Mesh1D::subtract 1", "[mesh]") {
     thrust::fill(m1.host.f.begin(), m1.host.f.end(), 3.0);
 
     const auto r = m1.subtract(ra::OperationSpace::Host, 2.0);
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {
       REQUIRE_THAT(value, WithinRel(1.0, 1e-14));
@@ -42,7 +42,7 @@ TEST_CASE("Mesh1D::subtract 1", "[mesh]") {
     thrust::fill(m1.device.f.begin(), m1.device.f.end(), 9.0);
 
     const auto r = m1.subtract(ra::OperationSpace::Device, 5.0);
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     m1.transfer(cudaMemcpyDeviceToHost, false, true);
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {
@@ -78,7 +78,7 @@ TEST_CASE("Mesh1D::subtract 2", "[mesh]") {
     thrust::fill(m2.host.f.begin(), m2.host.f.end(), 3.0);
 
     const auto r = m2.subtract(ra::OperationSpace::Host, m1);
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {
       REQUIRE_THAT(value, WithinRel(2.0, 1e-14));
@@ -94,7 +94,7 @@ TEST_CASE("Mesh1D::subtract 2", "[mesh]") {
     thrust::fill(m2.device.f.begin(), m2.device.f.end(), 9.0);
 
     const auto r = m2.subtract(ra::OperationSpace::Device, m1);
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     m1.transfer(cudaMemcpyDeviceToHost, false, true);
     m2.transfer(cudaMemcpyDeviceToHost, false, true);
@@ -134,7 +134,7 @@ TEST_CASE("Mesh1D::subtract 3", "[mesh]") {
     thrust::fill(m2.host.f.begin(), m2.host.f.end(), 11.0);
 
     const auto r = m2.subtract(ra::OperationSpace::Host, 4.0, m1);
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {
       REQUIRE_THAT(value, WithinRel(2.0, 1e-14));
@@ -150,7 +150,7 @@ TEST_CASE("Mesh1D::subtract 3", "[mesh]") {
     thrust::fill(m2.device.f.begin(), m2.device.f.end(), 41.0);
 
     const auto r = m2.subtract(ra::OperationSpace::Device, 7.0, m1);
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     m1.transfer(cudaMemcpyDeviceToHost, false, true);
     m2.transfer(cudaMemcpyDeviceToHost, false, true);
@@ -192,7 +192,7 @@ TEST_CASE("Mesh1D::subtract 4", "[mesh]") {
     thrust::fill(m2.host.f.begin(), m2.host.f.end(), 10.0);
 
     const auto r = m2.subtract(ra::OperationSpace::Host, c, m1);
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {
       REQUIRE_THAT(value, WithinRel(2.0, 1e-14));
@@ -212,7 +212,7 @@ TEST_CASE("Mesh1D::subtract 4", "[mesh]") {
     thrust::fill(m2.device.f.begin(), m2.device.f.end(), 37.0);
 
     const auto r = m2.subtract(ra::OperationSpace::Device, c, m1);
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     m1.transfer(cudaMemcpyDeviceToHost, false, true);
     c.transfer(cudaMemcpyDeviceToHost, false, true);

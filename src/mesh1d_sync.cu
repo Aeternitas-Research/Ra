@@ -140,7 +140,7 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
     return RA_ERROR(ErrorValue::InvalidGeometry);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

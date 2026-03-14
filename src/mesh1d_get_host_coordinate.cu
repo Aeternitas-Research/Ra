@@ -16,7 +16,7 @@ Mesh1D::get_host_coordinate(HostStencil& coordinate) {
   coordinate.x0 = cuda::make_strided_iterator(begin + offset * dof + 0, dof);
   coordinate.dx0 = cuda::make_strided_iterator(begin + offset * dof + 1, dof);
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

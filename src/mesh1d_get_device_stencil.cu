@@ -47,7 +47,7 @@ Mesh1D::get_device_stencil(DeviceStencil& stencil) {
     return RA_ERROR(ErrorValue::InvalidSize);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

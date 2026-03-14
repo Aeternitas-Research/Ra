@@ -8,7 +8,7 @@ Mesh1D::copy(const Mesh1D& other) {
   this->host = other.host;
   this->device = other.device;
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

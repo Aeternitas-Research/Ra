@@ -12,7 +12,7 @@ Mesh::subtract(const OperationSpace space, const double c) {
     return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

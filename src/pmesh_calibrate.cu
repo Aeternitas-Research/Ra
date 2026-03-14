@@ -55,7 +55,7 @@ PMesh::calibrate(const int d_max) {
     }
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

@@ -117,7 +117,7 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
     thrust::copy_n(op_projection_2, n, stencil_f.f2);
     thrust::copy_n(op_projection_3, n, stencil_f.f3);
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   };
 
   // set boundary conditions
@@ -211,7 +211,7 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
       thrust::copy_n(ra_dg_kernel_3, n, stencil_f.f3);
     }
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   };
 
   // initialize data on device
@@ -232,7 +232,7 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   // step 1
   t1.config.time.delta = 1e+100;
   auto r = t1.try_step(success, epsilon);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
   REQUIRE(success == false);
   REQUIRE(t1.config.time.n_fail == 1);
   REQUIRE_THAT(epsilon, WithinRel(3.799235784098976e+17, 1e-14));
@@ -243,7 +243,7 @@ TEST_CASE("TimeStepperExplicitRK1D::try_step", "[timestepper]") {
   ra_invoke(t1.reset_mesh());
   t1.config.time.delta = 1e-6;
   r = t1.try_step(success, epsilon);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
   REQUIRE(success == true);
   REQUIRE(t1.config.time.n_fail == 0);
   REQUIRE_THAT(epsilon, WithinAbs(4.3497e-12, 1e-14));

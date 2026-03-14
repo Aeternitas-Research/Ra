@@ -34,7 +34,7 @@ TimeStepperExplicitRK1D::find_epsilon(double& epsilon) {
   ra_invoke(error.norm(OperationSpace::Device, epsilon, "l^2"));
   epsilon /= cuda::std::sqrt(static_cast<double>(n));
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

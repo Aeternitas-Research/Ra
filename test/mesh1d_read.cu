@@ -37,13 +37,13 @@ TEST_CASE("Mesh1D::read", "[mesh]") {
   REQUIRE(MPI_Comm_rank(MPI_COMM_WORLD, &mpi_rank) == MPI_SUCCESS);
 
   auto r = m1.write(mpi_rank);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
 
   m1.config.info.step = 2;
   m1.config.info.time = 2.0;
 
   r = m1.read(mpi_rank);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
   REQUIRE(m1.config.info.step == 1);
 
   using Catch::Matchers::WithinRel;

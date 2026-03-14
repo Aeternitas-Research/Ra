@@ -15,7 +15,7 @@ Mesh1D::divide(const OperationSpace space, Mesh1D& mesh_x) {
     return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

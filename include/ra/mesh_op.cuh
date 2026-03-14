@@ -19,14 +19,14 @@ struct MeshOp {
   assign(T& y, const Scalar c) {
     thrust::fill(y.begin(), y.end(), c);
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
   assign(T& y, T& x) {
     thrust::copy(x.begin(), x.end(), y.begin());
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -36,7 +36,7 @@ struct MeshOp {
     };
     thrust::transform(y.begin(), y.end(), y.begin(), op);
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -45,7 +45,7 @@ struct MeshOp {
       cuda::std::multiplies<Scalar>{}, y.begin(), x.begin()};
     thrust::copy(kernel, kernel + y.size(), y.begin());
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -55,7 +55,7 @@ struct MeshOp {
     };
     thrust::transform(y.begin(), y.end(), y.begin(), op);
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -64,7 +64,7 @@ struct MeshOp {
       cuda::std::plus<Scalar>{}, y.begin(), x.begin()};
     thrust::copy(kernel, kernel + y.size(), y.begin());
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -76,7 +76,7 @@ struct MeshOp {
     cuda::zip_transform_iterator kernel{op, y.begin(), x.begin()};
     thrust::copy(kernel, kernel + y.size(), y.begin());
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -87,7 +87,7 @@ struct MeshOp {
     cuda::zip_transform_iterator kernel{op, y.begin(), c.begin(), x.begin()};
     thrust::copy(kernel, kernel + y.size(), y.begin());
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -97,7 +97,7 @@ struct MeshOp {
     };
     thrust::transform(y.begin(), y.end(), y.begin(), op);
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -106,7 +106,7 @@ struct MeshOp {
       cuda::std::divides<Scalar>{}, y.begin(), x.begin()};
     thrust::copy(kernel, kernel + y.size(), y.begin());
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -116,7 +116,7 @@ struct MeshOp {
     };
     thrust::transform(y.begin(), y.end(), y.begin(), op);
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -125,7 +125,7 @@ struct MeshOp {
       cuda::std::minus<Scalar>{}, y.begin(), x.begin()};
     thrust::copy(kernel, kernel + y.size(), y.begin());
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -137,7 +137,7 @@ struct MeshOp {
     cuda::zip_transform_iterator kernel{op, y.begin(), x.begin()};
     thrust::copy(kernel, kernel + y.size(), y.begin());
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -148,7 +148,7 @@ struct MeshOp {
     cuda::zip_transform_iterator kernel{op, y.begin(), c.begin(), x.begin()};
     thrust::copy(kernel, kernel + y.size(), y.begin());
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -160,7 +160,7 @@ struct MeshOp {
       y.begin(), y.end(), op, static_cast<Scalar>(0),
       cuda::std::plus<Scalar>{});
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -173,7 +173,7 @@ struct MeshOp {
       cuda::std::plus<Scalar>{});
     r = cuda::std::sqrt(r);
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   Error
@@ -184,7 +184,7 @@ struct MeshOp {
     r = thrust::transform_reduce(
       y.begin(), y.end(), op, static_cast<Scalar>(0), cuda::maximum<Scalar>{});
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 };
 
