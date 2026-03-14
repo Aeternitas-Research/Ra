@@ -51,8 +51,9 @@ struct Error {
     return value == other;
   }
 
-  inline __host__ __device__ bool
-  operator!=(const cudaError& other) const {
+  template <typename T>
+  __host__ __device__ bool
+  operator!=(const T& other) const {
     return !(*this == other);
   }
 
