@@ -11,7 +11,7 @@
 
 #define RA_SUCCESS RA_ERROR(ra::ErrorValue::Success)
 
-#ifdef RA_DEBUG
+#ifdef RA_MODE_DEBUG
 #define ra_invoke(_expr) ra::invoke_impl((_expr), __FILE__, __LINE__)
 #else
 #define ra_invoke(_expr) (_expr)

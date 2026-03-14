@@ -47,7 +47,7 @@ elseif(RA_BUILD_TYPE STREQUAL "Debug")
     ra
     PUBLIC
     -DCUB_STDERR
-    -DRA_DEBUG
+    -DRA_MODE_DEBUG
   )
 endif()
 target_compile_options(

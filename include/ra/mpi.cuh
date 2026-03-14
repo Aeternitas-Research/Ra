@@ -17,7 +17,7 @@
 #error "Unknown SIZE_MAX"
 #endif
 
-#ifdef RA_DEBUG
+#ifdef RA_MODE_DEBUG
 #define ra_mpi_invoke(_expr) ra::mpi_invoke_impl((_expr), __FILE__, __LINE__)
 #else
 #define ra_mpi_invoke(_expr) (_expr)

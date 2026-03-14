@@ -57,13 +57,13 @@ Mesh1D::write(const int mpi_rank) {
   ra_netcdf_invoke(nc_def_var(
     file, name.variable.f.c_str(), NC_DOUBLE, 1, dimension.f, &(variable.f)));
 
-#ifdef RA_DEBUG
+#ifdef RA_MODE_DEBUG
   if (host.x.size() != length_x) {
     return RA_ERROR(ErrorValue::InvalidSize);
   }
 #endif
   ra_netcdf_invoke(nc_put_var(file, variable.x, host.x.data()));
-#ifdef RA_DEBUG
+#ifdef RA_MODE_DEBUG
   if (host.f.size() != length_f) {
     return RA_ERROR(ErrorValue::InvalidSize);
   }

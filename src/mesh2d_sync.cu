@@ -9,7 +9,7 @@ namespace ra {
 
 Error
 Mesh2D::sync(const int other, const int dimension, const Direction direction) {
-#ifdef RA_DEBUG
+#ifdef RA_MODE_DEBUG
   if (dimension > 1) {
     return RA_ERROR(ErrorValue::InvalidParameter);
   }
