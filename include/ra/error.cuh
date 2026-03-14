@@ -17,18 +17,18 @@
 
 namespace ra {
 
-enum struct ErrorCategory : int {
-  Unknown = 0,
-  Host,
-  Device,
-};
-
 enum struct ErrorValue : int {
   Success = 0,
   InvalidParameter,
   InvalidSize,
   InvalidOption,
   InvalidGeometry,
+};
+
+enum struct ErrorCategory : int {
+  Unknown = 0,
+  Host,
+  Device,
 };
 
 struct Error {
