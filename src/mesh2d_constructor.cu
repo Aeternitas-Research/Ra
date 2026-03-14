@@ -6,7 +6,7 @@ Mesh2D::~Mesh2D() {}
 
 Mesh2D::Mesh2D() : Mesh() {}
 
-Mesh2D::Mesh2D(const MeshConfig& config) : Mesh(in_config) {
+Mesh2D::Mesh2D(const MeshConfig& in_config) : Mesh(in_config) {
   auto& config = this->config;
 
   const auto extent = config.geometry.extent;
