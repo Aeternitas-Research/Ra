@@ -15,7 +15,7 @@ Snapshot::calibrate() {
   ra_mpi_invoke(MPI_Comm_size(MPI_COMM_WORLD, &(ptr_config->mpi.size)));
   ra_mpi_invoke(MPI_Comm_rank(MPI_COMM_WORLD, &(ptr_config->mpi.rank)));
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

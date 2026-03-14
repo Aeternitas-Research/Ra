@@ -28,7 +28,7 @@ TEST_CASE("Mesh1D::copy", "[mesh]") {
 
   Mesh1D m2{};
   const auto r = m2.copy(m1);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
   REQUIRE(m2.config.name == m1.config.name);
   REQUIRE(m2.config.file.handle == m1.config.file.handle);
   REQUIRE(m2.config.file.directory == m1.config.file.directory);

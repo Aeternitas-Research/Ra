@@ -106,7 +106,7 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
     thrust::copy_n(op_projection_2, n, stencil_f.f2);
     thrust::copy_n(op_projection_3, n, stencil_f.f3);
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   };
 
   // set boundary conditions
@@ -200,7 +200,7 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
       thrust::copy_n(ra_dg_kernel_3, n, stencil_f.f3);
     }
 
-    return cudaSuccess;
+    return RA_SUCCESS;
   };
 
   // initialize data on device
@@ -239,6 +239,6 @@ TEST_CASE("TimeStepperExplicitRK1D::find_epsilon", "[timestepper]") {
   using Catch::Matchers::WithinAbs;
 
   const auto r = t1.find_epsilon(epsilon);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
   REQUIRE_THAT(epsilon, WithinAbs(4.3497e-12, 1e-14));
 }

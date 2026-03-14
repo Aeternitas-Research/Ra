@@ -3,29 +3,19 @@
 namespace ra {
 
 Error
-Mesh1D::divide(const OperationSpace space, const double c) {
-  if (space == OperationSpace::Host) {
-    ra_invoke(host.op.divide(host.f, c));
-  } else if (space == OperationSpace::Device) {
-    ra_invoke(device.op.divide(device.f, c));
-  } else {
-    return cudaErrorInvalidValue;
-  }
-
-  return cudaSuccess;
-}
-
-Error
 Mesh1D::divide(const OperationSpace space, Mesh1D& mesh_x) {
+  auto& host = this->host;
+  auto& device = this->device;
+
   if (space == OperationSpace::Host) {
     ra_invoke(host.op.divide(host.f, mesh_x.host.f));
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.divide(device.f, mesh_x.device.f));
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

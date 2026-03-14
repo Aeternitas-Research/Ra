@@ -21,6 +21,6 @@ TEST_CASE("Snapshot::copy", "[snapshot]") {
 
   Snapshot s2{};
   const auto r = s2.copy(s1);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
   REQUIRE(s2.config.get() == s1.config.get());
 }

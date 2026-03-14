@@ -42,7 +42,7 @@ TimeStepperExplicitRK1D::step() {
     ra_mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

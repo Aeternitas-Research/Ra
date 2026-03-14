@@ -32,5 +32,5 @@ TEST_CASE("PMesh1D::write", "[pmesh]") {
   m1.calibrate();
 
   const auto r = m1.write();
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
 }

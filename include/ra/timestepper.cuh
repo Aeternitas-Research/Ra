@@ -92,24 +92,25 @@ struct TimeStepper {
   virtual Error calibrate() = 0;
   virtual Error step() = 0;
 
-  virtual Error find_epsilon(double& epsilon) = 0;
-  virtual Error try_step(bool& success, double& epsilon) = 0;
-  virtual Error reset_mesh() = 0;
-
   TimeStepperConfig config{};
 };
 
-struct TimeStepperExplicitRK1D : TimeStepper {
+struct TimeStepperExplicitRK1D final : TimeStepper {
   ~TimeStepperExplicitRK1D();
   TimeStepperExplicitRK1D();
+  TimeStepperExplicitRK1D(const TimeStepperExplicitRK1D&) = delete;
+  TimeStepperExplicitRK1D(TimeStepperExplicitRK1D&&) noexcept = delete;
   TimeStepperExplicitRK1D(const TimeStepperConfig& config);
+  TimeStepperExplicitRK1D& operator=(const TimeStepperExplicitRK1D&) = delete;
+  TimeStepperExplicitRK1D&
+  operator=(TimeStepperExplicitRK1D&&) noexcept = delete;
 
   Error calibrate() override;
   Error step() override;
 
-  Error find_epsilon(double& epsilon) override;
-  Error try_step(bool& success, double& epsilon) override;
-  Error reset_mesh() override;
+  Error find_epsilon(double& epsilon);
+  Error try_step(bool& success, double& epsilon);
+  Error reset_mesh();
 
   PMesh1D mesh{};
   PMesh1D backup{};

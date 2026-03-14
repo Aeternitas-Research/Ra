@@ -41,8 +41,8 @@ TEST_CASE("PMesh1D::transfer", "[pmesh]") {
     m1.local.host.f.begin(), m1.local.host.f.end(), [&] { return dist(rng); });
 
   auto r = m1.transfer(cudaMemcpyHostToDevice, false, true);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
 
   r = m1.transfer(cudaMemcpyDeviceToHost, false, true);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
 }

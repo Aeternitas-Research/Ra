@@ -6,7 +6,7 @@ Error
 Snapshot::copy(const Snapshot& other) {
   config = other.config;
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

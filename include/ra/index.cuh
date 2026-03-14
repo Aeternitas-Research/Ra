@@ -43,7 +43,7 @@ sub2ind(T* input, T* extent, const int dimension) {
   } else if constexpr (order == IndexOrder::Right) {
     return sub2ind_right(input, extent, dimension);
   } else {
-#ifdef RA_DEBUG
+#ifdef RA_MODE_DEBUG
     cuda::std::terminate();
 #endif
 
@@ -77,7 +77,7 @@ ind2sub(T* output, const T input, T* extent, const int dimension) {
   } else if constexpr (order == IndexOrder::Right) {
     return ind2sub_right(output, input, extent, dimension);
   } else {
-#ifdef RA_DEBUG
+#ifdef RA_MODE_DEBUG
     cuda::std::terminate();
 #endif
   }
