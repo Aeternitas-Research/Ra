@@ -12,7 +12,7 @@ Mesh1D::multiply(const OperationSpace space, Mesh1D& mesh_x) {
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.multiply(device.f, mesh_x.device.f));
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
   return cudaSuccess;

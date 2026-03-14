@@ -9,7 +9,7 @@ Mesh::subtract(const OperationSpace space, const double c) {
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.subtract(device.f, c));
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
   return cudaSuccess;

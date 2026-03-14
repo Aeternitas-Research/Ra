@@ -105,7 +105,7 @@ TimeStepperExplicitRK1D::calibrate() {
     c[5] = 7.0 / 10.0;
     c[6] = 1.0;
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidOption);
   }
 
   // initialize buffers

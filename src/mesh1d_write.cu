@@ -59,13 +59,13 @@ Mesh1D::write(const int mpi_rank) {
 
 #ifdef RA_DEBUG
   if (host.x.size() != length_x) {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidSize);
   }
 #endif
   ra_netcdf_invoke(nc_put_var(file, variable.x, host.x.data()));
 #ifdef RA_DEBUG
   if (host.f.size() != length_f) {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidSize);
   }
 #endif
   ra_netcdf_invoke(nc_put_var(file, variable.f, host.f.data()));

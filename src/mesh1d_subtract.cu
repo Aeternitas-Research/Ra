@@ -12,7 +12,7 @@ Mesh1D::subtract(const OperationSpace space, Mesh1D& mesh_x) {
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.subtract(device.f, mesh_x.device.f));
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
   return cudaSuccess;
@@ -28,7 +28,7 @@ Mesh1D::subtract(const OperationSpace space, const double c, Mesh1D& mesh_x) {
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.subtract(device.f, c, mesh_x.device.f));
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
   return cudaSuccess;
@@ -44,7 +44,7 @@ Mesh1D::subtract(const OperationSpace space, Mesh1D& mesh_c, Mesh1D& mesh_x) {
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.subtract(device.f, mesh_c.device.f, mesh_x.device.f));
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
   return cudaSuccess;

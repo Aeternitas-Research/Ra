@@ -11,7 +11,7 @@ Mesh::norm(const OperationSpace space, double& r, const std::string type) {
   } else if ((type == "infinity") || (type == "inf") || (type == "max")) {
     return norm_infinity(space, r);
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
   return cudaSuccess;
@@ -24,7 +24,7 @@ Mesh::norm_1(const OperationSpace space, double& r) {
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.norm_1(r, device.f));
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
   return cudaSuccess;
@@ -37,7 +37,7 @@ Mesh::norm_2(const OperationSpace space, double& r) {
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.norm_2(r, device.f));
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
   return cudaSuccess;
@@ -50,7 +50,7 @@ Mesh::norm_infinity(const OperationSpace space, double& r) {
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.norm_infinity(r, device.f));
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
   return cudaSuccess;

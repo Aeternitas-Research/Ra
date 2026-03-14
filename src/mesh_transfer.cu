@@ -20,7 +20,7 @@ Mesh::transfer(const cudaMemcpyKind kind, const bool x, const bool f) {
       host.f = device.f;
     }
   } else {
-    return cudaErrorInvalidMemcpyDirection;
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
   return cudaSuccess;

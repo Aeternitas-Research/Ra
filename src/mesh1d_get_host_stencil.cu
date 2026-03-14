@@ -44,7 +44,7 @@ Mesh1D::get_host_stencil(HostStencil& stencil) {
       cuda::make_strided_iterator(begin + (offset + 1) * dof + 0, dof);
     break;
   default:
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidSize);
   }
 
   return cudaSuccess;

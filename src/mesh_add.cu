@@ -9,7 +9,7 @@ Mesh::add(const OperationSpace space, const double c) {
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.add(device.f, c));
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
   return cudaSuccess;
