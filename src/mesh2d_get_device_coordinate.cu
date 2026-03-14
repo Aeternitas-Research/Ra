@@ -24,7 +24,7 @@ Mesh2D::get_device_coordinate(DeviceStencil& coordinate) {
   coordinate.dx0 = cuda::make_strided_iterator(begin + offset * dof + 2, dof);
   coordinate.dx1 = cuda::make_strided_iterator(begin + offset * dof + 3, dof);
 
-  return RA_ERROR_HOST(ErrorValue::Success);
+  return RA_ERROR(ErrorValue::Success);
 }
 
 } // namespace ra

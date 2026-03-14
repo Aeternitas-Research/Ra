@@ -12,10 +12,10 @@ Mesh2D::divide(const OperationSpace space, Mesh2D& mesh_x) {
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.divide(device.f, mesh_x.device.f));
   } else {
-    return RA_ERROR_HOST(ErrorValue::InvalidParameter);
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return RA_ERROR_HOST(ErrorValue::Success);
+  return RA_ERROR(ErrorValue::Success);
 }
 
 } // namespace ra

@@ -3,8 +3,11 @@
 #include "ra/utility.cuh"
 #include <string>
 
-#define RA_ERROR_HOST(_value) ra::Error((_value), ErrorCategory::Host)
-#define RA_ERROR_DEVICE(_value) ra::Error((_value), ErrorCategory::Device)
+#if !defined(__CUDA_ARCH__)
+#define RA_ERROR(_value) ra::Error((_value), ErrorCategory::Host)
+#else
+#define RA_ERROR(_value) ra::Error((_value), ErrorCategory::Device)
+#endif
 
 #ifdef RA_DEBUG
 #define ra_invoke(_expr) ra::invoke_impl((_expr), __FILE__, __LINE__)

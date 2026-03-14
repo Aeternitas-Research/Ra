@@ -12,10 +12,10 @@ Mesh2D::add(const OperationSpace space, Mesh2D& mesh_x) {
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.add(device.f, mesh_x.device.f));
   } else {
-    return RA_ERROR_HOST(ErrorValue::InvalidParameter);
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return RA_ERROR_HOST(ErrorValue::Success);
+  return RA_ERROR(ErrorValue::Success);
 }
 
 Error
@@ -28,10 +28,10 @@ Mesh2D::add(const OperationSpace space, const double c, Mesh2D& mesh_x) {
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.add(device.f, c, mesh_x.device.f));
   } else {
-    return RA_ERROR_HOST(ErrorValue::InvalidParameter);
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return RA_ERROR_HOST(ErrorValue::Success);
+  return RA_ERROR(ErrorValue::Success);
 }
 
 Error
@@ -44,10 +44,10 @@ Mesh2D::add(const OperationSpace space, Mesh2D& mesh_c, Mesh2D& mesh_x) {
   } else if (space == OperationSpace::Device) {
     ra_invoke(device.op.add(device.f, mesh_c.device.f, mesh_x.device.f));
   } else {
-    return RA_ERROR_HOST(ErrorValue::InvalidParameter);
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return RA_ERROR_HOST(ErrorValue::Success);
+  return RA_ERROR(ErrorValue::Success);
 }
 
 } // namespace ra

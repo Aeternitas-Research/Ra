@@ -11,12 +11,12 @@ Error
 Mesh2D::sync(const int other, const int dimension, const Direction direction) {
 #ifdef RA_DEBUG
   if (dimension > 1) {
-    return RA_ERROR_HOST(ErrorValue::InvalidParameter);
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
   if (!((this->config.geometry.element.type == MeshElementType::Line) ||
         (this->config.geometry.element.type ==
          MeshElementType::CurvilinearRectangle))) {
-    return RA_ERROR_HOST(ErrorValue::InvalidGeometry);
+    return RA_ERROR(ErrorValue::InvalidGeometry);
   }
 #endif
 
@@ -60,7 +60,7 @@ Mesh2D::sync(const int other, const int dimension, const Direction direction) {
       buffer.out = new char[length * sizeof(double)];
     }
   } else {
-    return RA_ERROR_HOST(ErrorValue::InvalidGeometry);
+    return RA_ERROR(ErrorValue::InvalidGeometry);
   }
 
   // pack
@@ -87,7 +87,7 @@ Mesh2D::sync(const int other, const int dimension, const Direction direction) {
             } else if (direction == Direction::Downwind) {
               index[d] = geometry.ghost_depth[d][0] + j[d];
             } else {
-              return RA_ERROR_HOST(ErrorValue::InvalidParameter);
+              return RA_ERROR(ErrorValue::InvalidParameter);
             }
           } else {
             index[d] = j[d];
@@ -102,7 +102,7 @@ Mesh2D::sync(const int other, const int dimension, const Direction direction) {
       }
     }
   } else {
-    return RA_ERROR_HOST(ErrorValue::InvalidGeometry);
+    return RA_ERROR(ErrorValue::InvalidGeometry);
   }
 
   // get
@@ -138,7 +138,7 @@ Mesh2D::sync(const int other, const int dimension, const Direction direction) {
               index[d] =
                 geometry.extent[d] - geometry.ghost_depth[d][1] + j[d];
             } else {
-              return RA_ERROR_HOST(ErrorValue::InvalidParameter);
+              return RA_ERROR(ErrorValue::InvalidParameter);
             }
           } else {
             index[d] = j[d];
@@ -153,7 +153,7 @@ Mesh2D::sync(const int other, const int dimension, const Direction direction) {
       }
     }
   } else {
-    return RA_ERROR_HOST(ErrorValue::InvalidGeometry);
+    return RA_ERROR(ErrorValue::InvalidGeometry);
   }
 
   return cudaSuccess;
