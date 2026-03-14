@@ -21,7 +21,7 @@ namespace ra {
 
 enum struct ErrorValue : int {
   Success = 0,
-  InvalidParameter,
+  InvalidParameter = 1000,
   InvalidSize,
   InvalidOption,
   InvalidGeometry,
