@@ -48,7 +48,7 @@ Mesh1D::write(const int mpi_rank) {
   const std::size_t length_x = (2 * 1) * (geometry.extent[0]);
   ra_netcdf_invoke(nc_def_dim(file, "x", length_x, &(dimension.x[0])));
 
-  const std::size_t length_f = geometry.element.dof * geometry.extent[0];
+  const std::size_t length_f = geometry.element.dof * (geometry.extent[0]);
   ra_netcdf_invoke(nc_def_dim(file, "f", length_f, &(dimension.f[0])));
 
   auto& name = config.netcdf.name;
