@@ -59,7 +59,8 @@ Mesh1D::sync(const int other, const int dimension, const Direction direction) {
 
   // pack
   if (geometry.element.type == MeshElementType::Line) {
-    std::size_t j_max[1] = {geometry.extent[0]} j_max[dimension] =
+    std::size_t j_max[1] = {geometry.extent[0]};
+    j_max[dimension] =
       geometry.ghost_depth[dimension][to_underlying(direction)];
     std::size_t j[1] = {0};
     int position = 0;
