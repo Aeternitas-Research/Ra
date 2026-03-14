@@ -254,17 +254,28 @@ struct Mesh2D final : Mesh {
     HostStencilIterator dx1{};
 
     HostStencilIterator f0{};
-    HostStencilIterator f0_l{};
-    HostStencilIterator f0_r{};
+    HostStencilIterator f0_0l{};
+    HostStencilIterator f0_0r{};
+    HostStencilIterator f0_1l{};
+    HostStencilIterator f0_1r{};
+
     HostStencilIterator f1{};
-    HostStencilIterator f1_l{};
-    HostStencilIterator f1_r{};
+    HostStencilIterator f1_0l{};
+    HostStencilIterator f1_0r{};
+    HostStencilIterator f1_1l{};
+    HostStencilIterator f1_1r{};
+
     HostStencilIterator f2{};
-    HostStencilIterator f2_l{};
-    HostStencilIterator f2_r{};
+    HostStencilIterator f2_0l{};
+    HostStencilIterator f2_0r{};
+    HostStencilIterator f2_1l{};
+    HostStencilIterator f2_1r{};
+
     HostStencilIterator f3{};
-    HostStencilIterator f3_l{};
-    HostStencilIterator f3_r{};
+    HostStencilIterator f3_0l{};
+    HostStencilIterator f3_0r{};
+    HostStencilIterator f3_1l{};
+    HostStencilIterator f3_1r{};
   };
 
   struct DeviceStencil {
@@ -274,17 +285,28 @@ struct Mesh2D final : Mesh {
     DeviceStencilIterator dx1{};
 
     DeviceStencilIterator f0{};
-    DeviceStencilIterator f0_l{};
-    DeviceStencilIterator f0_r{};
+    DeviceStencilIterator f0_0l{};
+    DeviceStencilIterator f0_0r{};
+    DeviceStencilIterator f0_1l{};
+    DeviceStencilIterator f0_1r{};
+
     DeviceStencilIterator f1{};
-    DeviceStencilIterator f1_l{};
-    DeviceStencilIterator f1_r{};
+    DeviceStencilIterator f1_0l{};
+    DeviceStencilIterator f1_0r{};
+    DeviceStencilIterator f1_1l{};
+    DeviceStencilIterator f1_1r{};
+
     DeviceStencilIterator f2{};
-    DeviceStencilIterator f2_l{};
-    DeviceStencilIterator f2_r{};
+    DeviceStencilIterator f2_0l{};
+    DeviceStencilIterator f2_0r{};
+    DeviceStencilIterator f2_1l{};
+    DeviceStencilIterator f2_1r{};
+
     DeviceStencilIterator f3{};
-    DeviceStencilIterator f3_l{};
-    DeviceStencilIterator f3_r{};
+    DeviceStencilIterator f3_0l{};
+    DeviceStencilIterator f3_0r{};
+    DeviceStencilIterator f3_1l{};
+    DeviceStencilIterator f3_1r{};
   };
 
   ~Mesh2D();
