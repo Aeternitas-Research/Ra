@@ -73,6 +73,7 @@ target_sources(
   mesh2d_sync.cu
   mesh2d_write.cu
   mesh2d_read.cu
+  mesh2d_assign.cu
 )
 
 # PMesh
