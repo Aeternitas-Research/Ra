@@ -38,6 +38,9 @@ ra_add_test(MODULE index NAME sub2ind_right)
 ra_add_test(MODULE index NAME ind2sub_left)
 ra_add_test(MODULE index NAME ind2sub_right)
 
+# Error
+ra_add_test(MODULE error NAME constructor)
+
 # Snapshot
 ra_add_test(MODULE snapshot NAME constructor)
 ra_add_test(MODULE snapshot NAME copy)
