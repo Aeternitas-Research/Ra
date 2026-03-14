@@ -18,7 +18,7 @@ Mesh1D::read(const int mpi_rank) {
 
   std::stringstream buffer;
   buffer << config.file.directory << config.name << "." << config.file.handle
-         << "." << std::setw(4) << std::setfill('0') << config.info.mpi_rank
+         << "." << std::setw(6) << std::setfill('0') << config.info.mpi_rank
          << ".nc";
   config.file.name = buffer.str();
 
