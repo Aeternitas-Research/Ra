@@ -61,6 +61,9 @@ ra_add_test(MODULE mesh1d NAME divide LABELS mesh)
 ra_add_test(MODULE mesh1d NAME subtract LABELS mesh)
 ra_add_test(MODULE mesh1d NAME norm LABELS mesh)
 
+# Mesh2D
+ra_add_test(MODULE mesh2d NAME constructor LABELS mesh)
+
 # PMesh1D
 ra_add_test(MODULE pmesh1d NAME constructor LABELS pmesh)
 ra_add_test(MODULE pmesh1d NAME copy LABELS pmesh)
