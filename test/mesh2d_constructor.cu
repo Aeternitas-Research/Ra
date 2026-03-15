@@ -20,6 +20,7 @@ TEST_CASE("Mesh2D::Mesh2D", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Rectangle,
             .dof = 3,
           },
         .extent = {1 << 10, 1 << 10, 0, 0, 0, 0},

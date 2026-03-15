@@ -15,6 +15,7 @@ TEST_CASE("Mesh1D::divide 1", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -61,6 +62,7 @@ TEST_CASE("Mesh1D::divide 2", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},

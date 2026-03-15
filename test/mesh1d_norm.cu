@@ -14,6 +14,7 @@ TEST_CASE("Mesh1D::norm 1", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -64,6 +65,7 @@ TEST_CASE("Mesh1D::norm 2", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -114,6 +116,7 @@ TEST_CASE("Mesh1D::norm infinity", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},

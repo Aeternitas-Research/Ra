@@ -20,6 +20,7 @@ TEST_CASE("Mesh1D::Mesh1D", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 3,
           },
         .extent = {1 << 20, 0, 0, 0, 0, 0},

@@ -15,6 +15,7 @@ TEST_CASE("Mesh1D::add 1", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -61,6 +62,7 @@ TEST_CASE("Mesh1D::add 2", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -117,6 +119,7 @@ TEST_CASE("Mesh1D::add 3", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -173,6 +176,7 @@ TEST_CASE("Mesh1D::add 4", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},

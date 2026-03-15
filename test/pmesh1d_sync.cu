@@ -19,6 +19,7 @@ TEST_CASE("PMesh1D::sync", "[pmesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 3,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},

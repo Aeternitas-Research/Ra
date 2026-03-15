@@ -20,6 +20,7 @@ TEST_CASE("Mesh1D::transfer", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
