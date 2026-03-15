@@ -12,6 +12,7 @@ Error
 TimeStepperExplicitRK1D::calibrate() {
   MeshConfig mesh_config = mesh.config.global;
   mesh_config.name = this->config.name;
+  mesh_config.geometry.element.type = MeshElementType::Line;
   mesh_config.geometry.element.dof = this->config.parameter.order.space;
 
   auto x = this->config.space.x;
