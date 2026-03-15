@@ -22,7 +22,7 @@ TEST_CASE("Mesh1D::Mesh1D", "[mesh]") {
           {
             .dof = 3,
           },
-        .extent = {1'000'000, 0, 0, 0, 0, 0},
+        .extent = {1 << 20, 0, 0, 0, 0, 0},
         .ghost_depth = {{1, 1}, {0, 0}, {0, 0}, {0, 0}, {0, 0}, {0, 0}},
       },
   };
@@ -31,8 +31,8 @@ TEST_CASE("Mesh1D::Mesh1D", "[mesh]") {
   REQUIRE(m2.config.file.handle == config.file.handle);
   REQUIRE(m2.config.file.directory == config.file.directory);
   REQUIRE(m2.config.geometry.element.type == ra::MeshElementType::Line);
-  REQUIRE(m2.host.x.size() == 2'000'000);
-  REQUIRE(m2.host.f.size() == 3'000'000);
-  REQUIRE(m2.device.x.size() == 2'000'000);
-  REQUIRE(m2.device.f.size() == 3'000'000);
+  REQUIRE(m2.host.x.size() == (2 * 1 * (1 << 20)));
+  REQUIRE(m2.host.f.size() == (3 * (1 << 20)));
+  REQUIRE(m2.device.x.size() == (2 * 1 * (1 << 20)));
+  REQUIRE(m2.device.f.size() == (3 * (1 << 20)));
 }
