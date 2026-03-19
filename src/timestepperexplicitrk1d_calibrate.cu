@@ -12,6 +12,7 @@ Error
 TimeStepperExplicitRK1D::calibrate() {
   MeshConfig mesh_config = mesh.config.global;
   mesh_config.name = this->config.name;
+  mesh_config.geometry.element.type = MeshElementType::Line;
   mesh_config.geometry.element.dof = this->config.parameter.order.space;
 
   auto x = this->config.space.x;
@@ -105,7 +106,7 @@ TimeStepperExplicitRK1D::calibrate() {
     c[5] = 7.0 / 10.0;
     c[6] = 1.0;
   } else {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidOption);
   }
 
   // initialize buffers
@@ -116,7 +117,7 @@ TimeStepperExplicitRK1D::calibrate() {
     k[stage].copy(mesh);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

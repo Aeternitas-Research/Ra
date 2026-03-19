@@ -1,16 +1,13 @@
 #include "ra/error.cuh"
+#include <cub/util_debug.cuh>
 #include <cuda/std/__exception/terminate.h>
-#include <iostream>
 
 namespace ra {
 
 __host__ __device__ Error
 invoke_impl(const Error result, const char* file, const int line) {
-  if (result != cudaSuccess) {
-#if !defined(__CUDA_ARCH__)
-    std::cerr << "RA error " << result << " in " << file << ":" << line
-              << std::endl;
-#endif
+  cub::Debug(static_cast<cudaError_t>(result.value), file, line);
+  if (result.value != 0) {
     cuda::std::terminate();
   }
 

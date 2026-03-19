@@ -41,10 +41,14 @@ elseif(RA_BUILD_TYPE STREQUAL "Debug")
     -O0
     -fno-omit-frame-pointer
     $<$<COMPILE_LANGUAGE:CUDA>:-G>
-    $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler>
-    $<$<COMPILE_LANGUAGE:CUDA>:-rdynamic>
+    $<$<COMPILE_LANGUAGE:CUDA>:-Xcompiler=-rdynamic>
   )
-  target_compile_definitions(ra PUBLIC -DRA_DEBUG)
+  target_compile_definitions(
+    ra
+    PUBLIC
+    -DCUB_STDERR
+    -DRA_MODE_DEBUG
+  )
 endif()
 target_compile_options(
   ra

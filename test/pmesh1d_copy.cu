@@ -18,6 +18,7 @@ TEST_CASE("PMesh1D::copy", "[pmesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 3,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -33,7 +34,7 @@ TEST_CASE("PMesh1D::copy", "[pmesh]") {
 
   PMesh1D m2{};
   const auto r = m2.copy(m1);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
   REQUIRE(m2.config.global.name == m1.config.global.name);
   REQUIRE(m2.config.global.file.handle == m1.config.global.file.handle);
   REQUIRE(m2.config.global.file.directory == m1.config.global.file.directory);

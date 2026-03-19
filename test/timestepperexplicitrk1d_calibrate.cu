@@ -30,7 +30,7 @@ TEST_CASE("TimeStepperExplicitRK1D::calibrate", "[timestepper]") {
 
   TimeStepperExplicitRK1D t1(config);
   const auto r = t1.calibrate();
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
   REQUIRE(t1.mesh.local.config.geometry.element.dof == 4);
   REQUIRE(
     t1.mesh.local.config.geometry.extent[0] ==

@@ -18,6 +18,7 @@ TEST_CASE("PMesh1D::copy", "[pmesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 3,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -30,5 +31,5 @@ TEST_CASE("PMesh1D::copy", "[pmesh]") {
   REQUIRE(MPI_Comm_size(MPI_COMM_WORLD, mpi_extent) == MPI_SUCCESS);
   PMesh1D m1(mpi_rank, mpi_extent, config);
   const auto r = m1.calibrate();
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
 }

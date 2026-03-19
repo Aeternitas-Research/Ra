@@ -14,6 +14,7 @@ TEST_CASE("Mesh1D::norm 1", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -30,7 +31,7 @@ TEST_CASE("Mesh1D::norm 1", "[mesh]") {
 
     double norm{};
     const auto r = m1.norm(ra::OperationSpace::Host, norm, "1");
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {
       REQUIRE_THAT(value, WithinRel(2.0, 1e-14));
@@ -44,7 +45,7 @@ TEST_CASE("Mesh1D::norm 1", "[mesh]") {
 
     double norm{};
     const auto r = m1.norm(ra::OperationSpace::Device, norm, "1");
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     m1.transfer(cudaMemcpyDeviceToHost, false, true);
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {
@@ -64,6 +65,7 @@ TEST_CASE("Mesh1D::norm 2", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -80,7 +82,7 @@ TEST_CASE("Mesh1D::norm 2", "[mesh]") {
 
     double norm{};
     const auto r = m1.norm(ra::OperationSpace::Host, norm, "2");
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {
       REQUIRE_THAT(value, WithinRel(2.0, 1e-14));
@@ -94,7 +96,7 @@ TEST_CASE("Mesh1D::norm 2", "[mesh]") {
 
     double norm{};
     const auto r = m1.norm(ra::OperationSpace::Device, norm, "2");
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     m1.transfer(cudaMemcpyDeviceToHost, false, true);
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {
@@ -114,6 +116,7 @@ TEST_CASE("Mesh1D::norm infinity", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -130,7 +133,7 @@ TEST_CASE("Mesh1D::norm infinity", "[mesh]") {
 
     double norm{};
     const auto r = m1.norm(ra::OperationSpace::Host, norm, "infinity");
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {
       REQUIRE_THAT(value, WithinRel(2.0, 1e-14));
@@ -144,7 +147,7 @@ TEST_CASE("Mesh1D::norm infinity", "[mesh]") {
 
     double norm{};
     const auto r = m1.norm(ra::OperationSpace::Device, norm, "infinity");
-    REQUIRE(r == cudaSuccess);
+    REQUIRE(r == RA_SUCCESS);
 
     m1.transfer(cudaMemcpyDeviceToHost, false, true);
     thrust::for_each(m1.host.f.begin(), m1.host.f.end(), [&](double value) {

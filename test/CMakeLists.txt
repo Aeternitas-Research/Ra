@@ -38,6 +38,10 @@ ra_add_test(MODULE index NAME sub2ind_right)
 ra_add_test(MODULE index NAME ind2sub_left)
 ra_add_test(MODULE index NAME ind2sub_right)
 
+# Error
+ra_add_test(MODULE error NAME constructor)
+ra_add_test(MODULE error NAME operator)
+
 # Snapshot
 ra_add_test(MODULE snapshot NAME constructor)
 ra_add_test(MODULE snapshot NAME copy)
@@ -56,6 +60,9 @@ ra_add_test(MODULE mesh1d NAME add LABELS mesh)
 ra_add_test(MODULE mesh1d NAME divide LABELS mesh)
 ra_add_test(MODULE mesh1d NAME subtract LABELS mesh)
 ra_add_test(MODULE mesh1d NAME norm LABELS mesh)
+
+# Mesh2D
+ra_add_test(MODULE mesh2d NAME constructor LABELS mesh)
 
 # PMesh1D
 ra_add_test(MODULE pmesh1d NAME constructor LABELS pmesh)

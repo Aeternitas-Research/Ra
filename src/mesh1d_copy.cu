@@ -4,11 +4,11 @@ namespace ra {
 
 Error
 Mesh1D::copy(const Mesh1D& other) {
-  config = other.config;
-  host = other.host;
-  device = other.device;
+  this->config = other.config;
+  this->host = other.host;
+  this->device = other.device;
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

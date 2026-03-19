@@ -5,7 +5,7 @@ namespace ra {
 Error
 TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
   if (success) {
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   auto& time = this->config.time;
@@ -70,7 +70,7 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
   }
 
   if (flag_modify_h == 0) {
-    return cudaSuccess;
+    return RA_SUCCESS;
   }
 
   // compute h for the next attempt
@@ -96,7 +96,7 @@ TimeStepperExplicitRK1D::try_step(bool& success, double& epsilon) {
 
   time.delta = h;
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

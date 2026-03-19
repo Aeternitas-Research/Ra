@@ -11,11 +11,14 @@ namespace ra {
 
 Error
 Mesh1D::read(const int mpi_rank) {
+  auto& config = this->config;
+  auto& host = this->host;
+
   config.info.mpi_rank = mpi_rank;
 
   std::stringstream buffer;
   buffer << config.file.directory << config.name << "." << config.file.handle
-         << "." << std::setw(4) << std::setfill('0') << config.info.mpi_rank
+         << "." << std::setw(6) << std::setfill('0') << config.info.mpi_rank
          << ".nc";
   config.file.name = buffer.str();
 
@@ -37,20 +40,22 @@ Mesh1D::read(const int mpi_rank) {
   ra_netcdf_invoke(nc_inq_dimid(file, "extent.0", &(dimension.extent[0])));
   ra_netcdf_invoke(nc_inq_dimid(file, "x", &(dimension.x[0])));
   ra_netcdf_invoke(nc_inq_dimid(file, "f", &(dimension.f[0])));
-  ra_netcdf_invoke(
-    nc_inq_dimlen(file, dimension.extent[0], &(geometry.extent[0])));
+  for (int d = 0; d < 1; ++d) {
+    ra_netcdf_invoke(
+      nc_inq_dimlen(file, dimension.extent[d], &(geometry.extent[d])));
+  }
 
   auto& name = config.netcdf.name;
   ra_netcdf_invoke(nc_inq_varid(file, name.variable.x.c_str(), &(variable.x)));
   ra_netcdf_invoke(nc_inq_varid(file, name.variable.f.c_str(), &(variable.f)));
 
-  const std::size_t length_x = 2 * geometry.extent[0];
+  const std::size_t length_x = (2 * 1) * (geometry.extent[0]);
   if (host.x.size() != length_x) {
     host.x.resize(length_x);
   }
   ra_netcdf_invoke(nc_get_var(file, variable.x, host.x.data()));
 
-  const std::size_t length_f = geometry.element.dof * geometry.extent[0];
+  const std::size_t length_f = geometry.element.dof * (geometry.extent[0]);
   if (host.f.size() != length_f) {
     host.f.resize(length_f);
   }
@@ -58,7 +63,7 @@ Mesh1D::read(const int mpi_rank) {
 
   ra_netcdf_invoke(nc_close(file));
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

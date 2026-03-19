@@ -7,7 +7,7 @@ namespace ra {
 
 Error
 PMesh1D::sync() {
-  auto rank = config.topology.rank;
+  auto rank = this->config.topology.rank;
   for (int d = 0; d < 1; ++d) {
     ra_invoke(local.sync(rank.neighbor[2 * d + 0], d, Direction::Upwind));
     ra_mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
@@ -16,7 +16,7 @@ PMesh1D::sync() {
     ra_mpi_invoke(MPI_Barrier(MPI_COMM_WORLD));
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

@@ -19,6 +19,7 @@ TEST_CASE("PMesh1D::sync", "[pmesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 3,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -42,7 +43,7 @@ TEST_CASE("PMesh1D::sync", "[pmesh]") {
     static_cast<double>(mpi_rank * stride_f));
 
   const auto r = m1.sync();
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
 
   const auto block_x = 2 * 1;
   const auto block_f = m1.config.local.geometry.element.dof;

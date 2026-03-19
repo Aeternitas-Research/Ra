@@ -18,6 +18,7 @@ TEST_CASE("PMesh1D::read", "[pmesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 3,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -35,13 +36,13 @@ TEST_CASE("PMesh1D::read", "[pmesh]") {
   m1.local.config.info.time = 1.0;
 
   auto r = m1.write();
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
 
   m1.local.config.info.step = 2;
   m1.local.config.info.time = 2.0;
 
   r = m1.read();
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
   REQUIRE(m1.local.config.info.step == 1);
 
   using Catch::Matchers::WithinRel;

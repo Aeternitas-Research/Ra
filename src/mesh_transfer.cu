@@ -4,7 +4,7 @@
 namespace ra {
 
 Error
-Mesh1D::transfer(const cudaMemcpyKind kind, const bool x, const bool f) {
+Mesh::transfer(const cudaMemcpyKind kind, const bool x, const bool f) {
   if (kind == cudaMemcpyHostToDevice) {
     if (x) {
       device.x = host.x;
@@ -20,10 +20,10 @@ Mesh1D::transfer(const cudaMemcpyKind kind, const bool x, const bool f) {
       host.f = device.f;
     }
   } else {
-    return cudaErrorInvalidMemcpyDirection;
+    return RA_ERROR(ErrorValue::InvalidParameter);
   }
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

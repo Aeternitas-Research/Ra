@@ -1,0 +1,18 @@
+#include "ra/mesh.cuh"
+
+namespace ra {
+
+Error
+Mesh::add(const OperationSpace space, const double c) {
+  if (space == OperationSpace::Host) {
+    ra_invoke(host.op.add(host.f, c));
+  } else if (space == OperationSpace::Device) {
+    ra_invoke(device.op.add(device.f, c));
+  } else {
+    return RA_ERROR(ErrorValue::InvalidParameter);
+  }
+
+  return RA_SUCCESS;
+}
+
+} // namespace ra

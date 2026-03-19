@@ -11,12 +11,15 @@ namespace ra {
 
 Error
 Mesh1D::write(const int mpi_rank) {
+  auto& config = this->config;
+  auto& host = this->host;
+
   config.info.mpi_rank = mpi_rank;
 
   std::filesystem::create_directory(config.file.directory);
   std::stringstream buffer;
   buffer << config.file.directory << config.name << "." << config.file.handle
-         << "." << std::setw(4) << std::setfill('0') << config.info.mpi_rank
+         << "." << std::setw(6) << std::setfill('0') << config.info.mpi_rank
          << ".nc";
   config.file.name = buffer.str();
 
@@ -42,10 +45,10 @@ Mesh1D::write(const int mpi_rank) {
   ra_netcdf_invoke(
     nc_def_dim(file, "extent.0", geometry.extent[0], &(dimension.extent[0])));
 
-  const std::size_t length_x = 2 * geometry.extent[0];
+  const std::size_t length_x = (2 * 1) * (geometry.extent[0]);
   ra_netcdf_invoke(nc_def_dim(file, "x", length_x, &(dimension.x[0])));
 
-  const std::size_t length_f = geometry.element.dof * geometry.extent[0];
+  const std::size_t length_f = geometry.element.dof * (geometry.extent[0]);
   ra_netcdf_invoke(nc_def_dim(file, "f", length_f, &(dimension.f[0])));
 
   auto& name = config.netcdf.name;
@@ -54,22 +57,22 @@ Mesh1D::write(const int mpi_rank) {
   ra_netcdf_invoke(nc_def_var(
     file, name.variable.f.c_str(), NC_DOUBLE, 1, dimension.f, &(variable.f)));
 
-#ifdef RA_DEBUG
+#ifdef RA_MODE_DEBUG
   if (host.x.size() != length_x) {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidSize);
   }
 #endif
   ra_netcdf_invoke(nc_put_var(file, variable.x, host.x.data()));
-#ifdef RA_DEBUG
+#ifdef RA_MODE_DEBUG
   if (host.f.size() != length_f) {
-    return cudaErrorInvalidValue;
+    return RA_ERROR(ErrorValue::InvalidSize);
   }
 #endif
   ra_netcdf_invoke(nc_put_var(file, variable.f, host.f.data()));
 
   ra_netcdf_invoke(nc_close(file));
 
-  return cudaSuccess;
+  return RA_SUCCESS;
 }
 
 } // namespace ra

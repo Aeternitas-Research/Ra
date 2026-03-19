@@ -19,6 +19,7 @@ TEST_CASE("Mesh1D::sync", "[mesh]") {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 3,
           },
         .extent = {1'000'000, 0, 0, 0, 0, 0},
@@ -45,7 +46,7 @@ TEST_CASE("Mesh1D::sync", "[mesh]") {
 
   // upwind
   auto r = m1.sync(mpi_rank_1m, 0, ra::Direction::Upwind);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
 
   const auto block_x = 2 * 1;
   const auto block_f = m1.config.geometry.element.dof;
@@ -78,7 +79,7 @@ TEST_CASE("Mesh1D::sync", "[mesh]") {
 
   // downwind
   r = m1.sync(mpi_rank_1p, 0, ra::Direction::Downwind);
-  REQUIRE(r == cudaSuccess);
+  REQUIRE(r == RA_SUCCESS);
 
   for (std::size_t index = 0; index < extent[0]; ++index) {
     for (std::size_t point = 0; point < block_x; ++point) {
