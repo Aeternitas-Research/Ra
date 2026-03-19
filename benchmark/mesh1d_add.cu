@@ -14,6 +14,7 @@ benchmark_mesh1d_add(ra::OperationSpace space, const size_t n) {
       {
         .element =
           {
+            .type = ra::MeshElementType::Line,
             .dof = 2,
           },
         .extent = {n, 0, 0, 0, 0, 0},
