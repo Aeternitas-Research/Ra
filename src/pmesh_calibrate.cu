@@ -42,6 +42,7 @@ PMesh::calibrate(const int d_max) {
   config.local.info.time = config.global.info.time;
   config.local.file.handle = config.global.file.handle;
   config.local.file.directory = config.global.file.directory;
+  config.local.geometry.element.type = config.global.geometry.element.type;
   config.local.geometry.element.dof = config.global.geometry.element.dof;
   for (int d = 0; d < d_max; ++d) {
     config.local.geometry.extent[d] =
