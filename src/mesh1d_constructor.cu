@@ -18,7 +18,7 @@ Mesh1D::Mesh1D(const MeshConfig& in_config) : Mesh(in_config) {
     device.x.resize(2 * 1 * n, thrust::no_init);
     device.f.resize(dof * n, thrust::no_init);
   } else {
-    return RA_ERROR(ErrorValue::InvalidGeometry);
+    ra_invoke(RA_ERROR(ErrorValue::InvalidGeometry));
   }
 }
 
