@@ -31,7 +31,7 @@ TEST_CASE("Mesh2D::Mesh2D", "[mesh]") {
   REQUIRE(m2.config.name == config.name);
   REQUIRE(m2.config.file.handle == config.file.handle);
   REQUIRE(m2.config.file.directory == config.file.directory);
-  REQUIRE(m2.config.geometry.element.type == ra::MeshElementType::Line);
+  REQUIRE(m2.config.geometry.element.type == ra::MeshElementType::Rectangle);
   REQUIRE(m2.host.x.size() == (2 * 2 * (1 << 20)));
   REQUIRE(m2.host.f.size() == (3 * (1 << 20)));
   REQUIRE(m2.device.x.size() == (2 * 2 * (1 << 20)));
